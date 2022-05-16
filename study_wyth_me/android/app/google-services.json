@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "832760929699",
+    "project_id": "study-wyth-me",
+    "storage_bucket": "study-wyth-me.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832760929699:android:109dd5e7a67696359f8e16",
+        "android_client_info": {
+          "package_name": "com.example.study_wyth_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832760929699-v58gnl60b4eqklbs2i2aci0ecsiva1fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIqsSsNyfZdZBKwNmfkfKwhnHteSz7nKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832760929699-v58gnl60b4eqklbs2i2aci0ecsiva1fj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "832760929699-jssbael6k3k04vamtm0sluspeqe861fl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.studyWythMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
