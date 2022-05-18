@@ -6,6 +6,9 @@ import 'models/custom_text_widgets.dart';
 import 'pages/sign_in_page.dart';
 import 'pages/sign_up_page.dart';
 import 'pages/about_page.dart';
+import 'pages/loading.dart';
+import 'pages/home.dart';
+import 'pages/timer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
