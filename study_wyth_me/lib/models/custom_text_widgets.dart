@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/main.dart';
 
 // Header using the Chewy Font used for the Main, Sign In, Sign Up, About etc. pages
 class ChewyHeaderText extends StatelessWidget {
@@ -17,10 +16,10 @@ class ChewyHeaderText extends StatelessWidget {
       text,
       textAlign: TextAlign.center,
       style: const TextStyle(
-          fontSize: 76.0,
-          letterSpacing: 5.0,
-          color: Colors.white,
-          fontFamily: 'Chewy'
+        fontSize: 76.0,
+        letterSpacing: 5.0,
+        color: Colors.white,
+        fontFamily: 'Chewy'
       ),
     );
   }
