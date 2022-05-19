@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/models/constants.dart';
+import 'package:study_wyth_me/shared/constants.dart';
 
 bottomBar(context, position) => Row(
     children: <Widget> [
