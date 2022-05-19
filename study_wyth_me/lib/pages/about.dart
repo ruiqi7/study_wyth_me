@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/constants.dart';
 import 'package:study_wyth_me/models/custom_text_widgets.dart';
 
-class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
+class About extends StatelessWidget {
+  const About({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
