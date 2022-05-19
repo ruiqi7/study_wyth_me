@@ -27,10 +27,10 @@ class About extends StatelessWidget {
                   'for you to resolve your academic troubles.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  fontSize: 24.1,
-                  letterSpacing: 1.1,
-                  color: Colors.white,
-                  fontFamily: 'Chewy'
+                    fontSize: 24.1,
+                    letterSpacing: 1.1,
+                    color: Colors.white,
+                    fontFamily: 'Chewy'
                 ),
               )
             ),

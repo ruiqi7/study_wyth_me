@@ -18,10 +18,10 @@ class ChewyHeaderText extends StatelessWidget {
         text,
         textAlign: TextAlign.center,
         style: const TextStyle(
-          fontSize: 70.0,
-          letterSpacing: 5.0,
-          color: Colors.white,
-          fontFamily: 'Chewy'
+            fontSize: 70.0,
+            letterSpacing: 5.0,
+            color: Colors.white,
+            fontFamily: 'Chewy'
         ),
       ),
     );

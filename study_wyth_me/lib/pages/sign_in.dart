@@ -70,10 +70,10 @@ class _SignInState extends State<SignIn> {
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
                     textStyle: const TextStyle(
-                      fontSize: 27.5,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                      fontFamily: 'Chewy'
+                        fontSize: 27.5,
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                        fontFamily: 'Chewy'
                     ),
                   ),
                   child: const Text('Login'),
@@ -103,11 +103,11 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.all(5.0),
                         primary: Colors.white,
                         textStyle: const TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
-                          letterSpacing: 1.5,
-                          fontFamily: 'Chewy'
-                      ),
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            letterSpacing: 1.5,
+                            fontFamily: 'Chewy'
+                        ),
                       ),
                       onPressed: () {
                         // navigate to forgot password page

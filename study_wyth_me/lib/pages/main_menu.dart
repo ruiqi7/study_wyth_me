@@ -14,10 +14,10 @@ class MainMenu extends StatelessWidget {
     padding: const EdgeInsets.all(16.0),
     primary: Colors.white,
     textStyle: const TextStyle(
-      fontSize: 33.0,
-      color: Colors.white,
-      letterSpacing: 1.5,
-      fontFamily: 'Chewy'
+        fontSize: 33.0,
+        color: Colors.white,
+        letterSpacing: 1.5,
+        fontFamily: 'Chewy'
     ),
   );
 
