@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/models/constants.dart';
-import 'package:study_wyth_me/models/custom_text_widgets.dart';
+import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 
@@ -43,6 +43,7 @@ class _SignUpState extends State<SignUp> {
                     children: <Widget>[
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
+                        style: const TextStyle(color: Colors.white),
                         validator: (value) => value!.isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
                           setState(() => email = value);
@@ -51,6 +52,7 @@ class _SignUpState extends State<SignUp> {
                       gapBox,
                       TextFormField( // username
                         decoration: formFieldDeco.copyWith(hintText: 'Username'),
+                        style: const TextStyle(color: Colors.white),
                         validator: (value) => value!.isEmpty ? 'Enter your username' : null,
                         onChanged: (value) {
                           setState(() => username = value);
@@ -59,6 +61,7 @@ class _SignUpState extends State<SignUp> {
                       gapBox,
                       TextFormField( // password
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
+                        style: const TextStyle(color: Colors.white),
                         obscureText: true,
                         validator: (value) {
                           if (value!.isEmpty) {

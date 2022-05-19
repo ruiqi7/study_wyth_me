@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/models/constants.dart';
-import 'package:study_wyth_me/models/custom_text_widgets.dart';
+import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 
 class About extends StatelessWidget {
   const About({Key? key}) : super(key: key);

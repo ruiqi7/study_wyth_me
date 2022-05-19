@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/models/constants.dart';
-import 'package:study_wyth_me/models/bar_widgets.dart';
+import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/shared/bar_widgets.dart';
 
 class Timer extends StatefulWidget {
   const Timer({Key? key}) : super(key: key);
