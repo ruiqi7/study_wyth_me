@@ -14,8 +14,8 @@ class AuthenticationWrapper extends StatelessWidget {
 
     if (customUser == null) { // user is signed out
       return const MainMenu();
-    } else {
-      return const Home(); // change to Home() later
+    } else { // user is signed in
+      return const Home();
     }
   }
 }
