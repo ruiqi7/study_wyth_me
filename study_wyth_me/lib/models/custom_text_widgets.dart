@@ -12,14 +12,17 @@ class ChewyHeaderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 76.0,
-        letterSpacing: 5.0,
-        color: Colors.white,
-        fontFamily: 'Chewy'
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 70.0,
+          letterSpacing: 5.0,
+          color: Colors.white,
+          fontFamily: 'Chewy'
+        ),
       ),
     );
   }
