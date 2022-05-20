@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/pages/reset_password.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
@@ -112,7 +113,10 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       onPressed: () {
-                        // navigate to forgot password page
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ResetPassword())
+                        );
                       },
                     ),
                   ),
