@@ -17,6 +17,12 @@ const BoxDecoration largeRadiusRoundedBox = BoxDecoration(
   color: whiteOpacity15,
 );
 
+const TextStyle chewyTextStyle = TextStyle(
+  fontFamily: 'Chewy',
+  letterSpacing: 1.5,
+  color: Colors.white,
+);
+
 backButton(context) => Container(
   width: 100,
   height: 40,

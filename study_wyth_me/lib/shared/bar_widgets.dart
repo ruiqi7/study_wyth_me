@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
+const oswaldTextStyle = TextStyle(
+  fontFamily: 'Oswald',
+  fontSize: 12.5,
+  color: Colors.white
+);
+
 bottomBar(context, position) => Row(
     children: <Widget> [
       Expanded(
@@ -28,11 +34,7 @@ bottomBar(context, position) => Row(
                         ),
                         Text(
                           'Home',
-                          style: TextStyle(
-                              fontFamily: 'Oswald',
-                              fontSize: 12.5,
-                              color: Colors.white
-                          ),
+                          style: oswaldTextStyle,
                         )
                       ],
                     ),
@@ -56,11 +58,7 @@ bottomBar(context, position) => Row(
                         ),
                         Text(
                           'Forum',
-                          style: TextStyle(
-                              fontFamily: 'Oswald',
-                              fontSize: 12.5,
-                              color: Colors.white
-                          ),
+                          style: oswaldTextStyle,
                         )
                       ],
                     ),
@@ -84,11 +82,7 @@ bottomBar(context, position) => Row(
                         ),
                         Text(
                           'Study Timer',
-                          style: TextStyle(
-                              fontFamily: 'Oswald',
-                              fontSize: 12.5,
-                              color: Colors.white
-                          ),
+                          style: oswaldTextStyle,
                         )
                       ],
                     ),
@@ -112,11 +106,7 @@ bottomBar(context, position) => Row(
                         ),
                         Text(
                           'Leaderboard',
-                          style: TextStyle(
-                              fontFamily: 'Oswald',
-                              fontSize: 12.5,
-                              color: Colors.white
-                          ),
+                          style: oswaldTextStyle,
                         )
                       ],
                     ),
@@ -140,11 +130,7 @@ bottomBar(context, position) => Row(
                         ),
                         Text(
                           'Mythics',
-                          style: TextStyle(
-                              fontFamily: 'Oswald',
-                              fontSize: 12.5,
-                              color: Colors.white
-                          ),
+                          style: oswaldTextStyle,
                         )
                       ],
                     ),

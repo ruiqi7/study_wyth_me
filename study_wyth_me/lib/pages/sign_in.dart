@@ -72,12 +72,7 @@ class _SignInState extends State<SignIn> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
-                    textStyle: const TextStyle(
-                        fontSize: 27.5,
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        fontFamily: 'Chewy'
-                    ),
+                    textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
                   child: const Text('Login'),
                   onPressed: () async {
@@ -105,12 +100,7 @@ class _SignInState extends State<SignIn> {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(5.0),
                         primary: Colors.white,
-                        textStyle: const TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            letterSpacing: 1.5,
-                            fontFamily: 'Chewy'
-                        ),
+                        textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                       ),
                       onPressed: () {
                         Navigator.push(
