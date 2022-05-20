@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/pages/authentication_wrapper.dart';
+import 'package:study_wyth_me/pages/timer.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'firebase_options.dart';
 
