@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
+import 'package:study_wyth_me/services/database.dart';
 
 class Authentication {
 
@@ -19,6 +20,9 @@ class Authentication {
   Future customSignUp(String email, String username, String password) async {
     try {
       UserCredential result = await _authenticate.createUserWithEmailAndPassword(email: email, password: password);
+
+      // create a new document for the user with the uid
+      await DatabaseService(uid: result.user!.uid).createNewUser(username);
       return _getCustomUser(result.user);
     } catch (exception) {
       return null;
