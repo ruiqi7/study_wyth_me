@@ -13,12 +13,7 @@ class MainMenu extends StatelessWidget {
   static ButtonStyle buttonStyle = TextButton.styleFrom(
     padding: const EdgeInsets.all(16.0),
     primary: Colors.white,
-    textStyle: const TextStyle(
-        fontSize: 33.0,
-        color: Colors.white,
-        letterSpacing: 1.5,
-        fontFamily: 'Chewy'
-    ),
+    textStyle: chewyTextStyle.copyWith(letterSpacing: 33.0),
   );
 
   @override

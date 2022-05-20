@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
-import 'package:study_wyth_me/services/authentication.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
 
-  final Authentication _authenticate = Authentication();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // value of the form field
@@ -60,12 +58,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
-                    textStyle: const TextStyle(
-                        fontSize: 27.5,
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        fontFamily: 'Chewy'
-                    ),
+                    textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
                   child: const Text(
                       'Send Password Reset Email',
