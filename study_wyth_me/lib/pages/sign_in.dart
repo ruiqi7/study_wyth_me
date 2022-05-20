@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
                     children: <Widget>[
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
-                        style: const TextStyle(color: Colors.white),
+                        style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
                           setState(() => email = value);
@@ -52,7 +52,7 @@ class _SignInState extends State<SignIn> {
                       gapBox,
                       TextFormField( // password
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
-                        style: const TextStyle(color: Colors.white),
+                        style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
                         validator: (value) => value!.isEmpty ? 'Enter your password' : null,
                         onChanged: (value) {

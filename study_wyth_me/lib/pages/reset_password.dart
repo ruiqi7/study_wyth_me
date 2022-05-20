@@ -39,7 +39,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     children: <Widget>[
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
-                        style: const TextStyle(color: Colors.white),
+                        style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
                           setState(() => email = value);
