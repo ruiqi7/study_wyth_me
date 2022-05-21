@@ -1,18 +1,28 @@
+//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/pages/authentication_wrapper.dart';
-import 'package:study_wyth_me/pages/timer.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'firebase_options.dart';
+import 'package:study_wyth_me/pages/home.dart';
+import 'package:study_wyth_me/pages/timer.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const App());
+  runApp(MaterialApp(
+    initialRoute: '/',
+    home: const App(),
+    routes: {
+      '/home': (context) => const Home(),
+      '/timer': (context) => const Timer(),
+    },
+  ));
 }
 
 class App extends StatelessWidget {
@@ -24,9 +34,8 @@ class App extends StatelessWidget {
     return StreamProvider<CustomUser?>.value(
       value: Authentication().usersStream,
       initialData: null,
-      child: const MaterialApp(
-        title: 'Flutter App',
-        home: AuthenticationWrapper(),
+      child: const Scaffold(
+        body: AuthenticationWrapper(),
       ),
     );
   }

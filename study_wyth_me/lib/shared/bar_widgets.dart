@@ -38,7 +38,11 @@ bottomBar(context, position) => Row(
                         )
                       ],
                     ),
-                    onPressed: () {  },
+                    onPressed: () {
+                      if (position != 1) {
+                        Navigator.pushNamed(context, '/home');
+                      }
+                    },
                   ),
                 ),
                 Container(
@@ -86,7 +90,11 @@ bottomBar(context, position) => Row(
                         )
                       ],
                     ),
-                    onPressed: () {  },
+                    onPressed: () {
+                      if (position != 3) {
+                        Navigator.pushNamed(context, '/timer');
+                      }
+                    },
                   ),
                 ),
                 Container(
