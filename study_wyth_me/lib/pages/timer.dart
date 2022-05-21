@@ -91,12 +91,7 @@ class _TimerState extends State<Timer> {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5.0),
                   primary: Colors.white,
-                  textStyle: const TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                      fontFamily: 'Chewy'
-                  ),
+                  textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                 ),
                 onPressed: () {
                   Navigator.push(

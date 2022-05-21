@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/pages/about.dart';
 import 'package:study_wyth_me/pages/sign_in.dart';
 import 'package:study_wyth_me/pages/sign_up.dart';
@@ -24,7 +23,43 @@ class MainMenu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
-            const ChewyHeaderText(text: 'Study Wyth Me'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Stack(
+                children: <Widget>[
+                  Text(
+                    'Study Wyth Me',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 70.0,
+                      letterSpacing: 5.0,
+                      fontFamily: 'Chewy',
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 5
+                        ..color = Colors.white,
+                    ),
+                  ),
+                  const Text(
+                    'Study Wyth Me',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 70.0,
+                      letterSpacing: 5.0,
+                      fontFamily: 'Chewy',
+                      color: Colors.transparent,
+                      shadows: <Shadow>[
+                        Shadow(
+                          blurRadius: 0.0,
+                          color: Colors.white70,
+                          offset: Offset(3.0, 5.0),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
             const SizedBox(height: 45),
             Container(
               width: buttonWidth,
