@@ -24,18 +24,27 @@ class _TimerState extends State<Timer> {
     showCupertinoModalPopup<void>(
         context: context,
         builder: (BuildContext context) => Container(
-          height: 216,
+          height: 250,
           padding: const EdgeInsets.only(top: 6.0),
-          // The Bottom margin is provided to align the popup above the system navigation bar.
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          // Provide a background color for the popup.
-          color: CupertinoColors.systemBackground.resolveFrom(context),
+          color: darkBlueBackground,
           // Use a SafeArea widget to avoid system overlaps.
           child: SafeArea(
             top: false,
-            child: child,
+            child: CupertinoTheme(
+              data: const CupertinoThemeData(
+                brightness: Brightness.dark
+              ),
+              child: CupertinoTimerPicker(
+                mode: CupertinoTimerPickerMode.hm,
+                initialTimerDuration: currDuration,
+                onTimerDurationChanged: (Duration newDuration) {
+                  setState(() => currDuration = newDuration);
+                },
+              ),
+            ),
           ),
         ));
   }
@@ -60,18 +69,7 @@ class _TimerState extends State<Timer> {
               ),
               child: CupertinoButton(
                 // Display a CupertinoTimerPicker with hour/minute mode.
-                onPressed: () => _showDialog(
-                  CupertinoTimerPicker(
-                    mode: CupertinoTimerPickerMode.hm,
-                    initialTimerDuration: currDuration,
-                    // This is called when the user changes the timer duration.
-                    onTimerDurationChanged: (Duration newDuration) {
-                      setState(() => currDuration = newDuration);
-                    },
-                  ),
-                ),
-                // In this example, the timer value is formatted manually. You can use intl package
-                // to format the value based on user's locale settings.
+                onPressed: () => _showDialog(widget),
                 child: Text(
                   '$hours:$minutes:$seconds',
                   style: const TextStyle(
