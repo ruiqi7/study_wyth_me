@@ -5,6 +5,8 @@ import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 
+import 'loading.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -24,9 +26,12 @@ class _SignInState extends State<SignIn> {
   // invalid sign in error message
   String error = '';
 
+  // determines whether to display loading screen
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
       body: SafeArea(
         child: Center(
@@ -76,6 +81,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   child: const Text('Login'),
                   onPressed: () async {
+                    setState(() => loading = true);
                     if (_formKey.currentState!.validate()) {
                       CustomUser? result = await _authenticate.customSignIn(email, password);
                       if (result == null) {

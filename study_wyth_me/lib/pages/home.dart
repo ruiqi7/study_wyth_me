@@ -4,6 +4,8 @@ import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:fl_chart/fl_chart.dart';
 
+import 'loading.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -27,10 +29,13 @@ class _HomeState extends State<Home> {
   //  };
   //another Idea I haven't explored is the identify the exact document from a string of snapshots
 
+  // determines whether to display loading screen
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +82,9 @@ class _HomeState extends State<Home> {
                           textStyle: chewyTextStyle.copyWith(fontSize: 16.0),
                         ),
                         onPressed: () async {
+                          setState(() => loading = true);
                           await Authentication().customSignOut();
+                          Navigator.pushNamed(context, '/');
                         },
                       ),
                     ),
