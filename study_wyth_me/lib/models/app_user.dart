@@ -5,7 +5,7 @@ class AppUser {
 
   final String uid;
   final String username;
-  final Map<String, int> map; // stores module : minutes in this format
+  final Map<String, dynamic> map; // stores module : minutes in this format
 
   AppUser({ required this.uid, required this.username, required this.map});
 
