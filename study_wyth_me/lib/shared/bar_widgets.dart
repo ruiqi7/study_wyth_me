@@ -184,12 +184,7 @@ appBar(context, uid) => PreferredSize(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           appUser.username,
-                          style: const TextStyle(
-                              fontSize: 27.5,
-                              color: Colors.white,
-                              letterSpacing: 1.5,
-                              fontFamily: 'Chewy'
-                          ),
+                          style: chewyTextStyle.copyWith(fontSize: 27.5),
                         ),
                       ),
                     ),
