@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -54,8 +55,11 @@ class _TimerState extends State<Timer> {
     final hours = currDuration.inHours.remainder(24).toString().length < 2 ? "0" + currDuration.inHours.remainder(24).toString() : currDuration.inHours.remainder(24).toString();
     final minutes = currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + currDuration.inMinutes.remainder(60).toString() : currDuration.inMinutes.remainder(60).toString();
     final seconds = currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + currDuration.inSeconds.remainder(60).toString() : currDuration.inSeconds.remainder(60).toString();
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+
     return Scaffold(
       backgroundColor: darkBlueBackground,
+      appBar: appBar(context, uid),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,10 +110,10 @@ class _TimerState extends State<Timer> {
               color: Colors.white,
               size: 50.0
             ),
-            bottomBar(context, _position)
           ],
         )
-      )
+      ),
+      bottomNavigationBar: navigationBar(context, _position),
     );
   }
 }
