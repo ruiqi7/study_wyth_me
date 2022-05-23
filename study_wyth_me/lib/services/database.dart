@@ -13,7 +13,12 @@ class DatabaseService {
       .collection('userDatabase');
 
   Future createNewUser(String username) async {
-    return updateUserData(username, {});
+    return await userDatabaseCollection.doc(uid).set({
+      'username': username,
+      'map': {
+        "Study": 0
+      },
+    });
   }
 
   Future updateUserData(String username, Map<String, int> map) async {
@@ -38,7 +43,7 @@ class DatabaseService {
 
   //get user document stream
   Stream<AppUser> get userData {
-    return userDatabaseCollection.doc(uid).snapshots().map(
+    return userDatabaseCollection.doc(uid).snapshots().map<AppUser>(
         _userDataFromSnapshot);
   }
 
