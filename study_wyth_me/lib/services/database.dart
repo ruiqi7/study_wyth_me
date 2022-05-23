@@ -13,8 +13,13 @@ class DatabaseService {
       .collection('userDatabase');
 
   Future createNewUser(String username) async {
+    return updateUserData(username, {});
+  }
+
+  Future updateUserData(String username, Map<String, int> map) async {
     return await userDatabaseCollection.doc(uid).set({
       'username': username,
+      'map' : map,
     });
   }
 
@@ -44,6 +49,7 @@ class DatabaseService {
     return AppUser(
       uid: uid,
       username: data?['username'],
+      map: data?['map'],
     );
   }
 

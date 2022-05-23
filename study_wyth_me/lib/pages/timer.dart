@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:study_wyth_me/pages/edit_modules.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -161,7 +162,12 @@ class _TimerState extends State<Timer> {
                   child: IconButton(
                     icon: const Icon(Icons.edit, color: Colors.white),
                     iconSize: 33,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EditModules()),
+                      );
+                    },
                   ),
                 )
               ],
