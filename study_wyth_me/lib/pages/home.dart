@@ -40,157 +40,157 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
+    //final CustomUser customUser = Provider.of<CustomUser>(context);
     final User? authUser = FirebaseAuth.instance.currentUser;
     if (authUser == null) {
       return const Loading();
     } else {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-      return loading ? const Loading() : Scaffold(
-        backgroundColor: darkBlueBackground,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            SafeArea(
-              child: Container(
-                color: whiteOpacity20,
-                height: 75.0,
-                child: StreamBuilder<AppUser>(
-                    stream: DatabaseService(uid: uid).userData,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        AppUser appUser = snapshot.data!;
-                        return Row(
-                          children: <Widget>[
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: CircleAvatar(
-                                radius: 25.0,
-                                backgroundImage: NetworkImage(
-                                    'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
-                              ),
+      return StreamBuilder<AppUser>(
+        stream: DatabaseService(uid: uid).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            AppUser appUser = snapshot.data!;
+            return Scaffold(
+              backgroundColor: darkBlueBackground,
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget> [
+                  SafeArea(
+                    child: Container(
+                      color: whiteOpacity20,
+                      height: 75.0,
+                      child: Row(
+                        children: <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: CircleAvatar(
+                              radius: 25.0,
+                              backgroundImage: NetworkImage('https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Text(
-                                  appUser.username,
-                                  style: const TextStyle(
-                                      fontSize: 27.5,
-                                      color: Colors.white,
-                                      letterSpacing: 1.5,
-                                      fontFamily: 'Chewy'
-                                  ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                appUser.username,
+                                style: const TextStyle(
+                                    fontSize: 27.5,
+                                    color: Colors.white,
+                                    letterSpacing: 1.5,
+                                    fontFamily: 'Chewy'
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Container(
-                                width: 80,
-                                height: 40,
-                                decoration: largeRadiusRoundedBox,
-                                child: TextButton(
-                                  child: const Text('Logout'),
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.all(5.0),
-                                    primary: Colors.white,
-                                    textStyle: chewyTextStyle.copyWith(
-                                        fontSize: 16.0),
-                                  ),
-                                  onPressed: () async {
-                                    setState(() => loading = true);
-                                    await Authentication().customSignOut();
-                                    Navigator.pushNamed(context, '/');
-                                  },
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Container(
+                              width: 80,
+                              height: 40,
+                              decoration: largeRadiusRoundedBox,
+                              child: TextButton(
+                                child: const Text('Logout'),
+                                style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.all(5.0),
+                                  primary: Colors.white,
+                                  textStyle: chewyTextStyle.copyWith(
+                                      fontSize: 16.0),
                                 ),
+                                onPressed: () async {
+                                  setState(() => loading = true);
+                                  await Authentication().customSignOut();
+                                  Navigator.pushNamed(context, '/');
+                                },
                               ),
-                            )
-                          ],
-                        );
-                      } else {
-                        return const Loading();
-                      }
-                    }
-                ),
-              ),
-            ),
-            const SizedBox(height: 40.0),
-            Container(
-              width: 300,
-              height: 100,
-              decoration: smallRadiusRoundedBox,
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                  children: const <Widget> [
-                    Text(
-                      '1,576',
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 40.0),
+                  Container(
+                    width: 300,
+                    height: 100,
+                    decoration: smallRadiusRoundedBox,
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: const <Widget> [
+                        Text(
+                          '1,576',
+                          style: TextStyle(
+                            fontFamily: 'Norwester',
+                            fontSize: 35,
+                            color: Colors.white
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          'points',
+                          style: TextStyle(
+                              fontFamily: 'Norwester',
+                              fontSize: 22.5,
+                              color: Colors.white
+                          ),
+                        )
+                      ]
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 50.0),
+                    child: const Text(
+                      'My Week',
                       style: TextStyle(
                           fontFamily: 'Norwester',
-                          fontSize: 35,
+                          fontSize: 19.5,
                           color: Colors.white
                       ),
                     ),
-                    SizedBox(height: 5.0),
-                    Text(
-                      'points',
-                      style: TextStyle(
-                          fontFamily: 'Norwester',
-                          fontSize: 22.5,
-                          color: Colors.white
-                      ),
-                    )
-                  ]
-              ),
-            ),
-            const SizedBox(height: 30.0),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 50.0),
-              child: const Text(
-                'My Week',
-                style: TextStyle(
-                    fontFamily: 'Norwester',
-                    fontSize: 19.5,
-                    color: Colors.white
-                ),
-              ),
-            ),
-            Expanded(
-              child: PieChart(
-                  PieChartData(
-                    sectionsSpace: 0,
-                    centerSpaceRadius: 80.0,
-                    sections: [
-                      PieChartSectionData(
-                        radius: 70,
-                        color: Colors.blue[500],
-                        value: 2,
-                        title: 'first section',
-                        titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-                      ),
-                      PieChartSectionData(
-                        radius: 70,
-                        color: Colors.blue[700],
-                        value: 1,
-                        title: 'second section',
-                        titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-                      ),
-                      PieChartSectionData(
-                        radius: 70,
-                        color: Colors.blue[900],
-                        value: 3,
-                        title: 'third section',
-                        titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                  ),
+                  Expanded(
+                    child: PieChart(
+                      PieChartData(
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 80.0,
+                        sections: [
+                          PieChartSectionData(
+                            radius: 70,
+                            color: Colors.blue[500],
+                            value: 2,
+                            title: 'first section',
+                            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                          ),
+                          PieChartSectionData(
+                            radius: 70,
+                            color: Colors.blue[700],
+                            value: 1,
+                            title: 'second section',
+                            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                          ),
+                          PieChartSectionData(
+                            radius: 70,
+                            color: Colors.blue[900],
+                            value: 3,
+                            title: 'third section',
+                            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                          )
+                        ],
                       )
-                    ],
-                  )
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-        bottomNavigationBar: navigationBar(context, _position),
+              bottomNavigationBar: navigationBar(context, _position),
+            );
+          } else {
+            return const Loading();
+          }
+        }
       );
     }
-    //final CustomUser customUser = Provider.of<CustomUser>(context);
+
   }
 }

@@ -63,3 +63,14 @@ const InputDecoration formFieldDeco = InputDecoration(
   isDense: true,
   contentPadding: EdgeInsets.all(10.0),
 );
+
+backIcon(context) => IconButton(
+  icon: const Icon(
+    Icons.arrow_back_ios,
+    color: Colors.white,
+    size: 35,
+  ),
+  onPressed: () {
+    Navigator.pop(context);
+  },
+);

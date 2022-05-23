@@ -159,42 +159,45 @@ navigationBar(context, position) => SafeArea(
 );
 
 appBar(context, uid) => PreferredSize(
-    preferredSize: const Size.fromHeight(75),
-    child: SafeArea(
-      child: Container(
-        color: whiteOpacity20,
-        height: 75.0,
-        child: StreamBuilder<AppUser>(
-            stream: DatabaseService(uid: uid).userData,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                AppUser appUser = snapshot.data!;
-                return Row(
-                  //mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget> [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: CircleAvatar(
-                        radius: 25.0,
-                        backgroundImage: NetworkImage('https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
-                      ),
+  preferredSize: const Size.fromHeight(75),
+  child: SafeArea(
+    child: Container(
+      color: whiteOpacity20,
+      height: 75.0,
+      child: StreamBuilder<AppUser>(
+        stream: DatabaseService(uid: uid).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            AppUser appUser = snapshot.data!;
+            return Row(
+              //mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget> [
+                const Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: CircleAvatar(
+                    radius: 25.0,
+                    backgroundImage: NetworkImage('https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      appUser.username,
+                      style: chewyTextStyle.copyWith(fontSize: 27.5),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          appUser.username,
-                          style: chewyTextStyle.copyWith(fontSize: 27.5),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const Loading();
-              }
-            }
-        ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Container(
+              color: whiteOpacity20,
+              height: 75.0,
+            );
+          }
+        }
       ),
     ),
+  ),
 );
