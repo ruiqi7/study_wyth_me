@@ -26,6 +26,8 @@ class _TimerState extends State<Timer> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool _hideStartButton = false;
+
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoTimerPicker.
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -68,8 +70,9 @@ class _TimerState extends State<Timer> {
       appBar: appBar(context, uid),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget> [
+            const SizedBox(height: 60.0),
             Container(
               width: 230,
               height: 230,
@@ -91,7 +94,7 @@ class _TimerState extends State<Timer> {
                 ),
               ),
             ),
-            gapBox,
+            const SizedBox(height: 25.0),
             Row(
               children: [
                 Expanded(
@@ -146,6 +149,9 @@ class _TimerState extends State<Timer> {
                             return null;
                           }
                         },
+                        onMenuStateChange: (isOpen) {
+                          setState(() => _hideStartButton = isOpen);
+                        },
                       ),
                     ),
                   ),
@@ -160,28 +166,33 @@ class _TimerState extends State<Timer> {
                 )
               ],
             ),
-            gapBox,
-            Container(
-              width: 100,
-              height: 40,
-              decoration: largeRadiusRoundedBox,
-              child: TextButton(
-                child: const Text('Start'),
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(5.0),
-                  primary: Colors.white,
-                  textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+          const SizedBox(height: 30.0),
+            !_hideStartButton
+              ? Container(
+                  width: 100,
+                  height: 40,
+                  decoration: largeRadiusRoundedBox,
+                  child: TextButton(
+                    child: const Text('Start'),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(5.0),
+                      primary: Colors.white,
+                      textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Countdown(duration: currDuration)),
+                        );
+                      }
+                    },
+                  ),
+                )
+              : const SizedBox(
+                  width: 100,
+                  height: 40,
                 ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Countdown(duration: currDuration)),
-                    );
-                  }
-                },
-              ),
-            ),
           ],
         )
       ),

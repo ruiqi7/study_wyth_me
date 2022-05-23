@@ -60,7 +60,6 @@ class _HomeState extends State<Home> {
                       if (snapshot.hasData) {
                         AppUser appUser = snapshot.data!;
                         return Row(
-                          //mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             const Padding(
                               padding: EdgeInsets.only(left: 10.0),
