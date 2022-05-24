@@ -32,16 +32,29 @@ backButton(context) => Container(
     style: TextButton.styleFrom(
       padding: const EdgeInsets.all(5.0),
       primary: Colors.white,
-      textStyle: const TextStyle(
-          fontSize: 20.0,
-          color: Colors.white,
-          letterSpacing: 1.5,
-          fontFamily: 'Chewy'
-      ),
+      textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
     ),
     onPressed: () {
       Navigator.pop(context);
     },
+  ),
+);
+
+appBarButton(text, function) => Padding(
+  padding: const EdgeInsets.only(right: 10.0),
+  child: Container(
+    width: 80,
+    height: 40,
+    decoration: largeRadiusRoundedBox,
+    child: TextButton(
+      child: Text(text),
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.all(5.0),
+        primary: Colors.white,
+        textStyle: chewyTextStyle.copyWith(fontSize: 16.0),
+      ),
+      onPressed: function,
+    ),
   ),
 );
 
