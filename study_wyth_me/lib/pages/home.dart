@@ -10,6 +10,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../models/app_user.dart';
 import '../models/custom_user.dart';
 import '../services/database.dart';
+import 'edit_profile.dart';
 import 'loading.dart';
 
 class Home extends StatefulWidget {
@@ -64,13 +65,38 @@ class _HomeState extends State<Home> {
                         height: 75.0,
                         child: Row(
                           children: <Widget>[
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10.0),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Material(
+                                elevation: 0,
+                                shape: const CircleBorder(),
+                                clipBehavior: Clip.hardEdge,
+                                color: Colors.transparent,
+                                child: Ink.image(
+                                  image: NetworkImage(appUser.url),
+                                  fit: BoxFit.cover,
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: InkWell(
+                                    splashColor: darkBlueBackground,
+                                    onTap: () {
+                                      Future.delayed(const Duration(milliseconds: 100), () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const EditProfile())
+                                        );
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              /*
                               child: CircleAvatar(
                                 radius: 25.0,
                                 backgroundImage: NetworkImage(
                                     'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
                               ),
+                               */
                             ),
                             Expanded(
                               child: Padding(
@@ -78,36 +104,17 @@ class _HomeState extends State<Home> {
                                     horizontal: 10.0),
                                 child: Text(
                                   appUser.username,
-                                  style: const TextStyle(
-                                      fontSize: 27.5,
-                                      color: Colors.white,
-                                      letterSpacing: 1.5,
-                                      fontFamily: 'Chewy'
-                                  ),
+                                  style: chewyTextStyle.copyWith(fontSize: 27.5),
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Container(
-                                width: 80,
-                                height: 40,
-                                decoration: largeRadiusRoundedBox,
-                                child: TextButton(
-                                  child: const Text('Logout'),
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.all(5.0),
-                                    primary: Colors.white,
-                                    textStyle: chewyTextStyle.copyWith(
-                                        fontSize: 16.0),
-                                  ),
-                                  onPressed: () async {
-                                    setState(() => _loading = true);
-                                    await Authentication().customSignOut();
-                                    Navigator.pushNamed(context, '/');
-                                  },
-                                ),
-                              ),
+                            appBarButton(
+                              'Logout',
+                              () async {
+                                setState(() => _loading = true);
+                                await Authentication().customSignOut();
+                                Navigator.pushNamed(context, '/');
+                              }
                             )
                           ],
                         ),

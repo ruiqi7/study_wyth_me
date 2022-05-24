@@ -18,13 +18,21 @@ class DatabaseService {
       'map': {
         "Study": 0
       },
+      'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
     });
   }
 
-  Future updateUserData(String username, Map<String, int> map) async {
-    return await userDatabaseCollection.doc(uid).set({
-      'username': username,
-      'map' : map,
+  // update timer
+  Future updateTimer(Map<String, int> map) async {
+    return await userDatabaseCollection.doc(uid).update({
+      'map': map,
+    });
+  }
+
+  // update user's profile picture
+  Future updatePicture(String url) async {
+    return await userDatabaseCollection.doc(uid).update({
+      'url': url,
     });
   }
 
@@ -55,6 +63,7 @@ class DatabaseService {
       uid: uid,
       username: data?['username'],
       map: data?['map'],
+      url: data?['url'],
     );
   }
 
