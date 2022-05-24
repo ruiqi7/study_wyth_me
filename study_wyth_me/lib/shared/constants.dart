@@ -87,3 +87,7 @@ backIcon(context) => IconButton(
     Navigator.pop(context);
   },
 );
+
+whiteLine(context) => const Divider(
+  color: Colors.white,
+);

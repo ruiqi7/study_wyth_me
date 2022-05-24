@@ -165,7 +165,7 @@ class _TimerState extends State<Timer> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const EditModules()),
+                        MaterialPageRoute(builder: (context) => EditModules(uid: uid)),
                       );
                     },
                   ),
