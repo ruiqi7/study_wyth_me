@@ -92,7 +92,7 @@ class _EditModulesState extends State<EditModules> {
                 ),
               ),
               gapBox,
-              whiteLine(context),
+              const Divider(color: Colors.white),
               const Expanded(child: ModuleList()),
             ],
           ),
