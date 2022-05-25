@@ -7,8 +7,15 @@ class AppUser {
   final String username;
   final Map<String, dynamic> map; // stores module : minutes in this format
   final String url;
+  final dynamic points;
 
-  AppUser({ required this.uid, required this.username, required this.map, required this.url });
+  AppUser({
+    required this.uid,
+    required this.username,
+    required this.map,
+    required this.url,
+    required this.points
+  });
 
 //obtain user data from Firestore as AppUser Object
 //factory AppUser.fromFirestore(

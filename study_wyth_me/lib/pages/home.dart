@@ -39,6 +39,46 @@ class _HomeState extends State<Home> {
   // determines whether to display loading screen
   bool _loading = false;
 
+  List<PieChartSectionData> showSections(AppUser appUser) {
+    List<PieChartSectionData> list = [];
+    int index = 0;
+    int size = appUser.map.length;
+    if (size == 0) {
+      list.add(PieChartSectionData(
+        radius: 70,
+        color: Colors.blue[700],
+        value: 1,
+        title: "Study",
+        titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+      ));
+    } else if (size == 1) {
+      appUser.map.forEach((k, v) => list.add(
+          PieChartSectionData(
+            radius: 70,
+            color: Colors.blue[700],
+            value: 1,
+            title: k,
+            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+          )
+      ));
+    } else {
+      double incrementer = (900 - 500) / (size - 1);
+      for (MapEntry<String, dynamic> e in appUser.map.entries) {
+        list.add(
+            PieChartSectionData(
+              radius: 70,
+              color: Colors.blue[(500 + index * incrementer).ceil()],
+              value: e.value.toDouble(),
+              title: e.key,
+              titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+            )
+        );
+        index++;
+      }
+    }
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -54,6 +94,7 @@ class _HomeState extends State<Home> {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
               AppUser appUser = snapshot.data!;
+              Map<String, double> dataMap = appUser.map.map((k, v) => MapEntry(k, v.toDouble()));
               return Scaffold(
                 backgroundColor: darkBlueBackground,
                 body: Column(
@@ -120,17 +161,17 @@ class _HomeState extends State<Home> {
                       decoration: smallRadiusRoundedBox,
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
-                          children: const <Widget>[
+                          children: <Widget>[
                             Text(
-                              '1,576',
-                              style: TextStyle(
+                              appUser.points.toString(),
+                              style: const TextStyle(
                                   fontFamily: 'Norwester',
                                   fontSize: 35,
                                   color: Colors.white
                               ),
                             ),
-                            SizedBox(height: 5.0),
-                            Text(
+                            const SizedBox(height: 5.0),
+                            const Text(
                               'points',
                               style: TextStyle(
                                   fontFamily: 'Norwester',
@@ -156,36 +197,12 @@ class _HomeState extends State<Home> {
                     ),
                     Expanded(
                       child: PieChart(
-                          PieChartData(
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 80.0,
-                            sections: [
-                              PieChartSectionData(
-                                radius: 70,
-                                color: Colors.blue[500],
-                                value: 2,
-                                title: 'first section',
-                                titleStyle: chewyTextStyle.copyWith(
-                                    fontSize: 20.0),
-                              ),
-                              PieChartSectionData(
-                                radius: 70,
-                                color: Colors.blue[700],
-                                value: 1,
-                                title: 'second section',
-                                titleStyle: chewyTextStyle.copyWith(
-                                    fontSize: 20.0),
-                              ),
-                              PieChartSectionData(
-                                radius: 70,
-                                color: Colors.blue[900],
-                                value: 3,
-                                title: 'third section',
-                                titleStyle: chewyTextStyle.copyWith(
-                                    fontSize: 20.0),
-                              )
-                            ],
-                          )
+                        //dataMap: dataMap,
+                        PieChartData(
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 80.0,
+                          sections: showSections(appUser),
+                        )
                       ),
                     ),
                   ],
