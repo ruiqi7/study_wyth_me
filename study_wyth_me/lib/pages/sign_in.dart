@@ -81,12 +81,12 @@ class _SignInState extends State<SignIn> {
                   ),
                   child: const Text('Login'),
                   onPressed: () async {
-                    setState(() => loading = true);
                     if (_formKey.currentState!.validate()) {
                       CustomUser? result = await _authenticate.customSignIn(email, password);
                       if (result == null) {
                         setState(() => error = 'Invalid email and / or password.');
                       } else {
+                        setState(() => loading = true);
                         Navigator.pop(context);
                       }
                     }
