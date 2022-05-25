@@ -23,9 +23,9 @@ class DatabaseService {
   }
 
   // update timer
-  Future updateTimer(Map<String, int> map) async {
+  Future updateNewModule(String module) async {
     return await userDatabaseCollection.doc(uid).update({
-      'map': map,
+      'map.$module': 0,
     });
   }
 
