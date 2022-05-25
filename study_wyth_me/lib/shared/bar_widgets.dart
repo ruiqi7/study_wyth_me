@@ -172,11 +172,11 @@ appBar(context, uid) => PreferredSize(
             return Row(
               //mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget> [
-                const Padding(
-                  padding: EdgeInsets.only(left: 10.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
                   child: CircleAvatar(
                     radius: 25.0,
-                    backgroundImage: NetworkImage('https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
+                    backgroundImage: NetworkImage(appUser.url),
                   ),
                 ),
                 Expanded(

@@ -98,12 +98,12 @@ class _SignUpState extends State<SignUp> {
                   ),
                   child: const Text('Sign Up!'),
                   onPressed: () async {
-                    setState(() => loading = true);
                     if (_formKey.currentState!.validate()) {
                       CustomUser? result = await _authenticate.customSignUp(email, username, password);
                       if (result == null) {
                         setState(() => error = 'Please try again.');
                       } else {
+                        setState(() => loading = true);
                         Navigator.pop(context);
                       }
                     }

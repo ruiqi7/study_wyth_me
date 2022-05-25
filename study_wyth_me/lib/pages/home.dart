@@ -83,20 +83,13 @@ class _HomeState extends State<Home> {
                                       Future.delayed(const Duration(milliseconds: 100), () {
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => const EditProfile())
+                                            MaterialPageRoute(builder: (context) => EditProfile(url: appUser.url))
                                         );
                                       });
                                     },
                                   ),
                                 ),
                               ),
-                              /*
-                              child: CircleAvatar(
-                                radius: 25.0,
-                                backgroundImage: NetworkImage(
-                                    'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
-                              ),
-                               */
                             ),
                             Expanded(
                               child: Padding(
