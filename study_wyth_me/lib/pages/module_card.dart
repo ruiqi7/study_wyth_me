@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
 class ModuleCard extends StatelessWidget {
   final String module;
+  final String uid;
   const ModuleCard({
     Key? key,
-    required this.module
+    required this.module,
+    required this.uid
   }) : super(key: key);
 
   @override
@@ -30,19 +33,17 @@ class ModuleCard extends StatelessWidget {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
-                    textStyle: const TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                      fontFamily: 'Chewy'
-                    ),
-                  ), onPressed: () {  },
+                    textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                  ),
+                  onPressed: () async {
+                    await DatabaseService(uid: uid).removeModule(module);
+                  },
                 )
               ),
             ],
           ),
         ),
-        whiteLine(context)
+        horizontalDivider
       ],
     );
   }

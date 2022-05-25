@@ -88,6 +88,4 @@ backIcon(context) => IconButton(
   },
 );
 
-whiteLine(context) => const Divider(
-  color: Colors.white,
-);
+const horizontalDivider = Divider(color: Colors.white);
