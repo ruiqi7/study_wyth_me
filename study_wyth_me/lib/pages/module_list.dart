@@ -29,7 +29,7 @@ class _ModuleListState extends State<ModuleList> {
             itemCount: list.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return ModuleCard(module: list[index]);
+              return ModuleCard(module: list[index], uid: uid);
             }
           );
         } else {

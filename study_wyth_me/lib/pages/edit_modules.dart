@@ -16,36 +16,38 @@ class EditModules extends StatefulWidget {
 class _EditModulesState extends State<EditModules> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String module = "";
-  bool _loading = false;
+  String module = '';
+
+  // to indicate if the module has been added
+  String message = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkBlueBackground,
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(75),
-          child: SafeArea(
-              child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  color: whiteOpacity20,
-                  height: 75.0,
-                  child: Row(
-                    children: <Widget> [
-                      backIcon(context),
-                      Center(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                            child: Text(
-                              'Edit list of modules',
-                              style: chewyTextStyle.copyWith(fontSize: 25.0),
-                            ),
-                          )
-                      )
-                    ],
+        preferredSize: const Size.fromHeight(75),
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
+            color: whiteOpacity20,
+            height: 75.0,
+            child: Row(
+              children: <Widget> [
+                backIcon(context),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                    child: Text(
+                      'Edit list of modules',
+                      style: chewyTextStyle.copyWith(fontSize: 25.0),
+                    ),
                   )
-              )
+                )
+              ],
+            )
           )
+        )
       ),
       body: Center(
         child: Container(
@@ -57,10 +59,10 @@ class _EditModulesState extends State<EditModules> {
               gapBox,
               Form(
                 key: _formKey,
-                child: TextFormField( // email
-                  decoration: formFieldDeco.copyWith(hintText: 'Enter a Module'),
+                child: TextFormField(
+                  decoration: formFieldDeco.copyWith(hintText: 'Module'),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
-                  validator: (value) => value!.isEmpty ? 'Enter a Module' : null,
+                  validator: (value) => value!.isEmpty ? 'Enter a module' : null,
                   onChanged: (value) {
                     setState(() => module = value);
                   },
@@ -76,23 +78,31 @@ class _EditModulesState extends State<EditModules> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
-                    textStyle: const TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        fontFamily: 'Chewy'
-                    ),
+                    textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                   ),
                   onPressed: () async {
-                    setState(() => _loading = true);
                     if (_formKey.currentState!.validate()) {
                       await DatabaseService(uid: widget.uid).updateNewModule(module.trim());
+                      setState(() {
+                        message = 'Added!';
+                      });
+                      Future.delayed(const Duration(seconds: 1), () {
+                        setState(() => message = '');
+                      });
                     }
                   },
                 ),
               ),
+              const SizedBox(height: 10.0),
+              Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 12.0,
+                ),
+              ),
               gapBox,
-              const Divider(color: Colors.white),
+              horizontalDivider,
               const Expanded(child: ModuleList()),
             ],
           ),
