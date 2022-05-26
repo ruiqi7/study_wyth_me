@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'dart:async';
 
+import '../services/database.dart';
+
 class Countdown extends StatefulWidget {
   final Duration duration;
+  final String module;
+  final String uid;
   const Countdown({
     Key? key,
-    required this.duration
+    required this.duration,
+    required this.module,
+    required this.uid
   }) : super(key: key);
 
   @override
@@ -16,6 +22,7 @@ class Countdown extends StatefulWidget {
 class _CountdownState extends State<Countdown> {
   late Timer countdownTimer;
   late Duration currDuration = widget.duration;
+  bool displayDone = false;
 
   @override
   void initState() {
@@ -36,6 +43,7 @@ class _CountdownState extends State<Countdown> {
       int newSeconds = currDuration.inSeconds - 1;
       if (newSeconds < 0) {
         countdownTimer.cancel();
+        displayDone = true;
       } else {
         currDuration = Duration(seconds: newSeconds);
       }
@@ -68,7 +76,7 @@ class _CountdownState extends State<Countdown> {
               height: 40,
               decoration: largeRadiusRoundedBox,
               child: TextButton(
-                child: const Text('Cancel'),
+                child: Text(displayDone ? 'Done' : 'Cancel'),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5.0),
                   primary: Colors.white,
@@ -79,8 +87,13 @@ class _CountdownState extends State<Countdown> {
                       fontFamily: 'Chewy'
                   ),
                 ),
-                onPressed: () {
-                  setState(() {countdownTimer.cancel();});
+                onPressed: () async {
+                  if (displayDone) {
+                    await DatabaseService(uid: widget.uid).updateModule(widget.module, widget.duration.inMinutes);
+                  };
+                  setState(() {
+                    countdownTimer.cancel();
+                  });
                   Navigator.pop(context);
                 },
               ),

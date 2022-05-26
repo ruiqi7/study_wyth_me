@@ -208,7 +208,7 @@ class _TimerState extends State<Timer> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  Countdown(duration: currDuration)),
+                                  Countdown(duration: currDuration, module: _currentModule!, uid: uid)),
                             );
                           }
                         },

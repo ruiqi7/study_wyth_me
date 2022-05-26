@@ -40,6 +40,13 @@ class DatabaseService {
     });
   }
 
+  Future updateModule(String module, int hours) async {
+    return await userDatabaseCollection.doc(uid).update({
+      'map.$module': FieldValue.increment(hours),
+      'points' : FieldValue.increment(hours),
+    });
+  }
+
   //get userDatabase stream
   Stream<QuerySnapshot> get userDatabaseStream {
     return userDatabaseCollection.snapshots();
