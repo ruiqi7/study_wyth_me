@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'bar_widgets.dart';
+
 const darkBlueBackground = Color.fromRGBO(0, 34, 75, 1.0);
 
 const whiteOpacity15 = Color.fromRGBO(255, 255, 255, 0.15);
@@ -89,3 +91,23 @@ backIcon(context) => IconButton(
 );
 
 const horizontalDivider = Divider(color: Colors.white);
+
+construction(context, uid, _position) => Scaffold(
+  backgroundColor: darkBlueBackground,
+  appBar: appBar(context, uid),
+  body: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column (
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            Text(
+              'This page is under construction! Stay tuned for more updates!',
+              style: chewyTextStyle.copyWith(fontSize: 25.0),
+            ),
+          ],
+        ),
+      )
+  ),
+  bottomNavigationBar: navigationBar(context, _position),
+);
