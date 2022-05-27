@@ -71,7 +71,11 @@ navigationBar(context, position) => SafeArea(
                         )
                       ],
                     ),
-                    onPressed: () {  },
+                    onPressed: () {
+                      if (position != 2) {
+                        Navigator.pushNamed(context, '/forum');
+                      }
+                    },
                   ),
                 ),
                 Container(
@@ -123,7 +127,11 @@ navigationBar(context, position) => SafeArea(
                         )
                       ],
                     ),
-                    onPressed: () {  },
+                    onPressed: () {
+                      if (position != 4) {
+                        Navigator.pushNamed(context, '/leaderboard');
+                      }
+                    },
                   ),
                 ),
                 Container(
@@ -147,7 +155,11 @@ navigationBar(context, position) => SafeArea(
                         )
                       ],
                     ),
-                    onPressed: () {  },
+                    onPressed: () {
+                      if (position != 5) {
+                        Navigator.pushNamed(context, '/mythics');
+                      }
+                    },
                   ),
                 )
               ],
