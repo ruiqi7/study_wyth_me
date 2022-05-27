@@ -5,16 +5,17 @@ import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/pages/authentication_wrapper.dart';
 import 'package:study_wyth_me/services/authentication.dart';
+import 'package:study_wyth_me/services/notification.dart';
 import 'firebase_options.dart';
 import 'package:study_wyth_me/pages/home.dart';
 import 'package:study_wyth_me/pages/timer.dart';
 
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService().init();
   runApp(MaterialApp(
     initialRoute: '/',
     home: const App(),

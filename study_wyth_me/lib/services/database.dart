@@ -21,10 +21,17 @@ class DatabaseService {
     });
   }
 
-  Future updateNewModule(String module) async {
-    return await userDatabaseCollection.doc(uid).update({
-      'map.$module': 0,
-    });
+  Future<String> updateNewModule(String module) async {
+    DocumentSnapshot snapshot = await userDatabaseCollection.doc(uid).get();
+    Map <String, dynamic> data = snapshot.data() as Map <String, dynamic>;
+    if (!data['map'].containsKey(module)) {
+      await userDatabaseCollection.doc(uid).update({
+        'map.$module': 0,
+      });
+      return 'Added';
+    } else {
+      return 'Module has already been added';
+    }
   }
 
   Future removeModule(String module) async {
