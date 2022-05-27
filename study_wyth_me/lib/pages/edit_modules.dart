@@ -62,9 +62,9 @@ class _EditModulesState extends State<EditModules> {
                 child: TextFormField(
                   decoration: formFieldDeco.copyWith(hintText: 'Module'),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
-                  validator: (value) => value!.isEmpty ? 'Enter a module' : null,
+                  validator: (value) => value!.trim().isEmpty ? 'Enter a module' : null,
                   onChanged: (value) {
-                    setState(() => module = value);
+                    setState(() => module = value.trim());
                   },
                 ),
               ),
@@ -82,10 +82,8 @@ class _EditModulesState extends State<EditModules> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await DatabaseService(uid: widget.uid).updateNewModule(module.trim());
-                      setState(() {
-                        message = 'Added!';
-                      });
+                      String result = await DatabaseService(uid: widget.uid).updateNewModule(module);
+                      setState(() => message = result);
                       Future.delayed(const Duration(seconds: 1), () {
                         setState(() => message = '');
                       });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/services/notification.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'dart:async';
 
@@ -44,6 +45,7 @@ class _CountdownState extends State<Countdown> {
       if (newSeconds < 0) {
         countdownTimer.cancel();
         displayDone = true;
+        NotificationService().showNotification(widget.duration, widget.module);
       } else {
         currDuration = Duration(seconds: newSeconds);
       }
@@ -68,7 +70,8 @@ class _CountdownState extends State<Countdown> {
                   color: Colors.white,
                   fontFamily: 'Chewy',
                   letterSpacing: 7.0,
-                  fontSize: 60),
+                  fontSize: 60
+              ),
             ),
             gapBox,
             Container(
@@ -80,12 +83,7 @@ class _CountdownState extends State<Countdown> {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5.0),
                   primary: Colors.white,
-                  textStyle: const TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                      fontFamily: 'Chewy'
-                  ),
+                  textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                 ),
                 onPressed: () async {
                   if (displayDone) {
