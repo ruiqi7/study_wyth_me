@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:study_wyth_me/pages/main_menu.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
@@ -8,7 +7,6 @@ import 'package:study_wyth_me/services/authentication.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import '../models/app_user.dart';
-import '../models/custom_user.dart';
 import '../services/database.dart';
 import 'edit_profile.dart';
 import 'loading.dart';
@@ -22,19 +20,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final int _position = 1; // used to identify which button in the bottom to darken
-  //late DocumentSnapshot snapshot;
-  //Future<DocumentSnapshot<Object?>> futureSnap = FirebaseFirestore.instance.collection('userDatabase')
-  //    .doc(FirebaseAuth.instance.currentUser!.uid).get()
-  //    .then((DocumentSnapshot snap) => (final snapshot = snap));
-  // commented part below this line is from https://firebase.google.com/docs/firestore/query-data/get-data but i failed to duplicate
-  //final DocumentReference docRef = FirebaseFirestore.instance.collection('userDatabase')
-  //    .doc(FirebaseAuth.instance.currentUser!.uid);
-  //docRef.get().then(
-  //  (DocumentSnapshot doc) {
-  //    final data = doc.data() as Map<String, dynamic>;
-  //  };
-  //another Idea I haven't explored is the identify the exact document from a string of snapshots
+  // passed into navigation bar to identify which page we are on
+  final int _position = 1;
 
   // determines whether to display loading screen
   bool _loading = false;
@@ -42,24 +29,17 @@ class _HomeState extends State<Home> {
   List<PieChartSectionData> showSections(AppUser appUser) {
     List<PieChartSectionData> list = [];
     int index = 0;
+    int hours = 0;
+    appUser.map.forEach((key, value) {hours += (value as int); });
     int size = appUser.map.length;
-    if (size == 0) {
+    if (hours == 0) {
       list.add(PieChartSectionData(
         radius: 70,
         color: Colors.blue[700],
         value: 1,
-        title: "Study",
-        titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-      ));
-    } else if (size == 1) {
-      appUser.map.forEach((k, v) => list.add(
-          PieChartSectionData(
-            radius: 70,
-            color: Colors.blue[700],
-            value: 1,
-            title: k,
-            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-          )
+        title: "Use Study Timer to get started!",
+        titlePositionPercentageOffset: -1.15,
+        titleStyle: chewyTextStyle.copyWith(fontSize: 20).apply(backgroundColor: whiteOpacity20)
       ));
     } else {
       double incrementer = (900 - 500) / (size - 1);
@@ -94,7 +74,6 @@ class _HomeState extends State<Home> {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
               AppUser appUser = snapshot.data!;
-              Map<String, double> dataMap = appUser.map.map((k, v) => MapEntry(k, v.toDouble()));
               return Scaffold(
                 backgroundColor: darkBlueBackground,
                 body: Column(
@@ -165,20 +144,12 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Text(
                               appUser.points.toString(),
-                              style: const TextStyle(
-                                  fontFamily: 'Norwester',
-                                  fontSize: 35,
-                                  color: Colors.white
-                              ),
+                              style: norwesterTextStyle.copyWith(fontSize: 35)
                             ),
                             const SizedBox(height: 5.0),
-                            const Text(
+                            Text(
                               'points',
-                              style: TextStyle(
-                                  fontFamily: 'Norwester',
-                                  fontSize: 22.5,
-                                  color: Colors.white
-                              ),
+                              style: norwesterTextStyle.copyWith(fontSize: 22.5)
                             )
                           ]
                       ),
@@ -187,13 +158,9 @@ class _HomeState extends State<Home> {
                     Container(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 50.0),
-                      child: const Text(
+                      child: Text(
                         'My Week',
-                        style: TextStyle(
-                            fontFamily: 'Norwester',
-                            fontSize: 19.5,
-                            color: Colors.white
-                        ),
+                        style: norwesterTextStyle.copyWith(fontSize: 19.5)
                       ),
                     ),
                     Expanded(
@@ -219,6 +186,5 @@ class _HomeState extends State<Home> {
         }
       );
     }
-
   }
 }

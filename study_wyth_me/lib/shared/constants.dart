@@ -25,6 +25,11 @@ const TextStyle chewyTextStyle = TextStyle(
   color: Colors.white,
 );
 
+const TextStyle norwesterTextStyle = TextStyle(
+  fontFamily: 'Norwester',
+  color: Colors.white
+);
+
 backButton(context) => Container(
   width: 100,
   height: 40,
