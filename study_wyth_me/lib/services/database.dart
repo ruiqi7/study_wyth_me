@@ -17,7 +17,8 @@ class DatabaseService {
       'username': username,
       'map': {},
       'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
-      'points' : 0,
+      'points': 0,
+      'duration': 30,
     });
   }
 
@@ -54,6 +55,12 @@ class DatabaseService {
     });
   }
 
+  Future updateDuration(int minutes) async {
+    return await userDatabaseCollection.doc(uid).update({
+      'duration': minutes,
+    });
+  }
+
   //get userDatabase stream
   Stream<QuerySnapshot> get userDatabaseStream {
     return userDatabaseCollection.snapshots();
@@ -82,7 +89,8 @@ class DatabaseService {
       username: data?['username'],
       map: data?['map'],
       url: data?['url'],
-      points: data?['points']
+      points: data?['points'],
+      duration: data?['duration']
     );
   }
 

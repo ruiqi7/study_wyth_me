@@ -38,6 +38,7 @@ class App extends StatelessWidget {
   // Root of App
   @override
   Widget build(BuildContext context) {
+    //Authentication().customSignOut();
     return StreamProvider<CustomUser?>.value(
       value: Authentication().usersStream,
       initialData: null,

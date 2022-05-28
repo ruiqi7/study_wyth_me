@@ -34,12 +34,21 @@ class _HomeState extends State<Home> {
     int size = appUser.map.length;
     if (hours == 0) {
       list.add(PieChartSectionData(
-        radius: 70,
-        color: Colors.blue[700],
-        value: 1,
-        title: "Use Study Timer to get started!",
-        titlePositionPercentageOffset: -1.15,
-        titleStyle: chewyTextStyle.copyWith(fontSize: 20).apply(backgroundColor: whiteOpacity20)
+          radius: 70,
+          color: Colors.blue[700],
+          value: 1,
+          title: "Use Study Timer to get started!",
+          titlePositionPercentageOffset: -1.15,
+          titleStyle: chewyTextStyle.copyWith(fontSize: 20).apply(
+              backgroundColor: whiteOpacity20)
+      ));
+    } else if (size == 1) {
+      list.add(PieChartSectionData(
+          radius: 70,
+          color: Colors.blue[700],
+          value: 1,
+          title: appUser.map.keys.first,
+          titleStyle: chewyTextStyle.copyWith(fontSize: 20),
       ));
     } else {
       double incrementer = (900 - 500) / (size - 1);
