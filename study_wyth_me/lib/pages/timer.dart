@@ -21,15 +21,14 @@ class Timer extends StatefulWidget {
 
 class _TimerState extends State<Timer> {
 
+  // passed into navigation bar to identify which page we are on
   final _position = 3;
-
-  Duration currDuration = const Duration(minutes: 30);
-
-  String? _currentModule;
-
+  final Duration _minDuration = const Duration(minutes: 1);
   final _formKey = GlobalKey<FormState>();
 
   bool _hideStartButton = false;
+  Duration _currDuration = const Duration(minutes: 30); // set default duration to 30 minutes
+  String? _currentModule;
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoTimerPicker.
   void _showDialog(Widget child) {
@@ -47,13 +46,13 @@ class _TimerState extends State<Timer> {
             top: false,
             child: CupertinoTheme(
               data: const CupertinoThemeData(
-                brightness: Brightness.dark
+                brightness: Brightness.dark // turns the picker text white
               ),
               child: CupertinoTimerPicker(
                 mode: CupertinoTimerPickerMode.hm,
-                initialTimerDuration: currDuration,
+                initialTimerDuration: _currDuration,
                 onTimerDurationChanged: (Duration newDuration) {
-                  setState(() => currDuration = newDuration);
+                  setState(() => newDuration.compareTo(_minDuration) > 0 ? _currDuration = newDuration : _currDuration = _minDuration);
                 },
               ),
             ),
@@ -63,9 +62,9 @@ class _TimerState extends State<Timer> {
 
   @override
   Widget build(BuildContext context) {
-    final hours = currDuration.inHours.remainder(24).toString().length < 2 ? "0" + currDuration.inHours.remainder(24).toString() : currDuration.inHours.remainder(24).toString();
-    final minutes = currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + currDuration.inMinutes.remainder(60).toString() : currDuration.inMinutes.remainder(60).toString();
-    final seconds = currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + currDuration.inSeconds.remainder(60).toString() : currDuration.inSeconds.remainder(60).toString();
+    final hours = _currDuration.inHours.remainder(24).toString().length < 2 ? "0" + _currDuration.inHours.remainder(24).toString() : _currDuration.inHours.remainder(24).toString();
+    final minutes = _currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + _currDuration.inMinutes.remainder(60).toString() : _currDuration.inMinutes.remainder(60).toString();
+    final seconds = _currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + _currDuration.inSeconds.remainder(60).toString() : _currDuration.inSeconds.remainder(60).toString();
     final String uid = FirebaseAuth.instance.currentUser!.uid;
 
     return StreamBuilder<AppUser>(
@@ -95,12 +94,7 @@ class _TimerState extends State<Timer> {
                         onPressed: () => _showDialog(widget),
                         child: Text(
                           '$hours:$minutes:$seconds',
-                          style: const TextStyle(
-                            fontSize: 43.0,
-                            fontFamily: 'Chewy',
-                            color: Colors.white,
-                            letterSpacing: 3.0,
-                          ),
+                          style: chewyTextStyle.copyWith(fontSize: 42, letterSpacing: 3)
                         ),
                       ),
                     ),
@@ -124,8 +118,7 @@ class _TimerState extends State<Timer> {
                                   contentPadding: const EdgeInsets.fromLTRB(
                                       15.0, 10.0, 5.0, 10.0),
                                   hintText: 'Choose a Module',
-                                  hintStyle: chewyTextStyle.copyWith(
-                                      fontSize: 16.0),
+                                  hintStyle: chewyTextStyle.copyWith(fontSize: 16.0)
                                 ),
                                 icon: const Icon(
                                     Icons.keyboard_arrow_down_sharp),
@@ -141,16 +134,14 @@ class _TimerState extends State<Timer> {
                                 scrollbarThickness: 6,
                                 hint: Text(
                                   'Select a module',
-                                  style: chewyTextStyle.copyWith(
-                                      fontSize: 18.0),
+                                  style: chewyTextStyle.copyWith(fontSize: 18.0)
                                 ),
                                 items: modules.map((module) {
                                   return DropdownMenuItem<String>(
                                     value: module,
                                     child: Text(
                                       module,
-                                      style: chewyTextStyle.copyWith(
-                                          fontSize: 20.0),
+                                      style: chewyTextStyle.copyWith(fontSize: 20.0)
                                     ),
                                   );
                                 }).toList(),
@@ -182,8 +173,7 @@ class _TimerState extends State<Timer> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>
-                                    EditModules(uid: uid)),
+                                MaterialPageRoute(builder: (context) => EditModules(uid: uid)),
                               );
                             },
                           ),
@@ -191,8 +181,7 @@ class _TimerState extends State<Timer> {
                       ],
                     ),
                     const SizedBox(height: 30.0),
-                    !_hideStartButton
-                        ? Container(
+                    !_hideStartButton ? Container(
                       width: 100,
                       height: 40,
                       decoration: largeRadiusRoundedBox,
@@ -208,7 +197,7 @@ class _TimerState extends State<Timer> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  Countdown(duration: currDuration, module: _currentModule!, uid: uid)),
+                                  Countdown(duration: _currDuration, module: _currentModule!, uid: uid)),
                             );
                           }
                         },
