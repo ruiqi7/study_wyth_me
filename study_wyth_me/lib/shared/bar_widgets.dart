@@ -197,6 +197,7 @@ appBar(context, uid) => PreferredSize(
                     child: Text(
                       appUser.username,
                       style: chewyTextStyle.copyWith(fontSize: 27.5),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),

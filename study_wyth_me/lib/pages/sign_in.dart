@@ -49,9 +49,9 @@ class _SignInState extends State<SignIn> {
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
-                        validator: (value) => value!.isEmpty ? 'Enter your email' : null,
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value);
+                          setState(() => email = value.trim());
                         },
                       ),
                       gapBox,
@@ -59,9 +59,9 @@ class _SignInState extends State<SignIn> {
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
-                        validator: (value) => value!.isEmpty ? 'Enter your password' : null,
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your password' : null,
                         onChanged: (value) {
-                          setState(() => password = value);
+                          setState(() => password = value.trim());
                         },
                       )
                     ],

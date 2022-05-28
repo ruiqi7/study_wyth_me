@@ -40,9 +40,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
-                        validator: (value) => value!.isEmpty ? 'Enter your email' : null,
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value);
+                          setState(() => email = value.trim());
                         },
                       )
                     ],

@@ -20,9 +20,15 @@ class ModuleCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                module,
-                style: chewyTextStyle.copyWith(fontSize: 20)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    module,
+                    style: chewyTextStyle.copyWith(fontSize: 20.0),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
               Container(
                 width: 100,

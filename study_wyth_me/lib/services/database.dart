@@ -28,9 +28,9 @@ class DatabaseService {
       await userDatabaseCollection.doc(uid).update({
         'map.$module': 0,
       });
-      return 'Added';
+      return 'Added!';
     } else {
-      return 'Module has already been added';
+      return 'Module has already been added.';
     }
   }
 
