@@ -21,13 +21,18 @@ class Timer extends StatefulWidget {
 
 class _TimerState extends State<Timer> {
 
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
+
   // passed into navigation bar to identify which page we are on
   final _position = 3;
   final Duration _minDuration = const Duration(minutes: 1);
   final _formKey = GlobalKey<FormState>();
 
   bool _hideStartButton = false;
-  Duration _currDuration = const Duration(minutes: 30); // set default duration to 30 minutes
+
+  bool changedDuration = false;
+  late Duration _currDuration;
+
   String? _currentModule;
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoTimerPicker.
@@ -51,8 +56,9 @@ class _TimerState extends State<Timer> {
               child: CupertinoTimerPicker(
                 mode: CupertinoTimerPickerMode.hm,
                 initialTimerDuration: _currDuration,
-                onTimerDurationChanged: (Duration newDuration) {
+                onTimerDurationChanged: (Duration newDuration) async {
                   setState(() => newDuration.compareTo(_minDuration) > 0 ? _currDuration = newDuration : _currDuration = _minDuration);
+                  await DatabaseService(uid: uid).updateDuration(newDuration.inMinutes);
                 },
               ),
             ),
@@ -62,18 +68,23 @@ class _TimerState extends State<Timer> {
 
   @override
   Widget build(BuildContext context) {
-    final hours = _currDuration.inHours.remainder(24).toString().length < 2 ? "0" + _currDuration.inHours.remainder(24).toString() : _currDuration.inHours.remainder(24).toString();
-    final minutes = _currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + _currDuration.inMinutes.remainder(60).toString() : _currDuration.inMinutes.remainder(60).toString();
-    final seconds = _currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + _currDuration.inSeconds.remainder(60).toString() : _currDuration.inSeconds.remainder(60).toString();
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
-
     return StreamBuilder<AppUser>(
       stream: DatabaseService(uid: uid).userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
+
           var modules = [];
           appUser.map.forEach((k, v) => modules.add(k));
+
+          if (!changedDuration) {
+            _currDuration = Duration(minutes: appUser.duration);
+            changedDuration = true;
+          }
+          final hours = _currDuration.inHours.remainder(24).toString().length < 2 ? "0" + _currDuration.inHours.remainder(24).toString() : _currDuration.inHours.remainder(24).toString();
+          final minutes = _currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + _currDuration.inMinutes.remainder(60).toString() : _currDuration.inMinutes.remainder(60).toString();
+          final seconds = _currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + _currDuration.inSeconds.remainder(60).toString() : _currDuration.inSeconds.remainder(60).toString();
+
           return Scaffold(
             backgroundColor: darkBlueBackground,
             appBar: appBar(context, uid),
@@ -91,7 +102,9 @@ class _TimerState extends State<Timer> {
                       ),
                       child: CupertinoButton(
                         // Display a CupertinoTimerPicker with hour/minute mode.
-                        onPressed: () => _showDialog(widget),
+                        onPressed: () {
+                          _showDialog(widget);
+                        },
                         child: Text(
                           '$hours:$minutes:$seconds',
                           style: chewyTextStyle.copyWith(fontSize: 42, letterSpacing: 3)

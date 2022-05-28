@@ -88,7 +88,7 @@ class _CountdownState extends State<Countdown> {
                 onPressed: () async {
                   if (displayDone) {
                     await DatabaseService(uid: widget.uid).updateModule(widget.module, widget.duration.inMinutes);
-                  };
+                  }
                   setState(() {
                     countdownTimer.cancel();
                   });

@@ -37,7 +37,7 @@ class NotificationService {
   Future<void> showNotification(Duration duration, String module) async {
     const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
         'channel ID',
-        'channel name',
+        'Timer',
         importance: Importance.max,
         priority: Priority.high,
         playSound: true
