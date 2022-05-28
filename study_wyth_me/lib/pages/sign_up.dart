@@ -49,18 +49,18 @@ class _SignUpState extends State<SignUp> {
                       TextFormField( // email
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
-                        validator: (value) => value!.isEmpty ? 'Enter your email' : null,
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value);
+                          setState(() => email = value.trim());
                         },
                       ),
                       gapBox,
                       TextFormField( // username
                         decoration: formFieldDeco.copyWith(hintText: 'Username'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
-                        validator: (value) => value!.isEmpty ? 'Enter your username' : null,
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your username' : null,
                         onChanged: (value) {
-                          setState(() => username = value);
+                          setState(() => username = value.trim());
                         },
                       ),
                       gapBox,
@@ -69,16 +69,16 @@ class _SignUpState extends State<SignUp> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value!.trim().isEmpty) {
                             return 'Enter your password';
-                          } else if (value.length < 6) {
+                          } else if (value.trim().length < 6) {
                             return 'Enter at least 6 characters';
                           } else {
                             return null;
                           }
                         },
                         onChanged: (value) {
-                          setState(() => password = value);
+                          setState(() => password = value.trim());
                         },
                       )
                     ],

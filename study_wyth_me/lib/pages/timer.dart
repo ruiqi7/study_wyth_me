@@ -147,10 +147,14 @@ class _TimerState extends State<Timer> {
                                 items: modules.map((module) {
                                   return DropdownMenuItem<String>(
                                     value: module,
-                                    child: Text(
-                                      module,
-                                      style: chewyTextStyle.copyWith(
-                                          fontSize: 20.0),
+                                    child: SizedBox(
+                                      width: 145.0,
+                                      height: 26.0,
+                                      child: Text(
+                                        module,
+                                        style: chewyTextStyle.copyWith(fontSize: 20.0),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   );
                                 }).toList(),

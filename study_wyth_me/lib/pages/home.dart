@@ -139,6 +139,7 @@ class _HomeState extends State<Home> {
                                 child: Text(
                                   appUser.username,
                                   style: chewyTextStyle.copyWith(fontSize: 27.5),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
