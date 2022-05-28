@@ -20,22 +20,25 @@ class Countdown extends StatefulWidget {
   State<Countdown> createState() => _CountdownState();
 }
 
-class _CountdownState extends State<Countdown> {
+class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
   late Timer countdownTimer;
   late Duration currDuration = widget.duration;
   bool displayDone = false;
+  late BuildContext _context;
 
   @override
   void initState() {
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _tick();
     });
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
     countdownTimer.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -53,10 +56,24 @@ class _CountdownState extends State<Countdown> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      countdownTimer.cancel();
+      NotificationService().showPausedNotification(widget.duration, widget.module);
+      Navigator.pop(context);
+    }
+
+    if (state == AppLifecycleState.detached) {
+      countdownTimer.cancel();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final hours = currDuration.inHours.remainder(24).toString().length < 2 ? "0" + currDuration.inHours.remainder(24).toString() : currDuration.inHours.remainder(24).toString();
     final minutes = currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + currDuration.inMinutes.remainder(60).toString() : currDuration.inMinutes.remainder(60).toString();
     final seconds = currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + currDuration.inSeconds.remainder(60).toString() : currDuration.inSeconds.remainder(60).toString();
+    _context = context;
     //startCountdown();
     return Scaffold(
       backgroundColor: darkBlueBackground,

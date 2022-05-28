@@ -69,4 +69,40 @@ class NotificationService {
       platformChannelSpecifics
     );
   }
+
+  Future<void> showPausedNotification(Duration duration, String module) async {
+    const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
+        'channel ID',
+        'channel name',
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true
+    );
+
+    const IOSNotificationDetails _iOSNotificationDetails = IOSNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true
+    );
+
+    NotificationDetails platformChannelSpecifics = const NotificationDetails(
+        android: _androidNotificationDetails,
+        iOS: _iOSNotificationDetails
+    );
+
+    String message;
+    int minutes = duration.inMinutes;
+    if (minutes != 1) {
+      message = '$minutes minutes';
+    } else {
+      message = '$minutes minute';
+    }
+
+    await flutterLocalNotificationsPlugin.show(
+        id,
+        'Study Wyth Me',
+        'Timer of $message for $module has been cancelled!',
+        platformChannelSpecifics
+    );
+  }
 }
