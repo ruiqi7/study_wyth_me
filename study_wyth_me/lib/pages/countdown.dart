@@ -24,7 +24,6 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
   late Timer countdownTimer;
   late Duration currDuration = widget.duration;
   bool displayDone = false;
-  late BuildContext _context;
 
   @override
   void initState() {
@@ -73,8 +72,6 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
     final hours = currDuration.inHours.remainder(24).toString().length < 2 ? "0" + currDuration.inHours.remainder(24).toString() : currDuration.inHours.remainder(24).toString();
     final minutes = currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + currDuration.inMinutes.remainder(60).toString() : currDuration.inMinutes.remainder(60).toString();
     final seconds = currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + currDuration.inSeconds.remainder(60).toString() : currDuration.inSeconds.remainder(60).toString();
-    _context = context;
-    //startCountdown();
     return Scaffold(
       backgroundColor: darkBlueBackground,
       body: Center(
@@ -84,10 +81,10 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
             Text(
               '$hours:$minutes:$seconds',
               style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Chewy',
-                  letterSpacing: 7.0,
-                  fontSize: 60
+                color: Colors.white,
+                fontFamily: 'Chewy',
+                letterSpacing: 7.0,
+                fontSize: 60,
               ),
             ),
             gapBox,
@@ -114,7 +111,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
               ),
             ),
           ],
-        )
+        ),
       ),
     );
   }

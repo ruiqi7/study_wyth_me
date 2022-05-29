@@ -30,7 +30,7 @@ class _ModuleListState extends State<ModuleList> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return ModuleCard(module: list[index], uid: uid);
-            }
+            },
           );
         } else {
           return const Loading();

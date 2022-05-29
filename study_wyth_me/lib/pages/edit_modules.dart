@@ -5,7 +5,7 @@ import '../services/database.dart';
 
 class EditModules extends StatefulWidget {
 
-  const EditModules({ Key? key, required this.uid}) : super(key: key);
+  const EditModules({ Key? key, required this.uid }) : super(key: key);
 
   final String uid;
 

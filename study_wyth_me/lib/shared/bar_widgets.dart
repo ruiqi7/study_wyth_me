@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
 import '../models/app_user.dart';
-import '../pages/loading.dart';
 import '../services/database.dart';
 
 const oswaldTextStyle = TextStyle(
