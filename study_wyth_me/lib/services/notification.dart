@@ -36,7 +36,7 @@ class NotificationService {
 
   Future<void> showNotification(Duration duration, String module) async {
     const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
-        'channel ID',
+        'Channel ID',
         'Timer',
         importance: Importance.max,
         priority: Priority.high,
@@ -72,8 +72,8 @@ class NotificationService {
 
   Future<void> showPausedNotification(Duration duration, String module) async {
     const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
-        'channel ID',
-        'channel name',
+        'Channel ID',
+        'Timer',
         importance: Importance.max,
         priority: Priority.high,
         playSound: true

@@ -86,6 +86,7 @@ class _TimerState extends State<Timer> {
           final seconds = _currDuration.inSeconds.remainder(60).toString().length < 2 ? "0" + _currDuration.inSeconds.remainder(60).toString() : _currDuration.inSeconds.remainder(60).toString();
 
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: darkBlueBackground,
             appBar: appBar(context, uid),
             body: Center(
