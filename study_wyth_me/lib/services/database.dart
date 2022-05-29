@@ -66,6 +66,27 @@ class DatabaseService {
     return userDatabaseCollection.snapshots();
   }
 
+  Stream<List<AppUser>> get userLeaderboardStream {
+    return userDatabaseCollection
+        .orderBy("points")
+        .limit(20)
+        .snapshots()
+        .map(_userDataListFromSnapshot);
+  }
+
+  List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc){
+      return AppUser(
+          uid: doc.data().toString().contains('uid') ? doc.get('uid') : '',
+          username: doc.get('username'),
+          map: doc.get('map'),
+          url: doc.get('url'),
+          points: doc.get('points'),
+          duration: doc.get('duration'),
+      );
+    }).toList();
+  }
+
   //get user document stream
   Stream<AppUser> get userData {
     return userDatabaseCollection.doc(uid).snapshots().map<AppUser>(
