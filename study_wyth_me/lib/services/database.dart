@@ -66,14 +66,6 @@ class DatabaseService {
     return userDatabaseCollection.snapshots();
   }
 
-//void updateAppUser(AppUser appUser) async {
-  //  await userDatabaseCollection.doc(appUser.referenceId).update(appUser.toJson());
-  //}
-  // 5
-  //void deleteAppUser(AppUser appUser) async {
-  //  await userDatabaseCollection.doc(appUser.referenceId).delete();
-  //}
-
   //get user document stream
   Stream<AppUser> get userData {
     return userDatabaseCollection.doc(uid).snapshots().map<AppUser>(
@@ -93,19 +85,4 @@ class DatabaseService {
       duration: data?['duration']
     );
   }
-
-//read current userData
-//AppUser getAppUser() {
-//  final docRef = userDatabaseCollection.doc(uid);
-//  AppUser appUser;
-//  docRef.get().then(
-//    (DocumentSnapshot doc) {
-//      final data = doc.data() as Map<String, dynamic>;
-//      return AppUser(
-//        username: data['username'],
-//      );
-//    }, onError: (e) => print("Error getting document: $e"),
-//  );
-//  return appUser;
-//}
 }

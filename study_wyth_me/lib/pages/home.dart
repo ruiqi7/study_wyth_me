@@ -34,33 +34,32 @@ class _HomeState extends State<Home> {
     int size = appUser.map.length;
     if (hours == 0) {
       list.add(PieChartSectionData(
-          radius: 70,
-          color: Colors.blue[700],
-          value: 1,
-          title: "Use Study Timer to get started!",
-          titlePositionPercentageOffset: -1.15,
-          titleStyle: chewyTextStyle.copyWith(fontSize: 20).apply(
-              backgroundColor: whiteOpacity20)
+        radius: 70,
+        color: Colors.blue[700],
+        value: 1,
+        title: "Use Study Timer to get started!",
+        titlePositionPercentageOffset: -1.15,
+        titleStyle: chewyTextStyle.copyWith(fontSize: 20).apply(backgroundColor: whiteOpacity20)
       ));
     } else if (size == 1) {
       list.add(PieChartSectionData(
-          radius: 70,
-          color: Colors.blue[700],
-          value: 1,
-          title: appUser.map.keys.first,
-          titleStyle: chewyTextStyle.copyWith(fontSize: 20),
+        radius: 70,
+        color: Colors.blue[700],
+        value: 1,
+        title: appUser.map.keys.first,
+        titleStyle: chewyTextStyle.copyWith(fontSize: 20),
       ));
     } else {
       double incrementer = (900 - 500) / (size - 1);
       for (MapEntry<String, dynamic> e in appUser.map.entries) {
         list.add(
-            PieChartSectionData(
-              radius: 70,
-              color: Colors.blue[(500 + index * incrementer).ceil()],
-              value: e.value.toDouble(),
-              title: e.key,
-              titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-            )
+          PieChartSectionData(
+            radius: 70,
+            color: Colors.blue[(500 + index * incrementer).ceil()],
+            value: e.value.toDouble(),
+            title: e.key,
+            titleStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+          )
         );
         index++;
       }
@@ -71,7 +70,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    //final CustomUser customUser = Provider.of<CustomUser>(context);
     final User? authUser = FirebaseAuth.instance.currentUser;
     if (authUser == null) {
       return const Loading();

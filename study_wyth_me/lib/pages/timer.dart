@@ -30,7 +30,7 @@ class _TimerState extends State<Timer> {
 
   bool _hideStartButton = false;
 
-  bool changedDuration = false;
+  bool _changedDuration = false;
   late Duration _currDuration;
 
   String? _currentModule;
@@ -77,9 +77,9 @@ class _TimerState extends State<Timer> {
           var modules = [];
           appUser.map.forEach((k, v) => modules.add(k));
 
-          if (!changedDuration) {
+          if (!_changedDuration) {
             _currDuration = Duration(minutes: appUser.duration);
-            changedDuration = true;
+            _changedDuration = true;
           }
           final hours = _currDuration.inHours.remainder(24).toString().length < 2 ? "0" + _currDuration.inHours.remainder(24).toString() : _currDuration.inHours.remainder(24).toString();
           final minutes = _currDuration.inMinutes.remainder(60).toString().length < 2 ? "0" + _currDuration.inMinutes.remainder(60).toString() : _currDuration.inMinutes.remainder(60).toString();

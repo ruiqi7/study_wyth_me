@@ -61,8 +61,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                     textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
                   child: const Text(
-                      'Send Password Reset Email',
-                      textAlign: TextAlign.center,
+                    'Send Password Reset Email',
+                    textAlign: TextAlign.center,
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

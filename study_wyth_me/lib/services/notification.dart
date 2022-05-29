@@ -25,8 +25,8 @@ class NotificationService {
 
     // InitializationSettings for initializing settings for both Android and iOS
     const InitializationSettings initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsIOS
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS
     );
 
     await flutterLocalNotificationsPlugin.initialize(
@@ -36,22 +36,22 @@ class NotificationService {
 
   Future<void> showNotification(Duration duration, String module) async {
     const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
-        'Channel ID',
-        'Timer',
-        importance: Importance.max,
-        priority: Priority.high,
-        playSound: true
+      'Channel ID',
+      'Timer',
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true
     );
 
     const IOSNotificationDetails _iOSNotificationDetails = IOSNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true
     );
 
     NotificationDetails platformChannelSpecifics = const NotificationDetails(
-        android: _androidNotificationDetails,
-        iOS: _iOSNotificationDetails
+      android: _androidNotificationDetails,
+      iOS: _iOSNotificationDetails
     );
 
     String message;
@@ -72,22 +72,22 @@ class NotificationService {
 
   Future<void> showPausedNotification(Duration duration, String module) async {
     const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
-        'Channel ID',
-        'Timer',
-        importance: Importance.max,
-        priority: Priority.high,
-        playSound: true
+      'Channel ID',
+      'Timer',
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true
     );
 
     const IOSNotificationDetails _iOSNotificationDetails = IOSNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true
     );
 
     NotificationDetails platformChannelSpecifics = const NotificationDetails(
-        android: _androidNotificationDetails,
-        iOS: _iOSNotificationDetails
+      android: _androidNotificationDetails,
+      iOS: _iOSNotificationDetails
     );
 
     String message;
@@ -99,10 +99,10 @@ class NotificationService {
     }
 
     await flutterLocalNotificationsPlugin.show(
-        id,
-        'Study Wyth Me',
-        'Timer of $message for $module has been cancelled!',
-        platformChannelSpecifics
+      id,
+      'Study Wyth Me',
+      'Timer of $message for $module has been cancelled!',
+      platformChannelSpecifics
     );
   }
 }
