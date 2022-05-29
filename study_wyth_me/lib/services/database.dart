@@ -66,9 +66,10 @@ class DatabaseService {
     return userDatabaseCollection.snapshots();
   }
 
+  //get userDatabase stream of top 20 users within the community
   Stream<List<AppUser>> get userLeaderboardStream {
     return userDatabaseCollection
-        .orderBy("points")
+        .orderBy("points", descending: true)
         .limit(20)
         .snapshots()
         .map(_userDataListFromSnapshot);
@@ -81,7 +82,7 @@ class DatabaseService {
           username: doc.get('username'),
           map: doc.get('map'),
           url: doc.get('url'),
-          points: doc.get('points'),
+          points: doc.data().toString().contains('points') ? doc.get('points') : '',
           duration: doc.get('duration'),
       );
     }).toList();

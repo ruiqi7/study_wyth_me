@@ -28,17 +28,32 @@ class UserCard extends StatelessWidget {
         SizedBox(
           height: 50,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               //insert the three text widgets
-              Text(
-                getRank(),
-                style: norwesterTextStyle.copyWith(fontSize: 28),
+              SizedBox(
+                width: 40,
+                child: Text(
+                  getRank(),
+                  style: norwesterTextStyle.copyWith(fontSize: 28),
+                ),
               ),
+              const SizedBox(width: 20),
+              CircleAvatar(
+                radius: 25.0,
+                backgroundImage: NetworkImage(appUser.url),
+              ),
+              const SizedBox(width: 10),
               Text(
                 appUser.username,
                 style: chewyTextStyle.copyWith(fontSize: 20),
               ),
+              const Spacer(),
+              Text(
+                appUser.points.toString(),
+                style: norwesterTextStyle.copyWith(fontSize: 20),
+              )
             ],
           ),
         ),
