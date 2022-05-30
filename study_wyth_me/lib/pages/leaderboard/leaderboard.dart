@@ -20,7 +20,19 @@ class _LeaderboardState extends State<Leaderboard> {
 
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   final _position = 4;
-  bool _isContainer = true;
+  bool _isCommunity = true;
+
+  Widget displayBoard(List<String> list) {
+    if (list.isNotEmpty) {
+      return StreamProvider<List<AppUser>>.value(
+        value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
+        initialData: const [],
+        child: const Expanded(child: LeaderboardList()),
+      );
+    } else {
+      return const SizedBox(height: 10);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +41,9 @@ class _LeaderboardState extends State<Leaderboard> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
+          List<dynamic> friendsUsername = appUser.friendsUsername;
+          List<String> list = [];
+          friendsUsername.forEach((e) {list.add(e.toString());});
           return Scaffold(
             backgroundColor: darkBlueBackground,
             appBar: appBar(context, uid),
@@ -99,15 +114,15 @@ class _LeaderboardState extends State<Leaderboard> {
                           child: Container(
                             height: 48,
                             width: 143,
-                            color: _isContainer ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
+                            color: _isCommunity ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
                             child: TextButton(
                               child: Text(
                                 'Community',
                                 style: chewyTextStyle.copyWith(fontSize: 21),
                               ),
                               onPressed: () {
-                                if (!_isContainer) {
-                                  print("going community");
+                                if (!_isCommunity) {
+                                  setState(() => _isCommunity = !_isCommunity);
                                 }
                               },
                             )
@@ -117,15 +132,15 @@ class _LeaderboardState extends State<Leaderboard> {
                           child: Container(
                             height: 48,
                             width: 143,
-                            color: !_isContainer ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
+                            color: !_isCommunity ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
                             child: TextButton(
                               child: Text(
                                 'Friends',
                                 style: chewyTextStyle.copyWith(fontSize: 21),
                               ),
                               onPressed: () {
-                                if (_isContainer) {
-                                  print("going friends");
+                                if (_isCommunity) {
+                                  setState(() => _isCommunity = !_isCommunity);
                                 }
                               },
                             )
@@ -136,11 +151,10 @@ class _LeaderboardState extends State<Leaderboard> {
                   ),
                   gapBox,
                   horizontalDivider,
-                  StreamProvider<List<AppUser>>.value(
-                    value: DatabaseService(uid: uid).userLeaderboardStream,
-                    initialData: const [],
-                    child: const Expanded(child: LeaderboardList()),
-                  )
+                  displayBoard(list),
+                  Text(
+                    !_isCommunity ? 'yolo' : ''
+                  ),
                 ],
               ),
             ),
