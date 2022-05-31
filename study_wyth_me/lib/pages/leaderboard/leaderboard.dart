@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_wyth_me/main.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import '../../services/database.dart';
 import '../../shared/bar_widgets.dart';
 import '../../shared/constants.dart';
 import '../loading.dart';
+import 'edit_friends.dart';
 import 'leaderboard_list.dart';
 
 class Leaderboard extends StatefulWidget {
@@ -22,18 +22,6 @@ class _LeaderboardState extends State<Leaderboard> {
   final _position = 4;
   bool _isCommunity = true;
 
-  Widget displayBoard(List<String> list) {
-    if (list.isNotEmpty) {
-      return StreamProvider<List<AppUser>>.value(
-        value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
-        initialData: const [],
-        child: const Expanded(child: LeaderboardList()),
-      );
-    } else {
-      return const SizedBox(height: 10);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<AppUser>(
@@ -43,7 +31,9 @@ class _LeaderboardState extends State<Leaderboard> {
           AppUser appUser = snapshot.data!;
           List<dynamic> friendsUsername = appUser.friendsUsername;
           List<String> list = [];
-          friendsUsername.forEach((e) {list.add(e.toString());});
+          for (var e in friendsUsername) {
+            list.add(e.toString());
+          }
           return Scaffold(
             backgroundColor: darkBlueBackground,
             appBar: appBar(context, uid),
@@ -151,9 +141,33 @@ class _LeaderboardState extends State<Leaderboard> {
                   ),
                   gapBox,
                   horizontalDivider,
-                  displayBoard(list),
-                  Text(
-                    !_isCommunity ? 'yolo' : ''
+                  StreamProvider<List<AppUser>>.value(
+                    value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
+                    initialData: const [],
+                    child: const Expanded(child: LeaderboardList()),
+                  ),
+                  !_isCommunity ? Container(
+                    width: 200,
+                    height: 40,
+                    decoration: largeRadiusRoundedBox,
+                    child: TextButton(
+                      child: const Text('Add a new friend!'),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(5.0),
+                        primary: Colors.white,
+                        textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const EditFriends())
+                        );
+                      },
+                    ),
+                  )
+                      : const SizedBox(
+                    width: 100,
+                    height: 40,
                   ),
                 ],
               ),
