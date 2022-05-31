@@ -6,6 +6,7 @@ class AppUser {
   final String url;
   final dynamic points;
   final dynamic duration;
+  final List<dynamic> friendsUsername;
 
   AppUser({
     required this.uid,
@@ -13,6 +14,7 @@ class AppUser {
     required this.map,
     required this.url,
     required this.points,
-    required this.duration
+    required this.duration,
+    required this.friendsUsername,
   });
 }
