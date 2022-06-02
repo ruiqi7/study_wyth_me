@@ -27,7 +27,13 @@ const TextStyle chewyTextStyle = TextStyle(
 
 const TextStyle norwesterTextStyle = TextStyle(
   fontFamily: 'Norwester',
-  color: Colors.white
+  color: Colors.white,
+);
+
+const TextStyle oswaldTextStyle = TextStyle(
+  fontFamily: 'Oswald',
+  letterSpacing: 0.5,
+  height: 1.2,
 );
 
 backButton(context) => Container(
@@ -93,6 +99,20 @@ backIcon(context) => IconButton(
   onPressed: () {
     Navigator.pop(context);
   },
+);
+
+closeIcon(context) => Container(
+  margin: const EdgeInsets.only(bottom: 10.0),
+  child: IconButton(
+    icon: const Icon(
+      Icons.close,
+      color: Colors.white,
+      size: 45,
+    ),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
 );
 
 const horizontalDivider = Divider(color: Colors.white);

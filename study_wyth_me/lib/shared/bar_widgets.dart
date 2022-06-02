@@ -4,7 +4,7 @@ import 'package:study_wyth_me/shared/constants.dart';
 import '../models/app_user.dart';
 import '../services/database.dart';
 
-const oswaldTextStyle = TextStyle(
+const oswaldText = TextStyle(
   fontFamily: 'Oswald',
   fontSize: 12.5,
   color: Colors.white
@@ -38,7 +38,7 @@ navigationBar(context, position) => SafeArea(
                         ),
                         Text(
                           'Home',
-                          style: oswaldTextStyle,
+                          style: oswaldText,
                         )
                       ],
                     ),
@@ -65,8 +65,8 @@ navigationBar(context, position) => SafeArea(
                           color: Colors.white,
                         ),
                         Text(
-                          'Forum',
-                          style: oswaldTextStyle,
+                          'forum',
+                          style: oswaldText,
                         )
                       ],
                     ),
@@ -94,7 +94,7 @@ navigationBar(context, position) => SafeArea(
                         ),
                         Text(
                           'Study Timer',
-                          style: oswaldTextStyle,
+                          style: oswaldText,
                         )
                       ],
                     ),
@@ -122,7 +122,7 @@ navigationBar(context, position) => SafeArea(
                         ),
                         Text(
                           'Leaderboard',
-                          style: oswaldTextStyle,
+                          style: oswaldText,
                         )
                       ],
                     ),
@@ -150,7 +150,7 @@ navigationBar(context, position) => SafeArea(
                         ),
                         Text(
                           'Mythics',
-                          style: oswaldTextStyle,
+                          style: oswaldText,
                         )
                       ],
                     ),
@@ -210,6 +210,22 @@ appBar(context, uid) => PreferredSize(
           }
         }
       ),
+    ),
+  ),
+);
+
+topBarWithBackButton(context) => SafeArea(
+  child: Container(
+    padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
+    color: whiteOpacity20,
+    height: 75.0,
+    child: Row(
+      children: <Widget>[
+        backIcon(context),
+        const Expanded(
+          child: SizedBox(),
+        ),
+      ],
     ),
   ),
 );

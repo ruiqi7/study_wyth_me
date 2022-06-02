@@ -17,15 +17,23 @@ class Authentication {
   }
 
   // sign up
-  Future customSignUp(String email, String username, String password) async {
+  Future<String> customSignUp(String email, String username, String password) async {
     try {
-      UserCredential result = await _authenticate.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _authenticate
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       // create a new document for the user with the uid
       await DatabaseService(uid: result.user!.uid).createNewUser(username);
-      return _getCustomUser(result.user);
+      return '';
+    } on FirebaseAuthException catch (authException) {
+      String error = authException.code;
+      if (error == 'email-already-in-use') {
+        return 'There exists an account with this email.';
+      } else {
+        return 'Please try again.';
+      }
     } catch (exception) {
-      return null;
+      return 'Please try again.';
     }
   }
 
@@ -45,6 +53,24 @@ class Authentication {
       return await _authenticate.signOut();
     } catch (exception) {
       return null;
+    }
+  }
+
+  Future<String> customResetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return 'Email sent!';
+    } on FirebaseAuthException catch (authException) {
+      String error = authException.code;
+      if (error == 'invalid-email') {
+        return 'Invalid email.';
+      } else if (error == 'user-not-found') {
+        return 'No account found with that email.';
+      } else {
+        return 'Please try again.';
+      }
+    } catch (exception) {
+      return 'Please try again.';
     }
   }
 }
