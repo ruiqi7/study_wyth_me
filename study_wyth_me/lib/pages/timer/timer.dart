@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:study_wyth_me/pages/edit_modules.dart';
+import 'package:study_wyth_me/pages/timer/edit_modules.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-import '../models/app_user.dart';
-import '../services/database.dart';
+import '../../models/app_user.dart';
+import '../../services/database.dart';
 import 'countdown.dart';
-import 'loading.dart';
+import '../loading.dart';
 
 
 class Timer extends StatefulWidget {

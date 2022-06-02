@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/loading.dart';
 
-import '../models/app_user.dart';
-import '../services/database.dart';
+import '../../models/app_user.dart';
+import '../../services/database.dart';
 import 'module_card.dart';
 
 class ModuleList extends StatefulWidget {

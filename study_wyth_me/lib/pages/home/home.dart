@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/pages/main_menu.dart';
+import 'package:study_wyth_me/pages/menu/main_menu.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-import '../models/app_user.dart';
-import '../services/database.dart';
+import '../../models/app_user.dart';
+import '../../services/database.dart';
 import 'edit_profile.dart';
-import 'loading.dart';
+import '../loading.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
