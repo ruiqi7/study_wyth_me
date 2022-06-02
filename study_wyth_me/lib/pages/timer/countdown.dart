@@ -3,7 +3,7 @@ import 'package:study_wyth_me/services/notification.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'dart:async';
 
-import '../services/database.dart';
+import '../../services/database.dart';
 
 class Countdown extends StatefulWidget {
   final Duration duration;

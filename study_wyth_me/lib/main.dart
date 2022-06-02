@@ -6,12 +6,12 @@ import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/pages/authentication_wrapper.dart';
 import 'package:study_wyth_me/pages/forum/forum.dart';
 import 'package:study_wyth_me/pages/leaderboard/leaderboard.dart';
-import 'package:study_wyth_me/pages/mythics.dart';
+import 'package:study_wyth_me/pages/mythics/mythics.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:study_wyth_me/services/notification.dart';
 import 'firebase_options.dart';
-import 'package:study_wyth_me/pages/home.dart';
-import 'package:study_wyth_me/pages/timer.dart';
+import 'package:study_wyth_me/pages/home/home.dart';
+import 'package:study_wyth_me/pages/timer/timer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

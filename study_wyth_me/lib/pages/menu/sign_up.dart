@@ -1,44 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/pages/reset_password.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
-import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 
-import 'loading.dart';
+import '../loading.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
 
   final Authentication _authenticate = Authentication();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // values of the form fields
-  String email = '';
-  String password = '';
+  String _email = '';
+  String _username = '';
+  String _password = '';
 
-  // invalid sign in error message
-  String error = '';
+  // invalid sign up error message
+  String _error = '';
 
   // determines whether to display loading screen
-  bool loading = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return loading ? const Loading() : Scaffold(
+    return _loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
-              const ChewyHeaderText(text: 'Sign In'),
+              const ChewyHeaderText(text: 'Sign Up'),
               gapBox,
               Form(
                 key: _formKey,
@@ -51,7 +50,16 @@ class _SignInState extends State<SignIn> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value.trim());
+                          setState(() => _email = value.trim());
+                        },
+                      ),
+                      gapBox,
+                      TextFormField( // username
+                        decoration: formFieldDeco.copyWith(hintText: 'Username'),
+                        style: chewyTextStyle.copyWith(fontSize: 18.0),
+                        validator: (value) => value!.trim().isEmpty ? 'Enter your username' : null,
+                        onChanged: (value) {
+                          setState(() => _username = value.trim());
                         },
                       ),
                       gapBox,
@@ -59,9 +67,17 @@ class _SignInState extends State<SignIn> {
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
-                        validator: (value) => value!.trim().isEmpty ? 'Enter your password' : null,
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return 'Enter your password';
+                          } else if (value.trim().length < 6) {
+                            return 'Enter at least 6 characters';
+                          } else {
+                            return null;
+                          }
+                        },
                         onChanged: (value) {
-                          setState(() => password = value.trim());
+                          setState(() => _password = value.trim());
                         },
                       )
                     ],
@@ -79,14 +95,14 @@ class _SignInState extends State<SignIn> {
                     primary: Colors.white,
                     textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
-                  child: const Text('Login'),
+                  child: const Text('Sign Up!'),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      CustomUser? result = await _authenticate.customSignIn(email, password);
-                      if (result == null) {
-                        setState(() => error = 'Invalid email and / or password.');
+                      String message = await _authenticate.customSignUp(_email, _username, _password);
+                      if (message.isNotEmpty) {
+                        setState(() => _error = message);
                       } else {
-                        setState(() => loading = true);
+                        setState(() => _loading = true);
                         Navigator.pop(context);
                       }
                     }
@@ -94,35 +110,10 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               gapBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget> [
-                  Container(
-                    width: 200,
-                    height: 40,
-                    decoration: largeRadiusRoundedBox,
-                    child: TextButton(
-                      child: const Text('Forgot Password?'),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(5.0),
-                        primary: Colors.white,
-                        textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const ResetPassword())
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 15.0),
-                  backButton(context)
-                ],
-              ),
+              backButton(context),
               const SizedBox(height: 10.0),
               Text(
-                error,
+                _error,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,

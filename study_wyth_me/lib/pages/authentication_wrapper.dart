@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
-import 'package:study_wyth_me/pages/home.dart';
-import 'package:study_wyth_me/pages/main_menu.dart';
+import 'package:study_wyth_me/pages/home/home.dart';
+import 'package:study_wyth_me/pages/menu/main_menu.dart';
 
 // direct to the MainMenu() or Home() depending on whether user is signed in
 class AuthenticationWrapper extends StatelessWidget {

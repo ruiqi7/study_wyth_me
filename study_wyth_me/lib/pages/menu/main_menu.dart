@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-import 'package:study_wyth_me/pages/about.dart';
-import 'package:study_wyth_me/pages/sign_in.dart';
-import 'package:study_wyth_me/pages/sign_up.dart';
+import 'package:study_wyth_me/pages/menu/about.dart';
+import 'package:study_wyth_me/pages/menu/sign_in.dart';
+import 'package:study_wyth_me/pages/menu/sign_up.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({Key? key}) : super(key: key);

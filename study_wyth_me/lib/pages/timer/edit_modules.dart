@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/pages/module_list.dart';
+import 'package:study_wyth_me/pages/timer/module_list.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-import '../services/database.dart';
+import '../../services/database.dart';
 
 class EditModules extends StatefulWidget {
 
