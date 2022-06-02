@@ -19,6 +19,7 @@ class DatabaseService {
       'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
       'points': 0,
       'duration': 30,
+      'friendsUsername': [username],
     });
   }
 
@@ -66,6 +67,39 @@ class DatabaseService {
     return userDatabaseCollection.snapshots();
   }
 
+  //get userDatabase stream of top 20 users within the community
+  Stream<List<AppUser>> userLeaderboardStream(bool isCommunity, List<String> list) {
+    if (isCommunity) {
+      return userDatabaseCollection
+          .orderBy("points", descending: true)
+          .limit(20)
+          .snapshots()
+          .map(_userDataListFromSnapshot);
+    } else {
+      return userDatabaseCollection
+          .where("username", whereIn: list)
+          .orderBy("points", descending: true)
+          .limit(20)
+          .snapshots()
+          .map(_userDataListFromSnapshot);
+    }
+
+  }
+
+  List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return AppUser(
+        uid: doc.data().toString().contains('uid') ? doc.get('uid') : '',
+        username: doc.get('username'),
+        map: doc.get('map'),
+        url: doc.get('url'),
+        points: doc.data().toString().contains('points') ? doc.get('points') : '',
+        duration: doc.get('duration'),
+        friendsUsername: doc.data().toString().contains('friendsUsername') ? doc.get('friendsUsername'): [],
+      );
+    }).toList();
+  }
+
   //get user document stream
   Stream<AppUser> get userData {
     return userDatabaseCollection.doc(uid).snapshots().map<AppUser>(
@@ -82,7 +116,8 @@ class DatabaseService {
       map: data?['map'],
       url: data?['url'],
       points: data?['points'],
-      duration: data?['duration']
+      duration: data?['duration'],
+      friendsUsername: data?['friendsUsername'],
     );
   }
 }
