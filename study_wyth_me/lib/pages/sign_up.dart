@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
-import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 
 import 'loading.dart';
@@ -19,19 +18,19 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // values of the form fields
-  String email = '';
-  String username = '';
-  String password = '';
+  String _email = '';
+  String _username = '';
+  String _password = '';
 
   // invalid sign up error message
-  String error = '';
+  String _error = '';
 
   // determines whether to display loading screen
-  bool loading = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return loading ? const Loading() : Scaffold(
+    return _loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
       body: SafeArea(
         child: Center(
@@ -51,7 +50,7 @@ class _SignUpState extends State<SignUp> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value.trim());
+                          setState(() => _email = value.trim());
                         },
                       ),
                       gapBox,
@@ -60,7 +59,7 @@ class _SignUpState extends State<SignUp> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your username' : null,
                         onChanged: (value) {
-                          setState(() => username = value.trim());
+                          setState(() => _username = value.trim());
                         },
                       ),
                       gapBox,
@@ -78,7 +77,7 @@ class _SignUpState extends State<SignUp> {
                           }
                         },
                         onChanged: (value) {
-                          setState(() => password = value.trim());
+                          setState(() => _password = value.trim());
                         },
                       )
                     ],
@@ -99,11 +98,11 @@ class _SignUpState extends State<SignUp> {
                   child: const Text('Sign Up!'),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      CustomUser? result = await _authenticate.customSignUp(email, username, password);
-                      if (result == null) {
-                        setState(() => error = 'Please try again.');
+                      String message = await _authenticate.customSignUp(_email, _username, _password);
+                      if (message.isNotEmpty) {
+                        setState(() => _error = message);
                       } else {
-                        setState(() => loading = true);
+                        setState(() => _loading = true);
                         Navigator.pop(context);
                       }
                     }
@@ -114,7 +113,7 @@ class _SignUpState extends State<SignUp> {
               backButton(context),
               const SizedBox(height: 10.0),
               Text(
-                error,
+                _error,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,

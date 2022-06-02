@@ -43,10 +43,7 @@ class _EditProfileState extends State<EditProfile> {
               height: 75.0,
               child: Row(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: backIcon(context),
-                  ),
+                  closeIcon(context),
                   const Expanded(
                     child: SizedBox(),
                   ),

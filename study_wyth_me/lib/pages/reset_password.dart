@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/services/authentication.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 
@@ -12,6 +12,7 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
 
+  final Authentication _authenticate = Authentication();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // value of the form field
@@ -66,19 +67,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      try {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-                        setState(() => message = 'Email sent!');
-                      } on FirebaseAuthException catch (authException) {
-                        String error = authException.code;
-                        if (error == 'invalid-email') {
-                          setState(() => message = 'Invalid email.');
-                        } else if (error == 'user-not-found') {
-                          setState(() => message = 'No account found with that email.');
-                        }
-                      } catch (exception) {
-                        setState(() => message = 'Please try again.');
-                      }
+                      String status = await _authenticate.customResetPassword(email);
+                      setState(() => message = status);
                     }
                   },
                 ),
