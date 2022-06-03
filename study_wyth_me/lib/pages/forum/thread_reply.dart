@@ -35,21 +35,18 @@ class _ThreadReplyState extends State<ThreadReply> {
             constraints: const BoxConstraints(
               maxHeight: 230,
             ),
-            child: Scrollbar(
-              radius: const Radius.circular(10.0),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: <Widget> [
-                    widget.mainPost,
-                    widget.hasReplyPost
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: widget.replyPost,
-                        )
-                      : widget.replyPost,
-                  ],
-                ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: <Widget> [
+                  widget.mainPost,
+                  widget.hasReplyPost
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: widget.replyPost,
+                      )
+                    : widget.replyPost,
+                ],
               ),
             ),
           ),
