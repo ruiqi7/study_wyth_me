@@ -141,33 +141,43 @@ class _LeaderboardState extends State<Leaderboard> {
                   ),
                   gapBox,
                   horizontalDivider,
-                  StreamProvider<List<AppUser>>.value(
-                    value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
-                    initialData: const [],
-                    child: const Expanded(child: LeaderboardList()),
-                  ),
-                  !_isCommunity ? Container(
-                    width: 200,
-                    height: 40,
-                    decoration: largeRadiusRoundedBox,
-                    child: TextButton(
-                      child: const Text('Add a new friend!'),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(5.0),
-                        primary: Colors.white,
-                        textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const EditFriends())
-                        );
-                      },
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        StreamProvider<List<AppUser>>.value(
+                          value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
+                          initialData: const [],
+                          child: const Flexible(
+                            child: LeaderboardList()
+                          ),
+                        ),
+                        !_isCommunity ? Container(
+                          width: 200,
+                          height: 40,
+                          margin: const EdgeInsets.symmetric(vertical: 15.0),
+                          decoration: largeRadiusRoundedBox,
+                          child: TextButton(
+                            child: const Text('Add a new friend!'),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(5.0),
+                              primary: Colors.white,
+                              textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const EditFriends())
+                              );
+                            },
+                          ),
+                        )
+                            : const SizedBox(
+                          width: 100,
+                          height: 40,
+                        ),
+                      ],
                     ),
-                  )
-                      : const SizedBox(
-                    width: 100,
-                    height: 40,
                   ),
                 ],
               ),

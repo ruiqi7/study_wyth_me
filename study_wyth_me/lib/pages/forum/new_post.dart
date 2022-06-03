@@ -75,13 +75,13 @@ class _NewPostState extends State<NewPost> {
             child: Expanded(
               child: Container(
                 margin: const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 15.0),
-                color: const Color.fromRGBO(255, 255, 255, 0.10),
+                color: whiteOpacity10,
                 child: Column(
                   children: <Widget> [
                     Container(
                       margin: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 4.0),
                       child: TextFormField( // title
-                        decoration: formFieldDeco.copyWith(hintText: 'Add Title'),
+                        decoration: forumFormFieldDeco.copyWith(hintText: 'Add Title'),
                         style: oswaldTextStyle.copyWith(fontSize: 23.5, color: Colors.white),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your title' : null,
                         onChanged: (value) {
@@ -96,7 +96,7 @@ class _NewPostState extends State<NewPost> {
                         child: SingleChildScrollView(
                           child: TextFormField( // text
                             maxLines: null,
-                            decoration: formFieldDeco.copyWith(hintText: 'Add Text...'),
+                            decoration: forumFormFieldDeco.copyWith(hintText: 'Add Text...'),
                             style: oswaldTextStyle.copyWith(fontSize: 20.0, color: Colors.white),
                             validator: (value) => value!.trim().isEmpty ? 'Enter your text' : null,
                             onChanged: (value) {
