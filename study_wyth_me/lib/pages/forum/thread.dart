@@ -137,10 +137,10 @@ class _ThreadState extends State<Thread> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkBlueBackground,
+      appBar: topBarWithBackButton(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          topBarWithBackButton(context),
           Expanded(
             child: Scrollbar(
               radius: const Radius.circular(10.0),
