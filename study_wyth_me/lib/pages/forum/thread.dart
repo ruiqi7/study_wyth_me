@@ -13,7 +13,7 @@ class Thread extends StatefulWidget {
 
 _mainPost(context) => Container(
   decoration: const BoxDecoration(
-    color: Color.fromRGBO(255, 255, 255, 0.10),
+    color: whiteOpacity10,
   ),
   child: Column(
     children: <Widget> [
@@ -55,7 +55,7 @@ _mainPost(context) => Container(
           const SizedBox(width: 5.0),
         ],
       ),
-      const Divider(color: Colors.white, height: 0.0),
+      noHeightHorizontalDivider,
       SizedBox(
         height: 35.0,
         child: Row(
@@ -117,7 +117,8 @@ _mainPost(context) => Container(
                     MaterialPageRoute(builder:
                       (context) => ThreadReply(
                           mainPost: _mainPost(context),
-                          replyPost: const SizedBox(width: 0.0, height: 0.0)
+                          replyPost: const SizedBox(width: 0.0, height: 0.0),
+                          hasReplyPost: false,
                       )
                     )
                   );

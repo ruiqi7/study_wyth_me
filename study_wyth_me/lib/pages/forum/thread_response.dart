@@ -22,7 +22,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
         Container(
           margin: const EdgeInsets.all(0.0),
           decoration: BoxDecoration(
-            color: widget.position == 1 ? const Color.fromRGBO(255, 255, 255, 0.10) : Colors.transparent,
+            color: widget.position == 1 ? whiteOpacity10 : Colors.transparent,
           ),
           child: IntrinsicHeight(
             child: Row(
@@ -64,7 +64,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget> [
                         Container(
-                          padding: const EdgeInsets.only(left: 10.0, top: 25.0, bottom: 15.0, right: 5.0),
+                          padding: const EdgeInsets.fromLTRB(10.0, 25.0, 5.0, 15.0),
                           child: Text(
                             'AStudentWhoSurvived replied 1 hour ago',
                             style: oswaldTextStyle.copyWith(fontSize: 9.0, color: Colors.grey),
@@ -142,7 +142,8 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                   position: 1,
                                                   nextIsInner: true,
                                                   mainPost: widget.mainPost,
-                                              )
+                                              ),
+                                              hasReplyPost: true,
                                           )
                                         )
                                     );

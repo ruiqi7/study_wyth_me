@@ -4,8 +4,9 @@ import 'bar_widgets.dart';
 
 const darkBlueBackground = Color.fromRGBO(0, 34, 75, 1.0);
 
+const whiteOpacity10 = Color.fromRGBO(255, 255, 255, 0.10);
 const whiteOpacity15 = Color.fromRGBO(255, 255, 255, 0.15);
-const whiteOpacity20 = Color.fromRGBO(255, 255, 255, 0.2);
+const whiteOpacity20 = Color.fromRGBO(255, 255, 255, 0.20);
 
 const SizedBox gapBox = SizedBox(height: 15);
 
@@ -90,6 +91,23 @@ const InputDecoration formFieldDeco = InputDecoration(
   contentPadding: EdgeInsets.all(10.0),
 );
 
+const InputDecoration forumFormFieldDeco = InputDecoration(
+  hintStyle: TextStyle(color: Colors.white),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.transparent,
+    ),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.transparent,
+      width: 2.0,
+    ),
+  ),
+  isDense: true,
+  contentPadding: EdgeInsets.all(10.0),
+);
+
 backIcon(context) => IconButton(
   icon: const Icon(
     Icons.arrow_back_ios,
@@ -116,6 +134,7 @@ closeIcon(context) => Container(
 );
 
 const horizontalDivider = Divider(color: Colors.white);
+const noHeightHorizontalDivider = Divider(color: Colors.white, height: 0.0);
 
 construction(context, uid, _position) => Scaffold(
   backgroundColor: darkBlueBackground,

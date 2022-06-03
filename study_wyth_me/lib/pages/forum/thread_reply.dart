@@ -6,7 +6,8 @@ import 'package:study_wyth_me/shared/constants.dart';
 class ThreadReply extends StatefulWidget {
   final Container mainPost;
   final Widget replyPost;
-  const ThreadReply({Key? key, required this.mainPost, required this.replyPost}) : super(key: key);
+  final bool hasReplyPost;
+  const ThreadReply({Key? key, required this.mainPost, required this.replyPost, required this.hasReplyPost}) : super(key: key);
 
   @override
   State<ThreadReply> createState() => _ThreadReplyState();
@@ -32,7 +33,7 @@ class _ThreadReplyState extends State<ThreadReply> {
           topBarWithBackButton(context),
           Container(
             constraints: const BoxConstraints(
-              maxHeight: 330, // minimum width
+              maxHeight: 230,
             ),
             child: Scrollbar(
               radius: const Radius.circular(10.0),
@@ -41,8 +42,12 @@ class _ThreadReplyState extends State<ThreadReply> {
                 child: Column(
                   children: <Widget> [
                     widget.mainPost,
-                    const SizedBox(height: 15.0),
-                    widget.replyPost,
+                    widget.hasReplyPost
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: widget.replyPost,
+                        )
+                      : widget.replyPost,
                   ],
                 ),
               ),
@@ -69,13 +74,13 @@ class _ThreadReplyState extends State<ThreadReply> {
                   key: _formKey,
                   child: Expanded(
                     child: Container(
-                      color: const Color.fromRGBO(255, 255, 255, 0.10),
+                      color: whiteOpacity10,
                       child: Container(
-                        margin: const EdgeInsets.all(15.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: SingleChildScrollView(
                           child: TextFormField( // text
                             maxLines: null,
-                            decoration: formFieldDeco.copyWith(hintText: 'Add Text...'),
+                            decoration: forumFormFieldDeco.copyWith(hintText: 'Add Text...'),
                             style: oswaldTextStyle.copyWith(fontSize: 15.0, color: Colors.white),
                             validator: (value) => value!.trim().isEmpty ? 'Enter your text' : null,
                             onChanged: (value) {
@@ -88,8 +93,8 @@ class _ThreadReplyState extends State<ThreadReply> {
                   ),
                 ),
                 Container(
-                  color: const Color.fromRGBO(255, 255, 255, 0.10),
-                  padding: const EdgeInsets.only(bottom: 15.0, right: 5.0),
+                  color: whiteOpacity10,
+                  padding: const EdgeInsets.only(bottom: 20.0, right: 5.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget> [

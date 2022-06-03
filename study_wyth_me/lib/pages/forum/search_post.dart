@@ -83,7 +83,7 @@ class SearchPost extends StatelessWidget {
                   child: Scrollbar(
                     radius: const Radius.circular(10.0),
                     child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 25.0),
+                      padding: const EdgeInsets.only(top: 15.0),
                       itemCount: 10,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

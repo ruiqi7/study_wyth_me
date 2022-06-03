@@ -13,10 +13,10 @@ class _ForumPostState extends State<ForumPost> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 25.0),
+      margin: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        color: Color.fromRGBO(255, 255, 255, 0.10),
+        color: whiteOpacity10,
       ),
       child: Column(
         children: <Widget> [
@@ -72,7 +72,7 @@ class _ForumPostState extends State<ForumPost> {
               )
             ],
           ),
-          const Divider(color: Colors.white, height: 0.0),
+          noHeightHorizontalDivider,
           Container(
             padding: const EdgeInsets.only(bottom: 10.0),
             height: 35.0,
