@@ -214,18 +214,20 @@ appBar(context, uid) => PreferredSize(
   ),
 );
 
-topBarWithBackButton(context) => SafeArea(
-  child: Container(
-    padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
-    color: whiteOpacity20,
-    height: 75.0,
-    child: Row(
-      children: <Widget>[
-        backIcon(context),
-        const Expanded(
-          child: SizedBox(),
-        ),
-      ],
+topBarWithBackButton(context) => PreferredSize(
+  preferredSize: const Size.fromHeight(75),
+  child:   SafeArea(
+    child: Container(
+      color: whiteOpacity20,
+      height: 75.0,
+      child: Row(
+        children: <Widget>[
+          backIcon(context),
+          const Expanded(
+            child: SizedBox(),
+          ),
+        ],
+      ),
     ),
   ),
 );

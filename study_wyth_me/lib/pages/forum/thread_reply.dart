@@ -27,10 +27,10 @@ class _ThreadReplyState extends State<ThreadReply> {
   Widget build(BuildContext context) {
     return _loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
+      appBar: topBarWithBackButton(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          topBarWithBackButton(context),
           Container(
             constraints: const BoxConstraints(
               maxHeight: 230,
