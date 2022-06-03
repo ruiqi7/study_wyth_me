@@ -222,7 +222,10 @@ topBarWithBackButton(context) => PreferredSize(
       height: 75.0,
       child: Row(
         children: <Widget>[
-          backIcon(context),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
+            child: backIcon(context),
+          ),
           const Expanded(
             child: SizedBox(),
           ),
