@@ -27,25 +27,24 @@ class _NewPostState extends State<NewPost> {
   Widget build(BuildContext context) {
     return _loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SafeArea(
-            child: Container(
-              color: whiteOpacity20,
-              height: 75.0,
-              child: Row(
-                children: <Widget>[
-                  closeIcon(context),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  appBarButton(
-                      'Post',
-                      () async {
-                        if (_formKey.currentState!.validate()) {
-                          // save to database
-                          /*
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(75),
+        child: SafeArea(
+          child: Container(
+            color: whiteOpacity20,
+            height: 75.0,
+            child: Row(
+              children: <Widget>[
+                closeIcon(context),
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                appBarButton(
+                    'Post',
+                        () async {
+                      if (_formKey.currentState!.validate()) {
+                        // save to database
+                        /*
                           if (there is an error) {
                             setState(() => _error = message);
                           } else {
@@ -53,13 +52,17 @@ class _NewPostState extends State<NewPost> {
                             Navigator.pop(context);
                           }
                           */
-                        }
                       }
-                  ),
-                ],
-              ),
+                    }
+                ),
+              ],
             ),
           ),
+        ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.only(top: 5.0),
             child: Text(
