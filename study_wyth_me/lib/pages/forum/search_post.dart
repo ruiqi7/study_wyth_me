@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/forum/forum_post.dart';
 import 'package:study_wyth_me/pages/forum/search_history.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -90,7 +91,19 @@ class SearchPost extends StatelessWidget {
                       itemCount: 10,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return const ForumPost();
+                        return ForumPost(
+                            post: Post(
+                              postId: '',
+                              posterUsername: '1',
+                              title: '3',
+                              content: '5',
+                              timestamp: 0,
+                              likes: 0,
+                              comments: 0,
+                              directReplies: []
+                            ),
+                          profile: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
+                        );
                       },
                     ),
                   ),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/models/post.dart';
+import 'package:study_wyth_me/pages/forum/main_post.dart';
 import 'package:study_wyth_me/pages/loading.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
 class ThreadReply extends StatefulWidget {
-  final Container mainPost;
+  final Post post;
+  final String profile;
   final Widget replyPost;
   final bool hasReplyPost;
-  const ThreadReply({Key? key, required this.mainPost, required this.replyPost, required this.hasReplyPost}) : super(key: key);
+  const ThreadReply({Key? key, required this.post, required this.profile, required this.replyPost, required this.hasReplyPost}) : super(key: key);
 
   @override
   State<ThreadReply> createState() => _ThreadReplyState();
@@ -39,7 +42,7 @@ class _ThreadReplyState extends State<ThreadReply> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: <Widget> [
-                  widget.mainPost,
+                  MainPost(post: widget.post, profile: widget.profile, function: () {}),
                   widget.hasReplyPost
                     ? Padding(
                         padding: const EdgeInsets.only(top: 15.0),

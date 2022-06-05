@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/post.dart';
-import 'package:study_wyth_me/pages/forum/thread.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
-class ForumPost extends StatefulWidget {
+class MainPost extends StatefulWidget {
   final Post post;
   final String profile;
-  const ForumPost({Key? key, required this.post, required this.profile}) : super(key: key);
+  final void Function() function;
+  const MainPost({Key? key, required this.post, required this.profile, required this.function}) : super(key: key);
 
   @override
-  State<ForumPost> createState() => _ForumPostState();
+  State<MainPost> createState() => _MainPostState();
 }
 
-class _ForumPostState extends State<ForumPost> {
+class _MainPostState extends State<MainPost> {
   final ForumDatabase forumDatabase = ForumDatabase();
 
   @override
   Widget build(BuildContext context) {
+    print('main post rebuilt');
     return Container(
-      margin: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
         color: whiteOpacity10,
       ),
       child: Column(
@@ -62,36 +61,21 @@ class _ForumPostState extends State<ForumPost> {
                       child: Text(
                         widget.post.content,
                         style: oswaldTextStyle.copyWith(fontSize: 12.5, color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
                       ),
                     )
                   ],
                 ),
               ),
-              Container(
-                width: 40.0,
-                padding: const EdgeInsets.only(top: 5.0),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
-                  iconSize: 25,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Thread(post: widget.post, profile: widget.profile))
-                    );
-                  },
-                ),
-              )
+              const SizedBox(width: 5.0),
             ],
           ),
           noHeightHorizontalDivider,
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0),
+          SizedBox(
             height: 35.0,
             child: Row(
               children: <Widget> [
                 Container(
-                  padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
                   height: 50.0,
                   width: 40.0,
                   child: IconButton(
@@ -101,14 +85,14 @@ class _ForumPostState extends State<ForumPost> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                   child: Text(
                     '${widget.post.comments}',
                     style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
                   height: 50.0,
                   width: 40.0,
                   child: IconButton(
@@ -120,12 +104,28 @@ class _ForumPostState extends State<ForumPost> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                   child: Text(
                     '${widget.post.likes}',
                     style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                   ),
-                )
+                ),
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                SizedBox(
+                  width: 50.0,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(0.0),
+                    ),
+                    child: Text(
+                      'Reply',
+                      style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                    ),
+                    onPressed: widget.function,
+                  ),
+                ),
               ],
             ),
           )
