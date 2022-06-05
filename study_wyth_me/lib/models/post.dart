@@ -1,22 +1,22 @@
 class Post {
 
   final String postId;
-  final String title;
   final String posterUsername;
-  final String timestamp;
+  final String title;
   final String content;
+  final dynamic timestamp;
+  final dynamic comments;
   final dynamic likes;
-  final dynamic thumbs;
   final List<dynamic> directReplies;
 
   Post({
     required this.postId,
-    required this.title,
     required this.posterUsername,
-    required this.timestamp,
+    required this.title,
     required this.content,
+    required this.timestamp,
+    required this.comments,
     required this.likes,
-    required this.thumbs,
     required this.directReplies,
   });
 }

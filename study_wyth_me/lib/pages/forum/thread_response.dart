@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/forum/thread_reply.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
 class ThreadResponse extends StatefulWidget {
+  final Post post;
+  final String profile;
   final int threadLength;
   final int position;
   final bool nextIsInner;
-  final Container mainPost;
-  const ThreadResponse({Key? key, required this.threadLength, required this.position, required this.nextIsInner, required this.mainPost}) : super(key: key);
+  const ThreadResponse({Key? key, required this.post, required this.profile, required this.threadLength, required this.position, required this.nextIsInner}) : super(key: key);
 
   @override
   State<ThreadResponse> createState() => _ThreadResponseState();
@@ -136,12 +138,14 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                         context,
                                         MaterialPageRoute(builder:
                                           (context) => ThreadReply(
-                                              mainPost: widget.mainPost,
+                                              post: widget.post,
+                                              profile: widget.profile,
                                               replyPost: ThreadResponse(
+                                                  post: widget.post,
+                                                  profile: widget.profile,
                                                   threadLength: 1,
                                                   position: 1,
                                                   nextIsInner: true,
-                                                  mainPost: widget.mainPost,
                                               ),
                                               hasReplyPost: true,
                                           )
@@ -173,10 +177,11 @@ class _ThreadResponseState extends State<ThreadResponse> {
                           : const SizedBox(width: 0.0, height: 0.0),
                         widget.nextIsInner && widget.threadLength > 1
                           ? ThreadResponse(
+                              post: widget.post,
+                              profile: widget.profile,
                               threadLength: widget.threadLength - 1,
                               position: widget.position == 5 ? 1 : widget.position + 1,
                               nextIsInner: false,
-                              mainPost: widget.mainPost,
                             )
                           : const SizedBox(width: 0.0, height: 0.0),
                       ],
@@ -190,10 +195,11 @@ class _ThreadResponseState extends State<ThreadResponse> {
         widget.nextIsInner
           ? const SizedBox(width: 0.0, height: 0.0)
           : ThreadResponse(
+              post: widget.post,
+              profile: widget.profile,
               threadLength: widget.threadLength,
               position: widget.position,
               nextIsInner: true,
-              mainPost: widget.mainPost,
         ),
       ],
     );

@@ -155,3 +155,34 @@ construction(context, uid, _position) => Scaffold(
   ),
   bottomNavigationBar: navigationBar(context, _position),
 );
+
+String timeDifference(int timestamp) {
+  DateTime timeNow = DateTime.now();
+  DateTime timePosted = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  Duration timeDifference = timeNow.difference(timePosted);
+
+  int days = timeDifference.inDays;
+  int hours = timeDifference.inHours;
+  int minutes = timeDifference.inMinutes;
+  if (days > 0) {
+    if (days != 1) {
+      return '$days days ago';
+    } else {
+      return '1 day ago';
+    }
+  } else if (hours > 0) {
+    if (hours != 1) {
+      return '$hours hours ago';
+    } else {
+      return '1 hour ago';
+    }
+  } else if (minutes > 0) {
+    if (minutes != 1) {
+      return '$minutes minutes ago';
+    } else {
+      return '1 minute ago';
+    }
+  } else {
+    return 'just now';
+  }
+}
