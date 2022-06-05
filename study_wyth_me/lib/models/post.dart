@@ -1,7 +1,7 @@
 class Post {
 
   final String postId;
-  final String posterUsername;
+  final String uid;
   final String title;
   final String content;
   final dynamic timestamp;
@@ -11,7 +11,7 @@ class Post {
 
   Post({
     required this.postId,
-    required this.posterUsername,
+    required this.uid,
     required this.title,
     required this.content,
     required this.timestamp,

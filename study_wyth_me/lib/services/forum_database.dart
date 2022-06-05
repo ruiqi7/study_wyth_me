@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_wyth_me/models/comment.dart';
 import 'package:study_wyth_me/models/post.dart';
 
 class ForumDatabase {
@@ -16,7 +17,7 @@ class ForumDatabase {
     return snapshot.docs.map((doc) {
       return Post(
         postId: doc.reference.id,
-        posterUsername: doc.data().toString().contains('posterUsername') ? doc.get('posterUsername'): '',
+        uid: doc.data().toString().contains('uid') ? doc.get('uid'): '',
         title: doc.data().toString().contains('title') ? doc.get('title'): '',
         content: doc.data().toString().contains('content') ? doc.get('content'): '',
         timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp'): 0,
@@ -36,10 +37,9 @@ class ForumDatabase {
   Post _postDataFromSnapshot(DocumentSnapshot snapshot) {
     snapshot = snapshot as DocumentSnapshot<Map<String, dynamic>>;
     final data = snapshot.data();
-    print(snapshot.id);
     return Post(
       postId: snapshot.id,
-      posterUsername: data?['posterUsername'],
+      uid: data?['uid'],
       title: data?['title'],
       content: data?['content'],
       timestamp: data?['timestamp'],
@@ -49,9 +49,9 @@ class ForumDatabase {
     );
   }
 
-  Future createNewPost(String posterUsername, String title, String content, int timestamp) async {
+  Future createNewPost(String uid, String title, String content, int timestamp) async {
     return await forumDatabaseCollection.add({
-      'posterUsername': posterUsername,
+      'uid': uid,
       'title': title,
       'content': content,
       'timestamp': timestamp,
@@ -67,16 +67,71 @@ class ForumDatabase {
     });
   }
 
-  Future addComment(String postId) async {
-    return await forumDatabaseCollection.doc(postId).update({
+  Future addReply(String uid, String postId, String content) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    String commentString = Comment(
+      uid: uid,
+      timestamp: DateTime.now().millisecondsSinceEpoch,
+      content: content,
+      likes: 0,
+      comments: 0,
+      directReplies: []
+    ).toJsonString();
+
+    post.directReplies.add(commentString);
+
+    return await document.update({
       "comments" : FieldValue.increment(1),
+      "directReplies" : post.directReplies,
     });
   }
 
-  Future addReply(String postId, List<dynamic> list) async {
-    return await forumDatabaseCollection.doc(postId).update({
-      "directReplies" : list,
+  /*
+  Future updateReplyLikes(String postId, String commentString) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    bool found = false;
+    Comment? parentComment;
+    List<dynamic> directReplies = post.directReplies;
+    while (!found) {
+      for (String directReply in directReplies) {
+        if (directReply == commentString) {
+          found = true;
+          break;
+        } else if (directReply.contains(commentString)) {
+          parentComment = Comment.fromJsonString(directReply);
+          directReplies = parentComment.directReplies;
+        }
+      }
+    }
+
+    Comment currComment = Comment.fromJsonString(commentString);
+    String newCommentString = Comment(
+        uid: currComment.uid,
+        timestamp: currComment.timestamp,
+        content: currComment.content,
+        likes: currComment.likes + 1,
+        comments: 0,
+        directReplies: currComment.directReplies
+    ).toJsonString();
+
+    if (parentComment == null) { // parent is the post
+      post.directReplies.replaceRange(start, end, replacements)
+    } else { // parent is a comment
+
+    }
+
+
+    post.directReplies.add(commentString);
+
+    return await document.update({
+      "comments" : FieldValue.increment(1),
+      "directReplies" : post.directReplies,
     });
   }
+  */
 
 }

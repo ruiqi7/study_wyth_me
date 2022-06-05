@@ -5,9 +5,11 @@ import 'package:study_wyth_me/shared/constants.dart';
 
 class MainPost extends StatefulWidget {
   final Post post;
+  final String username;
   final String profile;
   final void Function() function;
-  const MainPost({Key? key, required this.post, required this.profile, required this.function}) : super(key: key);
+  final bool enableLike;
+  const MainPost({Key? key, required this.post, required this.username, required this.profile, required this.function, required this.enableLike}) : super(key: key);
 
   @override
   State<MainPost> createState() => _MainPostState();
@@ -18,7 +20,6 @@ class _MainPostState extends State<MainPost> {
 
   @override
   Widget build(BuildContext context) {
-    print('main post rebuilt');
     return Container(
       decoration: const BoxDecoration(
         color: whiteOpacity10,
@@ -50,7 +51,7 @@ class _MainPostState extends State<MainPost> {
                         style: oswaldTextStyle.copyWith(fontSize: 10, color: Colors.grey),
                         children: <TextSpan>[
                           const TextSpan(text: 'posted by'),
-                          TextSpan(text: ' ' + widget.post.posterUsername + ' ', style: const TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: ' ' + widget.username + ' ', style: const TextStyle(fontWeight: FontWeight.bold)),
                           TextSpan(text: timeDifference(widget.post.timestamp)),
                         ],
                       ),
@@ -78,35 +79,42 @@ class _MainPostState extends State<MainPost> {
                   padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
                   height: 50.0,
                   width: 40.0,
-                  child: IconButton(
-                    icon: const Icon(Icons.chat_bubble_outline, color: Colors.grey),
-                    iconSize: 20,
-                    onPressed: () {}, // should not be a button
+                  child: widget.enableLike
+                    ? IconButton(
+                        icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
+                        iconSize: 20,
+                        onPressed: () async {
+                          await forumDatabase.addLike(widget.post.postId);
+                        },
+                      )
+                    : IconButton(
+                        splashColor: Colors.transparent,
+                        icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
+                        iconSize: 20,
+                        onPressed: () {},
+                      ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
+                  child: Text(
+                    '${widget.post.likes}',
+                    style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 10.0),
+                  height: 50.0,
+                  width: 40.0,
+                  child: const Icon(
+                    Icons.chat_bubble_outline,
+                    color: Colors.grey,
+                    size: 20.0,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                   child: Text(
                     '${widget.post.comments}',
-                    style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
-                  height: 50.0,
-                  width: 40.0,
-                  child: IconButton(
-                    icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
-                    iconSize: 20,
-                    onPressed: () async {
-                      await forumDatabase.addLike(widget.post.postId);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
-                  child: Text(
-                    '${widget.post.likes}',
                     style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                   ),
                 ),

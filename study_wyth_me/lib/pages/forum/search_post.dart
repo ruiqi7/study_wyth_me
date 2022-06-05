@@ -95,17 +95,16 @@ class SearchPost extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return ForumPost(
-                            post: Post(
-                              postId: '',
-                              posterUsername: '1',
-                              title: '3',
-                              content: '5',
-                              timestamp: 0,
-                              likes: 0,
-                              comments: 0,
-                              directReplies: []
-                            ),
-                          profile: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
+                          post: Post(
+                            postId: '',
+                            uid: '',
+                            title: '',
+                            content: '',
+                            timestamp: 0,
+                            likes: 0,
+                            comments: 0,
+                            directReplies: []
+                          ),
                         );
                       },
                     ),
