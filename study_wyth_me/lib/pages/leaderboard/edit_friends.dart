@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/app_user.dart';
+import '../../services/database.dart';
 import '../../shared/constants.dart';
+import 'friends_list.dart';
 
 class EditFriends extends StatefulWidget {
   const EditFriends({Key? key}) : super(key: key);
@@ -10,6 +15,10 @@ class EditFriends extends StatefulWidget {
 }
 
 class _EditFriendsState extends State<EditFriends> {
+
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  String input = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +49,62 @@ class _EditFriendsState extends State<EditFriends> {
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 50.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget> [
               gapBox,
               gapBox,
-              Text(
-                "in progress",
-                style: chewyTextStyle.copyWith(fontSize: 30),
+              TextFormField(
+                initialValue: input,
+                textAlignVertical: TextAlignVertical.center,
+                decoration: const InputDecoration(
+                  fillColor: whiteOpacity15,
+                  filled: true,
+                  hintStyle: TextStyle(color: whiteOpacity70),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: whiteOpacity15,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: 'Enter a username',
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: whiteOpacity70,
+                    size: 30,
+                  ),
+                ),
+                style: chewyTextStyle.copyWith(fontSize: 20, color: Colors.white),
+                onFieldSubmitted: (value) {
+                  setState(() {
+                    input = value;
+                  });
+                },
               ),
+              gapBox,
+              horizontalDivider,
+              input != "" ? Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    StreamProvider<List<AppUser>>.value(
+                      value: DatabaseService(uid: uid).searchUserStream(input),
+                      initialData: const [],
+                      child: Flexible(
+                          child: FriendList(input: input)
+                      ),
+                    ),
+                  ],
+                ),
+              ) : const SizedBox(height: 1),
             ],
           )
         )

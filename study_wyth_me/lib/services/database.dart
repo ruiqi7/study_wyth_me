@@ -62,6 +62,20 @@ class DatabaseService {
     });
   }
 
+  Future addFriend(String username) async {
+    List<dynamic> list = [username];
+    return await userDatabaseCollection.doc(uid).update({
+      'friendsUsername': FieldValue.arrayUnion(list),
+    });
+  }
+
+  Future removeFriend(String username) async {
+    List<dynamic> list = [username];
+    return await userDatabaseCollection.doc(uid).update({
+      'friendsUsername': FieldValue.arrayRemove(list),
+    });
+  }
+
   //get userDatabase stream
   Stream<QuerySnapshot> get userDatabaseStream {
     return userDatabaseCollection.snapshots();
@@ -83,7 +97,13 @@ class DatabaseService {
           .snapshots()
           .map(_userDataListFromSnapshot);
     }
+  }
 
+  Stream<List<AppUser>> searchUserStream(String input) {
+    return userDatabaseCollection
+        .where('username', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
+        .snapshots()
+        .map(_userDataListFromSnapshot);
   }
 
   List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {

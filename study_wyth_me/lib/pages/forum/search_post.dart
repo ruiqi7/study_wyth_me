@@ -25,10 +25,11 @@ class SearchPost extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 10.0),
                     child: TextFormField(
                       initialValue: input,
+                      textAlignVertical: TextAlignVertical.center,
                       decoration: const InputDecoration(
                         fillColor: whiteOpacity15,
                         filled: true,
-                        hintStyle: TextStyle(color: Colors.grey),
+                        hintStyle: TextStyle(color: whiteOpacity70),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: whiteOpacity15,
@@ -45,11 +46,11 @@ class SearchPost extends StatelessWidget {
                         hintText: 'Search',
                         prefixIcon: Icon(
                           Icons.search,
-                          color: Colors.grey,
-                          size: 35,
+                          color: whiteOpacity70,
+                          size: 30,
                         ),
                       ),
-                      style: oswaldTextStyle.copyWith(fontSize: 20, color: Colors.grey),
+                      style: oswaldTextStyle.copyWith(fontSize: 20, color: Colors.white),
                       onFieldSubmitted: (value) {
                         //setState(() => _searched = true);
                         Navigator.pushReplacement(
@@ -63,15 +64,17 @@ class SearchPost extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 10.0),
                   padding: const EdgeInsets.only(right: 10.0),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.grey,
-                      size: 45,
+                  child: Center(
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
               ],

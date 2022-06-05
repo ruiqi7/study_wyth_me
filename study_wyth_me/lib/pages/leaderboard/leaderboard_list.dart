@@ -16,8 +16,8 @@ class _LeaderboardListState extends State<LeaderboardList> {
   Widget build(BuildContext context) {
     final appUsers = Provider.of<List<AppUser>>(context);
     return ListView.builder(
-        shrinkWrap: true,
-        itemCount: appUsers.length,
+      shrinkWrap: true,
+      itemCount: appUsers.length,
       itemBuilder: (context, index) {
         return UserCard(appUser: appUsers[index], rank: index);
       }

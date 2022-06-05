@@ -60,7 +60,7 @@ class _EditModulesState extends State<EditModules> {
               Form(
                 key: _formKey,
                 child: TextFormField(
-                  decoration: formFieldDeco.copyWith(hintText: 'Module'),
+                  decoration: formFieldDeco.copyWith(hintText: 'Module', hintStyle: const TextStyle(color: whiteOpacity70)),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
                   validator: (value) => value!.trim().isEmpty ? 'Enter a module' : null,
                   onChanged: (value) {
