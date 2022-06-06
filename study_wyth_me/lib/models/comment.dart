@@ -1,52 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'dart:convert';
 
 class Comment {
 
-  final String posterUsername;
-  final String timestamp;
+  final String uid;
+  final dynamic timestamp;
   final String content;
   final dynamic likes;
-  final dynamic thumbs;
+  final dynamic comments;
   final List<dynamic> directReplies;
 
   Comment({
-    required this.posterUsername,
+    required this.uid,
     required this.timestamp,
     required this.content,
     required this.likes,
-    required this.thumbs,
+    required this.comments,
     required this.directReplies,
   });
 
-  factory Comment.fromJsonString(String str) => Comment._fromJson(jsonDecode(str));
-
-  String toJsonString() => jsonEncode(_toJson());
-
-  factory Comment._fromJson(Map<String, dynamic> json) => Comment(
-    posterUsername: json['posterUsername'],
-    timestamp: json['timestamp'],
-    content: json['content'],
-    likes: json['likes'],
-    thumbs: json['thumbs'],
-    directReplies: json['directReplies'],
-  );
-
-
-  Map<String, dynamic> _toJson() => {
-    'posterUsername': posterUsername,
-    'timestamp': timestamp,
-    'content': content,
-    'likes': likes,
-    'thumbs': thumbs,
-    'directReplies': directReplies,
-  };
-
-  String jsonString() {
-    return toJsonString();
-  }
-
-  // Comment comment = Comment.fromJsonString(jsonString());
+  // https://stackoverflow.com/questions/60124063/is-it-possible-to-pass-parameter-on-onselectnotification-for-flutter-local-notif
   // https://docs.flutter.dev/development/data-and-backend/json#manual-encoding
 
   /*

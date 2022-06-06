@@ -16,7 +16,7 @@ class ForumDatabase {
     return snapshot.docs.map((doc) {
       return Post(
         postId: doc.reference.id,
-        posterUsername: doc.data().toString().contains('posterUsername') ? doc.get('posterUsername'): '',
+        uid: doc.data().toString().contains('uid') ? doc.get('uid'): '',
         title: doc.data().toString().contains('title') ? doc.get('title'): '',
         content: doc.data().toString().contains('content') ? doc.get('content'): '',
         timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp'): 0,
@@ -36,10 +36,9 @@ class ForumDatabase {
   Post _postDataFromSnapshot(DocumentSnapshot snapshot) {
     snapshot = snapshot as DocumentSnapshot<Map<String, dynamic>>;
     final data = snapshot.data();
-    print(snapshot.id);
     return Post(
       postId: snapshot.id,
-      posterUsername: data?['posterUsername'],
+      uid: data?['uid'],
       title: data?['title'],
       content: data?['content'],
       timestamp: data?['timestamp'],
@@ -49,9 +48,9 @@ class ForumDatabase {
     );
   }
 
-  Future createNewPost(String posterUsername, String title, String content, int timestamp) async {
+  Future createNewPost(String uid, String title, String content, int timestamp) async {
     return await forumDatabaseCollection.add({
-      'posterUsername': posterUsername,
+      'uid': uid,
       'title': title,
       'content': content,
       'timestamp': timestamp,
@@ -63,20 +62,28 @@ class ForumDatabase {
 
   Future addLike(String postId) async {
     return await forumDatabaseCollection.doc(postId).update({
-      "likes" : FieldValue.increment(1),
+      'likes' : FieldValue.increment(1),
     });
   }
 
-  Future addComment(String postId) async {
-    return await forumDatabaseCollection.doc(postId).update({
-      "comments" : FieldValue.increment(1),
+  Future addReply(String postId, String commentId) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    post.directReplies.add(commentId);
+
+    return await document.update({
+      'comments' : FieldValue.increment(1),
+      'directReplies' : post.directReplies,
     });
   }
 
-  Future addReply(String postId, List<dynamic> list) async {
-    return await forumDatabaseCollection.doc(postId).update({
-      "directReplies" : list,
+  Future updateCommentCount(String postId) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    return await document.update({
+      'comments' : FieldValue.increment(1),
     });
   }
-
 }
