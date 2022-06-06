@@ -7,6 +7,7 @@ class AppUser {
   final dynamic points;
   final dynamic duration;
   final List<dynamic> friendsUsername;
+  final Map<String, dynamic> mythics;
 
   AppUser({
     required this.uid,
@@ -16,5 +17,6 @@ class AppUser {
     required this.points,
     required this.duration,
     required this.friendsUsername,
+    required this.mythics,
   });
 }

@@ -8,6 +8,7 @@ const whiteOpacity10 = Color.fromRGBO(255, 255, 255, 0.10);
 const whiteOpacity15 = Color.fromRGBO(255, 255, 255, 0.15);
 const whiteOpacity20 = Color.fromRGBO(255, 255, 255, 0.20);
 const whiteOpacity70 = Color.fromRGBO(255, 255, 255, 0.70);
+const darkBlueOpacity50 = Color.fromRGBO(0, 34, 75, 0.5);
 
 const SizedBox gapBox = SizedBox(height: 15);
 

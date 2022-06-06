@@ -20,6 +20,18 @@ class DatabaseService {
       'points': 0,
       'duration': 30,
       'friendsUsername': [username],
+      'mythics': {
+        'Chimera': false,
+        'Kraken': false,
+        'Phoenix': false,
+        'Dragon': false,
+        'Manticore': false,
+        'Unicorn': false,
+        'Catfish': false,
+        'Griffin': false,
+        'Kitsune': false,
+        'Pegasus': false,
+      },
     });
   }
 
@@ -76,6 +88,12 @@ class DatabaseService {
     });
   }
 
+  Future claimMythic(String mythic) async {
+    return await userDatabaseCollection.doc(uid).update({
+      'mythics.$mythic': true,
+    });
+  }
+
   //get userDatabase stream
   Stream<QuerySnapshot> get userDatabaseStream {
     return userDatabaseCollection.snapshots();
@@ -116,6 +134,7 @@ class DatabaseService {
         points: doc.data().toString().contains('points') ? doc.get('points') : '',
         duration: doc.get('duration'),
         friendsUsername: doc.data().toString().contains('friendsUsername') ? doc.get('friendsUsername'): [],
+        mythics: doc.get('mythics'),
       );
     }).toList();
   }
@@ -138,6 +157,7 @@ class DatabaseService {
       points: data?['points'],
       duration: data?['duration'],
       friendsUsername: data?['friendsUsername'],
+      mythics: data?['mythics'],
     );
   }
 }
