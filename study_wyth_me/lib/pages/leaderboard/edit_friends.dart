@@ -98,8 +98,8 @@ class _EditFriendsState extends State<EditFriends> {
                     StreamProvider<List<AppUser>>.value(
                       value: DatabaseService(uid: uid).searchUserStream(input),
                       initialData: const [],
-                      child: Flexible(
-                          child: FriendList(input: input)
+                      child: const Flexible(
+                        child: FriendList()
                       ),
                     ),
                   ],

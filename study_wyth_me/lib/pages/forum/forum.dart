@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/pages/forum/forum_post.dart';
 import 'package:study_wyth_me/pages/forum/new_post.dart';
-import 'package:study_wyth_me/pages/forum/search_post.dart';
+import 'package:study_wyth_me/pages/forum/search_forum.dart';
 import 'package:study_wyth_me/pages/loading.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
@@ -85,7 +85,7 @@ class _ForumState extends State<Forum> {
                                     onPressed: () {
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => const SearchPost(input: ''))
+                                          MaterialPageRoute(builder: (context) => const SearchForum())
                                       );
                                     },
                                   )
