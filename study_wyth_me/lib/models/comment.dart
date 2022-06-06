@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'dart:convert';
 
 class Comment {
 
@@ -18,31 +18,6 @@ class Comment {
     required this.comments,
     required this.directReplies,
   });
-
-  factory Comment.fromJsonString(String str) => Comment._fromJson(jsonDecode(str));
-
-  String toJsonString() => jsonEncode(_toJson());
-
-  factory Comment._fromJson(Map<String, dynamic> json) => Comment(
-    uid: json['uid'],
-    timestamp: json['timestamp'],
-    content: json['content'],
-    likes: json['likes'],
-    comments: json['comments'],
-    directReplies: json['directReplies'],
-  );
-
-
-  Map<String, dynamic> _toJson() => {
-    'uid': uid,
-    'timestamp': timestamp,
-    'content': content,
-    'likes': likes,
-    'comments': comments,
-    'directReplies': directReplies,
-  };
-
-  // Comment comment = Comment.fromJsonString(jsonString());
 
   // https://stackoverflow.com/questions/60124063/is-it-possible-to-pass-parameter-on-onselectnotification-for-flutter-local-notif
   // https://docs.flutter.dev/development/data-and-backend/json#manual-encoding

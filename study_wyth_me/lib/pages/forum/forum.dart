@@ -101,10 +101,7 @@ class _ForumState extends State<Forum> {
                                 itemCount: postList.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    height: 135.0,
-                                    child: ForumPost(post: postList[index]),
-                                  );
+                                  return ForumPost(post: postList[index]);
                                 },
                               ),
                             ),

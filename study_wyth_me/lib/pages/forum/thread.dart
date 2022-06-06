@@ -12,7 +12,9 @@ import 'package:study_wyth_me/shared/constants.dart';
 
 class Thread extends StatefulWidget {
   final Post post;
-  const Thread({Key? key, required this.post}) : super(key: key);
+  final List<dynamic> parentDirectReplies;
+  final int replyIndex;
+  const Thread({Key? key, required this.post, required this.parentDirectReplies, required this.replyIndex}) : super(key: key);
 
   @override
   State<Thread> createState() => _ThreadState();
@@ -21,80 +23,82 @@ class Thread extends StatefulWidget {
 class _ThreadState extends State<Thread> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Post>(
-      stream: ForumDatabase().postData(widget.post.postId),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Post post = snapshot.data!;
+    return IntrinsicHeight(
+      child: StreamBuilder<Post>(
+        stream: ForumDatabase().postData(widget.post.postId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Post post = snapshot.data!;
 
-          return StreamBuilder<AppUser>(
-            stream: DatabaseService(uid: post.uid).userData,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  AppUser poster = snapshot.data!;
+            return StreamBuilder<AppUser>(
+              stream: DatabaseService(uid: post.uid).userData,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    AppUser poster = snapshot.data!;
 
-                  return Scaffold(
-                    backgroundColor: darkBlueBackground,
-                    appBar: topBarWithBackButton(context),
-                    body: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          child: Scrollbar(
-                            radius: const Radius.circular(10.0),
-                            child: ListView.builder(
-                              padding: const EdgeInsets.all(15.0),
-                              itemCount: post.directReplies.length + 1,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                if (index == 0) {
-                                  return MainPost(
-                                    post: post,
-                                    username: poster.username,
-                                    profile: poster.url,
-                                    function: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder:
-                                          (context) => ThreadReply(
-                                            post: post,
-                                            replyPost: const SizedBox(width: 0.0, height: 0.0),
-                                            hasReplyPost: false,
+                    return Scaffold(
+                      backgroundColor: darkBlueBackground,
+                      appBar: topBarWithBackButton(context),
+                      body: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Scrollbar(
+                              radius: const Radius.circular(10.0),
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(15.0),
+                                itemCount: widget.replyIndex == - 1 ? post.directReplies.length + 1 : 2,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  if (index == 0) {
+                                    return MainPost(
+                                      post: post,
+                                      username: poster.username,
+                                      profile: poster.url,
+                                      function: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder:
+                                            (context) => ThreadReply(
+                                              post: post,
+                                              replyPost: const SizedBox(width: 0.0, height: 0.0),
+                                              commenter: '',
+                                              commentId: '',
+                                            )
                                           )
-                                        )
-                                      );
-                                    },
-                                    enableLike: true
-                                  );
-                                } else {
-                                  return IntrinsicHeight(
-                                    child : Padding(
+                                        );
+                                      },
+                                      showReplyButton: true,
+                                    );
+                                  } else {
+                                    return Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: ThreadResponse(
-                                        replyIndex: index,
-                                        commentString: post.directReplies[index - 1],
                                         position: 1,
+                                        parentDirectReplies: widget.replyIndex == - 1 ? post.directReplies : widget.parentDirectReplies,
+                                        replyIndex: widget.replyIndex == - 1 ? index - 1 : widget.replyIndex,
                                         post: post,
+                                        showReplyButton: true,
                                       ),
-                                    ),
-                                  );
-                                }
-                              },
+                                    );
+                                  }
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return const Loading();
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Loading();
+                  }
                 }
-              }
-          );
-        } else {
-          return const Loading();
+            );
+          } else {
+            return const Loading();
+          }
         }
-      }
+      ),
     );
   }
 }

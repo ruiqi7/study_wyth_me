@@ -4,6 +4,7 @@ import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/forum/main_post.dart';
 import 'package:study_wyth_me/pages/loading.dart';
+import 'package:study_wyth_me/services/comments_database.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
@@ -12,8 +13,9 @@ import 'package:study_wyth_me/shared/constants.dart';
 class ThreadReply extends StatefulWidget {
   final Post post;
   final Widget replyPost;
-  final bool hasReplyPost;
-  const ThreadReply({Key? key, required this.post, required this.replyPost, required this.hasReplyPost}) : super(key: key);
+  final String commenter;
+  final String commentId;
+  const ThreadReply({Key? key, required this.post, required this.replyPost, required this.commenter, required this.commentId}) : super(key: key);
 
   @override
   State<ThreadReply> createState() => _ThreadReplyState();
@@ -54,9 +56,9 @@ class _ThreadReplyState extends State<ThreadReply> {
                           username: poster.username,
                           profile: poster.url,
                           function: () {},
-                          enableLike: false
+                          showReplyButton: false,
                         ),
-                        widget.hasReplyPost
+                        widget.commenter.isNotEmpty
                             ? Padding(
                                 padding: const EdgeInsets.only(top: 15.0),
                                 child: widget.replyPost,
@@ -81,7 +83,9 @@ class _ThreadReplyState extends State<ThreadReply> {
                               style: oswaldTextStyle.copyWith(fontSize: 14.5, color: Colors.white),
                               children: <TextSpan>[
                                 const TextSpan(text: 'Replying to'),
-                                TextSpan(text: ' ' + poster.username + ' ', style: const TextStyle(fontWeight: FontWeight.bold)),
+                                widget.commenter.isNotEmpty
+                                  ? TextSpan(text: ' ' + widget.commenter + ' ', style: const TextStyle(fontWeight: FontWeight.bold))
+                                  : TextSpan(text: ' ' + poster.username + ' ', style: const TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -120,7 +124,12 @@ class _ThreadReplyState extends State<ThreadReply> {
                               'Reply',
                               () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await ForumDatabase().addReply(uid, widget.post.postId, _text);
+                                  String newCommentId = await CommentsDatabase().createNewComment(uid, _text);
+                                  if (widget.commenter.isNotEmpty) {
+                                    await CommentsDatabase().addReply(widget.commentId, newCommentId);
+                                  } else {
+                                    await ForumDatabase().addReply(widget.post.postId, newCommentId);
+                                  }
                                   Navigator.pop(context);
                                 }
                               }

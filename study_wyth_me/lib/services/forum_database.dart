@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_wyth_me/models/comment.dart';
 import 'package:study_wyth_me/models/post.dart';
 
 class ForumDatabase {
@@ -67,71 +66,15 @@ class ForumDatabase {
     });
   }
 
-  Future addReply(String uid, String postId, String content) async {
+  Future addReply(String postId, String commentId) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
     Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
 
-    String commentString = Comment(
-      uid: uid,
-      timestamp: DateTime.now().millisecondsSinceEpoch,
-      content: content,
-      likes: 0,
-      comments: 0,
-      directReplies: []
-    ).toJsonString();
-
-    post.directReplies.add(commentString);
+    post.directReplies.add(commentId);
 
     return await document.update({
       "comments" : FieldValue.increment(1),
       "directReplies" : post.directReplies,
     });
   }
-
-  /*
-  Future updateReplyLikes(String postId, String commentString) async {
-    DocumentReference document = forumDatabaseCollection.doc(postId);
-    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
-
-    bool found = false;
-    Comment? parentComment;
-    List<dynamic> directReplies = post.directReplies;
-    while (!found) {
-      for (String directReply in directReplies) {
-        if (directReply == commentString) {
-          found = true;
-          break;
-        } else if (directReply.contains(commentString)) {
-          parentComment = Comment.fromJsonString(directReply);
-          directReplies = parentComment.directReplies;
-        }
-      }
-    }
-
-    Comment currComment = Comment.fromJsonString(commentString);
-    String newCommentString = Comment(
-        uid: currComment.uid,
-        timestamp: currComment.timestamp,
-        content: currComment.content,
-        likes: currComment.likes + 1,
-        comments: 0,
-        directReplies: currComment.directReplies
-    ).toJsonString();
-
-    if (parentComment == null) { // parent is the post
-      post.directReplies.replaceRange(start, end, replacements)
-    } else { // parent is a comment
-
-    }
-
-
-    post.directReplies.add(commentString);
-
-    return await document.update({
-      "comments" : FieldValue.increment(1),
-      "directReplies" : post.directReplies,
-    });
-  }
-  */
-
 }
