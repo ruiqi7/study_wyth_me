@@ -86,4 +86,12 @@ class ForumDatabase {
       'comments' : FieldValue.increment(1),
     });
   }
+
+  Stream<List<Post>> searchForumStream(String input) {
+    return forumDatabaseCollection
+        .where('title', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
+        .snapshots()
+        .map(forumPostListFromSnapshot);
+  }
+
 }

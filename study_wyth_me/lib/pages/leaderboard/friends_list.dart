@@ -8,11 +8,8 @@ import 'package:study_wyth_me/models/app_user.dart';
 
 class FriendList extends StatefulWidget {
 
-  final String input;
-
   const FriendList({
     Key? key,
-    required this.input,
   }) : super(key: key);
 
   @override
