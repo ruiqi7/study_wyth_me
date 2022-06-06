@@ -62,7 +62,7 @@ class ForumDatabase {
 
   Future addLike(String postId) async {
     return await forumDatabaseCollection.doc(postId).update({
-      "likes" : FieldValue.increment(1),
+      'likes' : FieldValue.increment(1),
     });
   }
 
@@ -73,8 +73,17 @@ class ForumDatabase {
     post.directReplies.add(commentId);
 
     return await document.update({
-      "comments" : FieldValue.increment(1),
-      "directReplies" : post.directReplies,
+      'comments' : FieldValue.increment(1),
+      'directReplies' : post.directReplies,
+    });
+  }
+
+  Future updateCommentCount(String postId) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    return await document.update({
+      'comments' : FieldValue.increment(1),
     });
   }
 }

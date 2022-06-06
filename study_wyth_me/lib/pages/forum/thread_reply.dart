@@ -23,6 +23,9 @@ class ThreadReply extends StatefulWidget {
 
 class _ThreadReplyState extends State<ThreadReply> {
 
+  final ForumDatabase forumDatabase = ForumDatabase();
+  final CommentsDatabase commentsDatabase = CommentsDatabase();
+
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -124,11 +127,12 @@ class _ThreadReplyState extends State<ThreadReply> {
                               'Reply',
                               () async {
                                 if (_formKey.currentState!.validate()) {
-                                  String newCommentId = await CommentsDatabase().createNewComment(uid, _text);
+                                  String newCommentId = await commentsDatabase.createNewComment(uid, _text);
                                   if (widget.commenter.isNotEmpty) {
-                                    await CommentsDatabase().addReply(widget.commentId, newCommentId);
+                                    await commentsDatabase.addReply(widget.commentId, newCommentId);
+                                    await forumDatabase.updateCommentCount(widget.post.postId);
                                   } else {
-                                    await ForumDatabase().addReply(widget.post.postId, newCommentId);
+                                    await forumDatabase.addReply(widget.post.postId, newCommentId);
                                   }
                                   Navigator.pop(context);
                                 }

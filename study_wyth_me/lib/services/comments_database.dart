@@ -40,7 +40,7 @@ class CommentsDatabase {
 
   Future addLike(String commentId) async {
     return await commentsDatabaseCollection.doc(commentId).update({
-      "likes" : FieldValue.increment(1),
+      'likes' : FieldValue.increment(1),
     });
   }
 
@@ -50,10 +50,26 @@ class CommentsDatabase {
 
     comment.directReplies.add(newCommentId);
 
-    return await document.update({
-      "comments" : FieldValue.increment(1),
-      "directReplies" : comment.directReplies,
+    await document.update({
+      'comments' : FieldValue.increment(1),
+      'directReplies' : comment.directReplies,
     });
+
+    return await updateCommentCount(commentId);
+  }
+
+  Future updateCommentCount(String commentId) async {
+    final parentComments = await commentsDatabaseCollection.where('directReplies', arrayContains: commentId).get();
+
+    if (parentComments.docs.isEmpty) return;
+
+    QueryDocumentSnapshot snapshot = parentComments.docs.first;
+
+    await snapshot.reference.update({
+      'comments': FieldValue.increment(1),
+    });
+
+    await updateCommentCount(snapshot.id);
   }
 
 }
