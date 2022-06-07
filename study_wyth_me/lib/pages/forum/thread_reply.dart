@@ -59,7 +59,7 @@ class _ThreadReplyState extends State<ThreadReply> {
                           username: poster.username,
                           profile: poster.url,
                           function: () {},
-                          showReplyButton: false,
+                          enableLikeAndReply: false,
                         ),
                         widget.commenter.isNotEmpty
                             ? Padding(

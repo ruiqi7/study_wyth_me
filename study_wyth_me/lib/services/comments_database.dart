@@ -31,16 +31,32 @@ class CommentsDatabase {
       'uid': uid,
       'timestamp': DateTime.now().millisecondsSinceEpoch,
       'content': content,
-      'likes': 0,
+      'likes': [],
       'comments': 0,
       'directReplies': [],
     });
     return document.id;
   }
 
-  Future addLike(String commentId) async {
-    return await commentsDatabaseCollection.doc(commentId).update({
-      'likes' : FieldValue.increment(1),
+  Future hasLiked(String commentId, String uid) async {
+    DocumentReference document = commentsDatabaseCollection.doc(commentId);
+    Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
+
+    return comment.likes.contains(uid);
+  }
+
+  Future addLike(String commentId, String uid) async {
+    DocumentReference document = commentsDatabaseCollection.doc(commentId);
+    Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
+
+    List<dynamic> usersWhoLiked = comment.likes;
+    if (usersWhoLiked.contains(uid)) {
+      usersWhoLiked.remove(uid);
+    } else {
+      usersWhoLiked.add(uid);
+    }
+    await commentsDatabaseCollection.doc(commentId).update({
+      'likes' : usersWhoLiked,
     });
   }
 

@@ -34,7 +34,7 @@ class _FriendListState extends State<FriendList> {
               itemCount: users.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return FriendCard(username: users[index].username, uid: uid, isFriend: list.contains(users[index].username));
+                return FriendCard(username: users[index].username, profile: users[index].url, uid: uid, isFriend: list.contains(users[index].username));
               },
             );
           } else {

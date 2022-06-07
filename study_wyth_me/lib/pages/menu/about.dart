@@ -25,7 +25,7 @@ class About extends StatelessWidget {
                   'better! It features a gamification system for you to '
                   'find motivation in studying, and also a discussion forum '
                   'for you to resolve your academic troubles.',
-                textAlign: TextAlign.justify,
+                textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 24.1,
                   letterSpacing: 1.1,

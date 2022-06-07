@@ -6,7 +6,7 @@ class Post {
   final String content;
   final dynamic timestamp;
   final dynamic comments;
-  final dynamic likes;
+  final List<dynamic> likes;
   final List<dynamic> directReplies;
 
   Post({
@@ -19,4 +19,14 @@ class Post {
     required this.likes,
     required this.directReplies,
   });
+
+  int compareTo(Post post) {
+    if (timestamp < post.timestamp) {
+      return -1;
+    } else if (timestamp > post.timestamp) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }

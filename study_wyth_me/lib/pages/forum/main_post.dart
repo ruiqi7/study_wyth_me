@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/loading.dart';
@@ -9,14 +10,14 @@ class MainPost extends StatefulWidget {
   final String username;
   final String profile;
   final void Function() function;
-  final bool showReplyButton;
+  final bool enableLikeAndReply;
   const MainPost({
     Key? key,
     required this.post,
     required this.username,
     required this.profile,
     required this.function,
-    required this.showReplyButton
+    required this.enableLikeAndReply
   }) : super(key: key);
 
   @override
@@ -24,10 +25,20 @@ class MainPost extends StatefulWidget {
 }
 
 class _MainPostState extends State<MainPost> {
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
   final ForumDatabase forumDatabase = ForumDatabase();
+
+  bool? _liked;
 
   @override
   Widget build(BuildContext context) {
+    if (_liked == null) {
+      forumDatabase.hasLiked(widget.post.postId, uid).then((result)  => _liked = result);
+      if (_liked == null) {
+        setState(() => const Loading());
+      }
+    }
+
     return IntrinsicHeight(
       child: StreamBuilder<Post>(
         stream: ForumDatabase().postData(widget.post.postId),
@@ -90,22 +101,37 @@ class _MainPostState extends State<MainPost> {
                     height: 35.0,
                     child: Row(
                       children: <Widget> [
-                        Container(
-                            padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
+                        widget.enableLikeAndReply
+                          ? Container(
+                              padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
+                              height: 50.0,
+                              width: 40.0,
+                              child: IconButton(
+                                icon: Icon(
+                                  _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                  color: Colors.grey
+                                ),
+                                iconSize: 20,
+                                onPressed: () async {
+                                  await forumDatabase.addLike(widget.post.postId, uid);
+                                  setState(() => _liked = !_liked!);
+                                },
+                              )
+                          )
+                        : Container(
+                            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 10.0),
                             height: 50.0,
                             width: 40.0,
-                            child: IconButton(
-                              icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
-                              iconSize: 20,
-                              onPressed: () async {
-                                await forumDatabase.addLike(widget.post.postId);
-                              },
-                            )
-                        ),
+                            child: Icon(
+                                _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                          ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                           child: Text(
-                            '${post.likes}',
+                            '${post.likes.length}',
                             style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                           ),
                         ),
@@ -129,7 +155,7 @@ class _MainPostState extends State<MainPost> {
                         const Expanded(
                           child: SizedBox(),
                         ),
-                        widget.showReplyButton
+                        widget.enableLikeAndReply
                           ? SizedBox(
                               width: 50.0,
                               child: TextButton(

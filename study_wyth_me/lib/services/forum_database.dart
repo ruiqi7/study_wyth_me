@@ -20,7 +20,7 @@ class ForumDatabase {
         title: doc.data().toString().contains('title') ? doc.get('title'): '',
         content: doc.data().toString().contains('content') ? doc.get('content'): '',
         timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp'): 0,
-        likes: doc.data().toString().contains('likes') ? doc.get('likes'): 0,
+        likes: doc.data().toString().contains('likes') ? doc.get('likes'): [],
         comments: doc.data().toString().contains('comments') ? doc.get('comments'): 0,
         directReplies: doc.data().toString().contains('directReplies') ? doc.get('directReplies'): [],
       );
@@ -54,15 +54,31 @@ class ForumDatabase {
       'title': title,
       'content': content,
       'timestamp': timestamp,
-      'likes': 0,
+      'likes': [],
       'comments': 0,
       'directReplies': [],
     });
   }
 
-  Future addLike(String postId) async {
-    return await forumDatabaseCollection.doc(postId).update({
-      'likes' : FieldValue.increment(1),
+  Future hasLiked(String postId, String uid) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    return post.likes.contains(uid);
+  }
+
+  Future addLike(String postId, String uid) async {
+    DocumentReference document = forumDatabaseCollection.doc(postId);
+    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    List<dynamic> usersWhoLiked = post.likes;
+    if (usersWhoLiked.contains(uid)) {
+      usersWhoLiked.remove(uid);
+    } else {
+      usersWhoLiked.add(uid);
+    }
+    await forumDatabaseCollection.doc(postId).update({
+      'likes' : usersWhoLiked,
     });
   }
 
