@@ -17,7 +17,7 @@ class _LeaderboardListState extends State<LeaderboardList> {
     final appUsers = Provider.of<List<AppUser>>(context);
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: appUsers.length,
+      itemCount: appUsers.length <= 20 ? appUsers.length : 20,
       itemBuilder: (context, index) {
         return UserCard(appUser: appUsers[index], rank: index);
       }

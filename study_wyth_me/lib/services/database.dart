@@ -104,14 +104,12 @@ class DatabaseService {
     if (isCommunity) {
       return userDatabaseCollection
           .orderBy("points", descending: true)
-          .limit(20)
           .snapshots()
           .map(_userDataListFromSnapshot);
     } else {
       return userDatabaseCollection
           .where("username", whereIn: list)
           .orderBy("points", descending: true)
-          .limit(20)
           .snapshots()
           .map(_userDataListFromSnapshot);
     }
@@ -122,6 +120,21 @@ class DatabaseService {
         .where('username', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
         .snapshots()
         .map(_userDataListFromSnapshot);
+  }
+
+  List<AppUser> userDataListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return AppUser(
+        uid: doc.data().toString().contains('uid') ? doc.get('uid') : '',
+        username: doc.get('username'),
+        map: doc.get('map'),
+        url: doc.get('url'),
+        points: doc.data().toString().contains('points') ? doc.get('points') : '',
+        duration: doc.get('duration'),
+        friendsUsername: doc.data().toString().contains('friendsUsername') ? doc.get('friendsUsername'): [],
+        mythics: doc.get('mythics'),
+      );
+    }).toList();
   }
 
   List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {
