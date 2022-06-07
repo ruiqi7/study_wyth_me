@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/models/post.dart';
@@ -16,10 +17,20 @@ class ForumPost extends StatefulWidget {
 }
 
 class _ForumPostState extends State<ForumPost> {
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
   final ForumDatabase forumDatabase = ForumDatabase();
+
+  bool? _liked;
 
   @override
   Widget build(BuildContext context) {
+    if (_liked == null) {
+      forumDatabase.hasLiked(widget.post.postId, uid).then((result)  => _liked = result);
+      if (_liked == null) {
+        setState(() => const Loading());
+      }
+    }
+
     return IntrinsicHeight(
       child: StreamBuilder<AppUser>(
         stream: DatabaseService(uid: widget.post.uid).userData,
@@ -84,7 +95,7 @@ class _ForumPostState extends State<ForumPost> {
                           icon: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
                           iconSize: 25,
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Thread(
@@ -110,17 +121,21 @@ class _ForumPostState extends State<ForumPost> {
                           height: 50.0,
                           width: 40.0,
                           child: IconButton(
-                            icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
+                            icon: Icon(
+                              _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                              color: Colors.grey
+                            ),
                             iconSize: 20,
                             onPressed: () async {
-                              await forumDatabase.addLike(widget.post.postId);
+                              await forumDatabase.addLike(widget.post.postId, uid);
+                              setState(() => _liked = !_liked!);
                             },
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
-                            '${widget.post.likes}',
+                            '${widget.post.likes.length}',
                             style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                           ),
                         ),

@@ -15,14 +15,14 @@ class ThreadResponse extends StatefulWidget {
   final List<dynamic> parentDirectReplies;
   final int replyIndex;
   final Post post;
-  final bool showReplyButton;
+  final bool enableLikeAndReply;
   const ThreadResponse({
     Key? key,
     required this.position,
     required this.parentDirectReplies,
     required this.replyIndex,
     required this.post,
-    required this.showReplyButton
+    required this.enableLikeAndReply
   }) : super(key: key);
 
   @override
@@ -33,13 +33,24 @@ class _ThreadResponseState extends State<ThreadResponse> {
 
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
+  final CommentsDatabase commentsDatabase = CommentsDatabase();
+  bool? _liked;
+
   @override
   Widget build(BuildContext context) {
     if (widget.position <= 5) {
       String commentId = widget.parentDirectReplies[widget.replyIndex];
+
+      if (_liked == null) {
+        commentsDatabase.hasLiked(commentId, uid).then((result)  => _liked = result);
+        if (_liked == null) {
+          setState(() => const Loading());
+        }
+      }
+
       return IntrinsicHeight(
         child: StreamBuilder<Comment>(
-            stream: CommentsDatabase().commentData(commentId),
+            stream: commentsDatabase.commentData(commentId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Comment comment = snapshot.data!;
@@ -125,19 +136,29 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: <Widget> [
-                                                  IconButton(
-                                                    padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
-                                                    constraints: const BoxConstraints(),
-                                                    icon: const Icon(Icons.thumb_up_alt_outlined, color: Colors.grey),
-                                                    iconSize: 20,
-                                                    onPressed: () async {
-                                                      await CommentsDatabase().addLike(commentId);
-                                                    },
-                                                  ),
+                                                  widget.enableLikeAndReply
+                                                    ? IconButton(
+                                                        padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
+                                                        constraints: const BoxConstraints(),
+                                                        icon: Icon(
+                                                          _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                          color: Colors.grey
+                                                        ),
+                                                        iconSize: 20,
+                                                        onPressed: () async {
+                                                          await commentsDatabase.addLike(commentId, uid);
+                                                          setState(() => _liked = !_liked!);
+                                                        },
+                                                      )
+                                                    : Icon(
+                                                        _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                        color: Colors.grey,
+                                                        size: 20,
+                                                      ),
                                                   Padding(
                                                     padding: const EdgeInsets.fromLTRB(5.0, 8.0, 12.0, 10.0),
                                                     child: Text(
-                                                      '${comment.likes}',
+                                                      '${comment.likes.length}',
                                                       style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                                                     ),
                                                   ),
@@ -159,7 +180,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                   const Expanded(
                                                     child: SizedBox(),
                                                   ),
-                                                  widget.showReplyButton
+                                                  widget.enableLikeAndReply
                                                     ? SizedBox(
                                                         width: 50.0,
                                                         child: TextButton(
@@ -181,7 +202,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                                     parentDirectReplies: widget.parentDirectReplies,
                                                                     replyIndex: widget.replyIndex,
                                                                     post: widget.post,
-                                                                    showReplyButton: false,
+                                                                    enableLikeAndReply: false,
                                                                   ),
                                                                   commenter: commenter.username,
                                                                   commentId: commentId,
@@ -228,7 +249,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                   parentDirectReplies: comment.directReplies,
                                                   replyIndex: 0,
                                                   post: widget.post,
-                                                  showReplyButton: widget.showReplyButton,
+                                                  enableLikeAndReply: widget.enableLikeAndReply,
                                                 )
                                               : const SizedBox(width: 0.0, height: 0.0),
                                           ],
@@ -246,7 +267,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                   parentDirectReplies: widget.parentDirectReplies,
                                   replyIndex: widget.replyIndex + 1,
                                   post: widget.post,
-                                  showReplyButton: widget.showReplyButton,
+                                  enableLikeAndReply: widget.enableLikeAndReply,
                                 ),
                           ],
                         );

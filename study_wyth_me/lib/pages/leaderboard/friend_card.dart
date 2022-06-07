@@ -4,11 +4,13 @@ import 'package:study_wyth_me/shared/constants.dart';
 
 class FriendCard extends StatelessWidget {
   final String username;
+  final String profile;
   final String uid;
   final bool isFriend;
   const FriendCard({
     Key? key,
     required this.username,
+    required this.profile,
     required this.uid,
     required this.isFriend,
   }) : super(key: key);
@@ -22,6 +24,13 @@ class FriendCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage: NetworkImage(profile),
+                ),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),

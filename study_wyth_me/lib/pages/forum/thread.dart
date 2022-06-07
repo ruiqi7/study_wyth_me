@@ -10,6 +10,8 @@ import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 
+import 'forum.dart';
+
 class Thread extends StatefulWidget {
   final Post post;
   final List<dynamic> parentDirectReplies;
@@ -38,7 +40,38 @@ class _ThreadState extends State<Thread> {
 
                     return Scaffold(
                       backgroundColor: darkBlueBackground,
-                      appBar: topBarWithBackButton(context),
+                      appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(75),
+                        child:   SafeArea(
+                          child: Container(
+                            color: whiteOpacity20,
+                            height: 75.0,
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.white,
+                                      size: 35,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                        MaterialPageRoute(builder: (context) => const Forum())
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const Expanded(
+                                  child: SizedBox(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       body: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -68,7 +101,7 @@ class _ThreadState extends State<Thread> {
                                           )
                                         );
                                       },
-                                      showReplyButton: true,
+                                      enableLikeAndReply: true,
                                     );
                                   } else {
                                     return Padding(
@@ -78,7 +111,7 @@ class _ThreadState extends State<Thread> {
                                         parentDirectReplies: widget.replyIndex == - 1 ? post.directReplies : widget.parentDirectReplies,
                                         replyIndex: widget.replyIndex == - 1 ? index - 1 : widget.replyIndex,
                                         post: post,
-                                        showReplyButton: true,
+                                        enableLikeAndReply: true,
                                       ),
                                     );
                                   }

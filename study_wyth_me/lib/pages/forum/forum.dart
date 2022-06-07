@@ -32,6 +32,8 @@ class _ForumState extends State<Forum> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> querySnapshot) {
           if (querySnapshot.hasData) {
             List postList = forumDatabase.forumPostListFromSnapshot(querySnapshot.data!);
+            postList.sort((a, b) => b.compareTo(a));
+
             return StreamBuilder<AppUser>(
                 stream: DatabaseService(uid: uid).userData,
                 builder: (context, snapshot) {

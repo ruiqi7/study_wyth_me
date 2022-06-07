@@ -6,7 +6,7 @@ class Comment {
   final String uid;
   final dynamic timestamp;
   final String content;
-  final dynamic likes;
+  final List<dynamic> likes;
   final dynamic comments;
   final List<dynamic> directReplies;
 

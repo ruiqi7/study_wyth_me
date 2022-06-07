@@ -104,7 +104,7 @@ class _LeaderboardState extends State<Leaderboard> {
                           child: Container(
                             height: 48,
                             width: 143,
-                            color: _isCommunity ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
+                            color: _isCommunity ? whiteOpacity15 : Colors.transparent,
                             child: TextButton(
                               child: Text(
                                 'Community',
@@ -122,7 +122,7 @@ class _LeaderboardState extends State<Leaderboard> {
                           child: Container(
                             height: 48,
                             width: 143,
-                            color: !_isCommunity ? whiteOpacity15 : const Color.fromRGBO(255, 255, 255, 0.0),
+                            color: !_isCommunity ? whiteOpacity15 : Colors.transparent,
                             child: TextButton(
                               child: Text(
                                 'Friends',
