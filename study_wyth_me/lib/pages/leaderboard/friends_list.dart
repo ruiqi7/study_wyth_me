@@ -7,10 +7,7 @@ import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 
 class FriendList extends StatefulWidget {
-
-  const FriendList({
-    Key? key,
-  }) : super(key: key);
+  const FriendList({Key? key}) : super(key: key);
 
   @override
   State<FriendList> createState() => _FriendListState();
@@ -34,7 +31,12 @@ class _FriendListState extends State<FriendList> {
               itemCount: users.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return FriendCard(username: users[index].username, profile: users[index].url, uid: uid, isFriend: list.contains(users[index].username));
+                return FriendCard(
+                    username: users[index].username,
+                    profile: users[index].url,
+                    uid: uid,
+                    isFriend: list.contains(users[index].username)
+                );
               },
             );
           } else {
