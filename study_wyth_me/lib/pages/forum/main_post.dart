@@ -28,16 +28,18 @@ class _MainPostState extends State<MainPost> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   final ForumDatabase forumDatabase = ForumDatabase();
 
-  bool? _liked;
+  // bool? _liked;
 
   @override
   Widget build(BuildContext context) {
+    /*
     if (_liked == null) {
       forumDatabase.hasLiked(widget.post.postId, uid).then((result)  => _liked = result);
       if (_liked == null) {
         setState(() => const Loading());
       }
     }
+    */
 
     return IntrinsicHeight(
       child: StreamBuilder<Post>(
@@ -107,14 +109,14 @@ class _MainPostState extends State<MainPost> {
                               height: 50.0,
                               width: 40.0,
                               child: IconButton(
-                                icon: Icon(
-                                  _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                icon: const Icon(
+                                  Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                   color: Colors.grey
                                 ),
                                 iconSize: 20,
                                 onPressed: () async {
                                   await forumDatabase.addLike(widget.post.postId, uid);
-                                  setState(() => _liked = !_liked!);
+                                  // setState(() => _liked = !_liked!);
                                 },
                               )
                           )
@@ -122,8 +124,8 @@ class _MainPostState extends State<MainPost> {
                             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 10.0),
                             height: 50.0,
                             width: 40.0,
-                            child: Icon(
-                                _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                            child: const Icon(
+                                Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                 color: Colors.grey,
                                 size: 20,
                               ),

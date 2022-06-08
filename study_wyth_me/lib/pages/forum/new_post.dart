@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/models/app_user.dart';
-import 'package:study_wyth_me/pages/loading.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -48,6 +46,7 @@ class _NewPostState extends State<NewPost> {
                         _text,
                         DateTime.now().millisecondsSinceEpoch,
                       );
+                      await DatabaseService(uid: uid).updatePoints();
                       Navigator.pop(context);
                     }
                   }

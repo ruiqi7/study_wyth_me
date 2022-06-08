@@ -34,19 +34,21 @@ class _ThreadResponseState extends State<ThreadResponse> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
 
   final CommentsDatabase commentsDatabase = CommentsDatabase();
-  bool? _liked;
+  // bool? _liked;
 
   @override
   Widget build(BuildContext context) {
     if (widget.position <= 5) {
       String commentId = widget.parentDirectReplies[widget.replyIndex];
 
+      /*
       if (_liked == null) {
         commentsDatabase.hasLiked(commentId, uid).then((result)  => _liked = result);
         if (_liked == null) {
           setState(() => const Loading());
         }
       }
+      */
 
       return IntrinsicHeight(
         child: StreamBuilder<Comment>(
@@ -140,18 +142,18 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                     ? IconButton(
                                                         padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
                                                         constraints: const BoxConstraints(),
-                                                        icon: Icon(
-                                                          _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                        icon: const Icon(
+                                                          Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                                           color: Colors.grey
                                                         ),
                                                         iconSize: 20,
                                                         onPressed: () async {
                                                           await commentsDatabase.addLike(commentId, uid);
-                                                          setState(() => _liked = !_liked!);
+                                                          // setState(() => _liked = !_liked!);
                                                         },
                                                       )
-                                                    : Icon(
-                                                        _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                    : const Icon(
+                                                        Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                                         color: Colors.grey,
                                                         size: 20,
                                                       ),

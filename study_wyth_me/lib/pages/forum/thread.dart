@@ -40,6 +40,8 @@ class _ThreadState extends State<Thread> {
 
                     return Scaffold(
                       backgroundColor: darkBlueBackground,
+                      appBar: topBarWithBackButton(context),
+                      /*
                       appBar: PreferredSize(
                         preferredSize: const Size.fromHeight(75),
                         child:   SafeArea(
@@ -72,6 +74,7 @@ class _ThreadState extends State<Thread> {
                           ),
                         ),
                       ),
+                      */
                       body: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
