@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/database.dart';
@@ -19,12 +20,20 @@ class Authentication {
   // sign up
   Future<String> customSignUp(String email, String username, String password) async {
     try {
-      UserCredential result = await _authenticate
-          .createUserWithEmailAndPassword(email: email, password: password);
+      bool usernameUsed = false;
+      Query query = FirebaseFirestore.instance.collection('userDatabase').where('username', isEqualTo: username);
+      await query.get().then((result) => usernameUsed = result.size != 0);
 
-      // create a new document for the user with the uid
-      await DatabaseService(uid: result.user!.uid).createNewUser(username);
-      return '';
+      if (usernameUsed) {
+        return 'This username has been taken up.';
+      } else {
+        UserCredential result = await _authenticate
+            .createUserWithEmailAndPassword(email: email, password: password);
+
+        // create a new document for the user with the uid
+        await DatabaseService(uid: result.user!.uid).createNewUser(username);
+        return '';
+      }
     } on FirebaseAuthException catch (authException) {
       String error = authException.code;
       if (error == 'email-already-in-use') {

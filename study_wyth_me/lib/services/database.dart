@@ -94,6 +94,12 @@ class DatabaseService {
     });
   }
 
+  Future updatePoints() async {
+    return await userDatabaseCollection.doc(uid).update({
+      'points': FieldValue.increment(1),
+    });
+  }
+
   //get userDatabase stream
   Stream<QuerySnapshot> get userDatabaseStream {
     return userDatabaseCollection.snapshots();

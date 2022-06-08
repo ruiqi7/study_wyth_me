@@ -38,12 +38,14 @@ class CommentsDatabase {
     return document.id;
   }
 
+  /*
   Future hasLiked(String commentId, String uid) async {
     DocumentReference document = commentsDatabaseCollection.doc(commentId);
     Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
 
     return comment.likes.contains(uid);
   }
+  */
 
   Future addLike(String commentId, String uid) async {
     DocumentReference document = commentsDatabaseCollection.doc(commentId);

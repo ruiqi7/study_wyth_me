@@ -134,6 +134,7 @@ class _ThreadReplyState extends State<ThreadReply> {
                                   } else {
                                     await forumDatabase.addReply(widget.post.postId, newCommentId);
                                   }
+                                  await DatabaseService(uid: uid).updatePoints();
                                   Navigator.pop(context);
                                 }
                               }

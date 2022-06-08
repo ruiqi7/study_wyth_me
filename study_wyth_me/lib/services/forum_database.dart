@@ -60,12 +60,14 @@ class ForumDatabase {
     });
   }
 
-  Future hasLiked(String postId, String uid) async {
+  /*
+  Future<bool> hasLiked(String postId, String uid) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
     Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
 
     return post.likes.contains(uid);
   }
+  */
 
   Future addLike(String postId, String uid) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
