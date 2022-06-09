@@ -62,9 +62,14 @@ class DatabaseService {
   }
 
   Future updateModule(String module, int hours) async {
+    if (hours >= 30) {
+      await userDatabaseCollection.doc(uid).update({
+        'points' : FieldValue.increment(hours),
+      });
+    }
+
     return await userDatabaseCollection.doc(uid).update({
       'map.$module': FieldValue.increment(hours),
-      'points' : FieldValue.increment(hours),
     });
   }
 
@@ -94,9 +99,15 @@ class DatabaseService {
     });
   }
 
-  Future updatePoints() async {
+  Future addPoint() async {
     return await userDatabaseCollection.doc(uid).update({
       'points': FieldValue.increment(1),
+    });
+  }
+
+  Future deductPoint() async {
+    return await userDatabaseCollection.doc(uid).update({
+      'points': FieldValue.increment(-1),
     });
   }
 

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -35,12 +37,16 @@ class NotificationService {
   }
 
   Future<void> showNotification(Duration duration, String module) async {
-    const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
+    const int insistentFlag = 4;
+
+    final AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
       'Channel ID',
       'Timer',
       importance: Importance.max,
       priority: Priority.high,
-      playSound: true
+      playSound: true,
+      enableVibration: true,
+      additionalFlags: Int32List.fromList(<int>[insistentFlag]),
     );
 
     const IOSNotificationDetails _iOSNotificationDetails = IOSNotificationDetails(
@@ -49,7 +55,7 @@ class NotificationService {
       presentSound: true
     );
 
-    NotificationDetails platformChannelSpecifics = const NotificationDetails(
+    final NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: _androidNotificationDetails,
       iOS: _iOSNotificationDetails
     );
@@ -76,7 +82,8 @@ class NotificationService {
       'Timer',
       importance: Importance.max,
       priority: Priority.high,
-      playSound: true
+      playSound: true,
+      enableVibration: true,
     );
 
     const IOSNotificationDetails _iOSNotificationDetails = IOSNotificationDetails(
@@ -104,5 +111,9 @@ class NotificationService {
       'Timer of $message for $module has been cancelled!',
       platformChannelSpecifics
     );
+  }
+
+  Future cancelNotification() async {
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 }

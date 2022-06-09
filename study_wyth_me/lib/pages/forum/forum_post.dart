@@ -131,22 +131,33 @@ class _ForumPostState extends State<ForumPost> {
                     height: 35.0,
                     child: Row(
                       children: <Widget> [
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 0.0),
-                          height: 50.0,
-                          width: 40.0,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                              color: Colors.grey
+                        widget.post.uid != uid
+                          ? Container(
+                            padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 0.0),
+                            height: 50.0,
+                            width: 40.0,
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                color: Colors.grey
+                              ),
+                              iconSize: 20,
+                              onPressed: () async {
+                                await forumDatabase.changeLikeStatus(widget.post.postId, uid);
+                                //setState(() => _liked = !_liked!);
+                              },
                             ),
-                            iconSize: 20,
-                            onPressed: () async {
-                              await forumDatabase.addLike(widget.post.postId, uid);
-                              //setState(() => _liked = !_liked!);
-                            },
-                          ),
-                        ),
+                          )
+                          : Container(
+                              padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
+                              height: 50.0,
+                              width: 40.0,
+                              child: const Icon(
+                                Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                color: Colors.grey,
+                                size: 20
+                              ),
+                            ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(

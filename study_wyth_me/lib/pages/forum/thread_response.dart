@@ -138,7 +138,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                               child: Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: <Widget> [
-                                                  widget.enableLikeAndReply
+                                                  widget.enableLikeAndReply && comment.uid != uid
                                                     ? IconButton(
                                                         padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
                                                         constraints: const BoxConstraints(),
@@ -148,7 +148,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                         ),
                                                         iconSize: 20,
                                                         onPressed: () async {
-                                                          await commentsDatabase.addLike(commentId, uid);
+                                                          await commentsDatabase.changeLikeStatus(commentId, uid);
                                                           // setState(() => _liked = !_liked!);
                                                         },
                                                       )

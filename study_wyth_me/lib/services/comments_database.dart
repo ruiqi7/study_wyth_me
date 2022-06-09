@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_wyth_me/models/comment.dart';
+import 'package:study_wyth_me/services/database.dart';
 
 class CommentsDatabase {
 
@@ -47,15 +48,19 @@ class CommentsDatabase {
   }
   */
 
-  Future addLike(String commentId, String uid) async {
+  Future changeLikeStatus(String commentId, String uid) async {
     DocumentReference document = commentsDatabaseCollection.doc(commentId);
     Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
+
+    DatabaseService databaseService = DatabaseService(uid: comment.uid);
 
     List<dynamic> usersWhoLiked = comment.likes;
     if (usersWhoLiked.contains(uid)) {
       usersWhoLiked.remove(uid);
+      databaseService.deductPoint();
     } else {
       usersWhoLiked.add(uid);
+      databaseService.addPoint();
     }
     await commentsDatabaseCollection.doc(commentId).update({
       'likes' : usersWhoLiked,

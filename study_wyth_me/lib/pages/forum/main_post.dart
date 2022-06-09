@@ -103,7 +103,7 @@ class _MainPostState extends State<MainPost> {
                     height: 35.0,
                     child: Row(
                       children: <Widget> [
-                        widget.enableLikeAndReply
+                        widget.enableLikeAndReply && widget.post.uid != uid
                           ? Container(
                               padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
                               height: 50.0,
@@ -115,7 +115,7 @@ class _MainPostState extends State<MainPost> {
                                 ),
                                 iconSize: 20,
                                 onPressed: () async {
-                                  await forumDatabase.addLike(widget.post.postId, uid);
+                                  await forumDatabase.changeLikeStatus(widget.post.postId, uid);
                                   // setState(() => _liked = !_liked!);
                                 },
                               )

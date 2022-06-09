@@ -25,11 +25,11 @@ class _LeaderboardState extends State<Leaderboard> {
 
   String _getRank(int rank) {
     int lastDigit = rank % 10;
-    if (lastDigit == 1) {
+    if (lastDigit == 1 && rank != 11) {
       return '${rank}st';
-    } else if (lastDigit == 2) {
+    } else if (lastDigit == 2 && rank != 12) {
       return '${rank}nd';
-    } else if (lastDigit == 3) {
+    } else if (lastDigit == 3 && rank != 13) {
       return '${rank}rd';
     } else {
       return '${rank}th';

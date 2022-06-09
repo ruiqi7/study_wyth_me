@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_wyth_me/models/post.dart';
+import 'package:study_wyth_me/services/database.dart';
 
 class ForumDatabase {
 
@@ -69,15 +70,19 @@ class ForumDatabase {
   }
   */
 
-  Future addLike(String postId, String uid) async {
+  Future changeLikeStatus(String postId, String uid) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
     Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
+
+    DatabaseService databaseService = DatabaseService(uid: post.uid);
 
     List<dynamic> usersWhoLiked = post.likes;
     if (usersWhoLiked.contains(uid)) {
       usersWhoLiked.remove(uid);
+      databaseService.deductPoint();
     } else {
       usersWhoLiked.add(uid);
+      databaseService.addPoint();
     }
     await forumDatabaseCollection.doc(postId).update({
       'likes' : usersWhoLiked,
@@ -98,8 +103,6 @@ class ForumDatabase {
 
   Future updateCommentCount(String postId) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
-    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
-
     return await document.update({
       'comments' : FieldValue.increment(1),
     });
