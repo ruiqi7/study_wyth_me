@@ -155,7 +155,7 @@ class _HomeState extends State<Home> {
                             ),
                             const SizedBox(height: 5.0),
                             Text(
-                              'points',
+                              appUser.points != 1 ? 'points' : 'point',
                               style: norwesterTextStyle.copyWith(fontSize: 22.5)
                             )
                           ]

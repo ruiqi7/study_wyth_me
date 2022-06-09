@@ -101,6 +101,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
                 ),
                 onPressed: () async {
                   if (displayDone) {
+                    await NotificationService().cancelNotification();
                     await DatabaseService(uid: widget.uid).updateModule(widget.module, widget.duration.inMinutes);
                   }
                   setState(() {
