@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -162,7 +161,7 @@ class _LeaderboardState extends State<Leaderboard> {
                           ),
                         ),
                         gapBox,
-                        horizontalDivider,
+                        noHeightHorizontalDivider,
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -170,8 +169,8 @@ class _LeaderboardState extends State<Leaderboard> {
                               StreamProvider<List<AppUser>>.value(
                                 value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
                                 initialData: const [],
-                                child: const Flexible(
-                                    child: LeaderboardList()
+                                child: Flexible(
+                                    child: LeaderboardList(username: appUser.username)
                                 ),
                               ),
                               !_isCommunity ? Container(

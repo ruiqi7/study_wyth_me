@@ -28,18 +28,8 @@ class _MainPostState extends State<MainPost> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   final ForumDatabase forumDatabase = ForumDatabase();
 
-  // bool? _liked;
-
   @override
   Widget build(BuildContext context) {
-    /*
-    if (_liked == null) {
-      forumDatabase.hasLiked(widget.post.postId, uid).then((result)  => _liked = result);
-      if (_liked == null) {
-        setState(() => const Loading());
-      }
-    }
-    */
 
     return IntrinsicHeight(
       child: StreamBuilder<Post>(
@@ -47,7 +37,6 @@ class _MainPostState extends State<MainPost> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Post post = snapshot.data!;
-
             return Container(
               decoration: const BoxDecoration(
                 color: whiteOpacity10,
@@ -109,8 +98,9 @@ class _MainPostState extends State<MainPost> {
                               height: 50.0,
                               width: 40.0,
                               child: IconButton(
-                                icon: const Icon(
-                                  Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                icon: Icon(
+                                  post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                  //Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                   color: Colors.grey
                                 ),
                                 iconSize: 20,
@@ -124,11 +114,11 @@ class _MainPostState extends State<MainPost> {
                             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 10.0),
                             height: 50.0,
                             width: 40.0,
-                            child: const Icon(
-                                Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
+                            child: Icon(
+                              post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
                           ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
