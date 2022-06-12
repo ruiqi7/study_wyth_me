@@ -5,7 +5,13 @@ import 'package:study_wyth_me/pages/leaderboard/user_card.dart';
 import '../../models/app_user.dart';
 
 class LeaderboardList extends StatefulWidget {
-  const LeaderboardList({Key? key}) : super(key: key);
+
+  final String username;
+
+  const LeaderboardList({
+    required this.username,
+    Key? key
+  }) : super(key: key);
 
   @override
   State<LeaderboardList> createState() => _LeaderboardListState();
@@ -19,7 +25,7 @@ class _LeaderboardListState extends State<LeaderboardList> {
       shrinkWrap: true,
       itemCount: appUsers.length <= 20 ? appUsers.length : 20,
       itemBuilder: (context, index) {
-        return UserCard(appUser: appUsers[index], rank: index);
+        return UserCard(appUser: appUsers[index], rank: index, username: widget.username);
       }
     );
   }

@@ -20,19 +20,8 @@ class _ForumPostState extends State<ForumPost> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   final ForumDatabase forumDatabase = ForumDatabase();
 
-  // bool? _liked;
-
   @override
   Widget build(BuildContext context) {
-
-    /*
-    if (_liked == null) {
-      forumDatabase.hasLiked(widget.post.postId, uid).then((result)  => _liked = result);
-      if (_liked == null) {
-        setState(() => const Loading());
-      }
-    }
-    */
 
     return IntrinsicHeight(
       child: StreamBuilder<AppUser>(
@@ -137,14 +126,13 @@ class _ForumPostState extends State<ForumPost> {
                             height: 50.0,
                             width: 40.0,
                             child: IconButton(
-                              icon: const Icon(
-                                Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                              icon: Icon(
+                                widget.post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                 color: Colors.grey
                               ),
                               iconSize: 20,
                               onPressed: () async {
                                 await forumDatabase.changeLikeStatus(widget.post.postId, uid);
-                                //setState(() => _liked = !_liked!);
                               },
                             ),
                           )
