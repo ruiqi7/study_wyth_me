@@ -5,7 +5,7 @@ import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:fl_chart/fl_chart.dart';
-
+import 'package:cron/cron.dart';
 import '../../models/app_user.dart';
 import '../../services/database.dart';
 import 'edit_profile.dart';
@@ -75,8 +75,23 @@ class _HomeState extends State<Home> {
       return const Loading();
     } else {
       String uid = FirebaseAuth.instance.currentUser!.uid;
+      final DatabaseService databaseService = DatabaseService(uid: uid);
+
+      // for the case when the user keeps the app running when Monday comes
+      final Cron cron = Cron();
+      cron.schedule(Schedule.parse('0 0 * * 1'), () async {
+        databaseService.resetModule();
+      });
+
+      // for the case when the app is not running when Monday comes
+      if (DateTime.now().weekday == DateTime.monday) {
+        databaseService.resetModule();
+      } else {
+        databaseService.updateResetStatus();
+      }
+
       return StreamBuilder<AppUser>(
-        stream: DatabaseService(uid: uid).userData,
+        stream: databaseService.userData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData) {
