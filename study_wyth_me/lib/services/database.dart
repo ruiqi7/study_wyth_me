@@ -16,6 +16,7 @@ class DatabaseService {
     return await userDatabaseCollection.doc(uid).set({
       'username': username,
       'map': {},
+      'resetMap': false,
       'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
       'points': 0,
       'duration': 30,
@@ -70,6 +71,27 @@ class DatabaseService {
 
     return await userDatabaseCollection.doc(uid).update({
       'map.$module': FieldValue.increment(hours),
+    });
+  }
+
+  Future resetModule() async {
+    DocumentSnapshot snapshot = await userDatabaseCollection.doc(uid).get();
+    Map <String, dynamic> data = snapshot.data() as Map <String, dynamic>;
+
+    if (!data['resetMap']) {
+      Map <String, dynamic> currData = data['map'];
+      currData.updateAll((key, value) => value = 0);
+
+      await userDatabaseCollection.doc(uid).update({
+        'map': currData,
+        'resetMap': true,
+      });
+    }
+  }
+
+  Future updateResetStatus() async {
+    await userDatabaseCollection.doc(uid).update({
+      'resetMap': false,
     });
   }
 
