@@ -25,7 +25,6 @@ class _TimerState extends State<Timer> {
 
   // passed into navigation bar to identify which page we are on
   final _position = 3;
-  final Duration _minDuration = const Duration(minutes: 1);
   final _formKey = GlobalKey<FormState>();
 
   bool _hideStartButton = false;
@@ -57,7 +56,7 @@ class _TimerState extends State<Timer> {
                 mode: CupertinoTimerPickerMode.hm,
                 initialTimerDuration: _currDuration,
                 onTimerDurationChanged: (Duration newDuration) async {
-                  setState(() => newDuration.compareTo(_minDuration) > 0 ? _currDuration = newDuration : _currDuration = _minDuration);
+                  setState(() => _currDuration = newDuration);
                   await DatabaseService(uid: uid).updateDuration(newDuration.inMinutes);
                 },
               ),
