@@ -104,6 +104,7 @@ class _ThreadReplyState extends State<ThreadReply> {
                               margin: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
                                 child: TextFormField( // text
+                                  key: const Key('ThreadReplyTextFormField'),
                                   maxLines: null,
                                   decoration: forumFormFieldDeco.copyWith(hintText: 'Add Text...'),
                                   style: oswaldTextStyle.copyWith(fontSize: 15.0, color: Colors.white),

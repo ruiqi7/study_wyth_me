@@ -46,6 +46,7 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: <Widget>[
                       TextFormField( // email
+                        key: const Key('SignUpEmailFormField'),
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
@@ -55,6 +56,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       gapBox,
                       TextFormField( // username
+                        key: const Key('SignUpUsernameFormField'),
                         decoration: formFieldDeco.copyWith(hintText: 'Username'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your username' : null,
@@ -64,6 +66,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       gapBox,
                       TextFormField( // password
+                        key: const Key('SignUpPasswordFormField'),
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
@@ -90,6 +93,7 @@ class _SignUpState extends State<SignUp> {
                 height: 55,
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
+                  key: const Key('SignUpButton'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,

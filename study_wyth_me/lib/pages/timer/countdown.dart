@@ -93,6 +93,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
               height: 40,
               decoration: largeRadiusRoundedBox,
               child: TextButton(
+                key: displayDone ? const Key('CountdownDoneButton') : const Key('CountdownCancelButton'),
                 child: Text(displayDone ? 'Done' : 'Cancel'),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5.0),

@@ -47,6 +47,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: <Widget>[
                       TextFormField( // email
+                        key: const Key('SignInEmailFormField'),
                         decoration: formFieldDeco.copyWith(hintText: 'Email'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
@@ -56,6 +57,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       gapBox,
                       TextFormField( // password
+                        key: const Key('SignInPasswordFormField'),
                         decoration: formFieldDeco.copyWith(hintText: 'Password'),
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         obscureText: true,
@@ -74,6 +76,7 @@ class _SignInState extends State<SignIn> {
                 height: 55,
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
+                  key: const Key('SignInLoginButton'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,

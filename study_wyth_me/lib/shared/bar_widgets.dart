@@ -11,6 +11,7 @@ const oswaldText = TextStyle(
 );
 
 navigationBar(context, position) => SafeArea(
+  key: const Key('NavigationBar'),
   child: Row(
     children: <Widget> [
       Expanded(
@@ -29,6 +30,7 @@ navigationBar(context, position) => SafeArea(
                     color: position == 1 ? const Color.fromRGBO(0, 34, 75, 0.5) : const Color.fromRGBO(0, 34, 75, 0.0),
                   ),
                   child: TextButton(
+                    key: const Key('HomeTab'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget> [
@@ -57,6 +59,7 @@ navigationBar(context, position) => SafeArea(
                     color: position == 2 ? const Color.fromRGBO(0, 34, 75, 0.5) : const Color.fromRGBO(0, 34, 75, 0.0),
                   ),
                   child: TextButton(
+                    key: const Key('forumTab'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget> [
@@ -85,6 +88,7 @@ navigationBar(context, position) => SafeArea(
                     color: position == 3 ? const Color.fromRGBO(0, 34, 75, 0.5) : const Color.fromRGBO(0, 34, 75, 0.0),
                   ),
                   child: TextButton(
+                    key: const Key('TimerTab'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget> [
@@ -113,6 +117,7 @@ navigationBar(context, position) => SafeArea(
                     color: position == 4 ? const Color.fromRGBO(0, 34, 75, 0.5) : const Color.fromRGBO(0, 34, 75, 0.0),
                   ),
                   child: TextButton(
+                    key: const Key('LeaderboardTab'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget> [
@@ -141,6 +146,7 @@ navigationBar(context, position) => SafeArea(
                     color: position == 5 ? const Color.fromRGBO(0, 34, 75, 0.5) : const Color.fromRGBO(0, 34, 75, 0.0),
                   ),
                   child: TextButton(
+                    key: const Key('MythicsTab'),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget> [
@@ -216,7 +222,7 @@ appBar(context, uid) => PreferredSize(
 
 topBarWithBackButton(context) => PreferredSize(
   preferredSize: const Size.fromHeight(75),
-  child:   SafeArea(
+  child: SafeArea(
     child: Container(
       color: whiteOpacity20,
       height: 75.0,

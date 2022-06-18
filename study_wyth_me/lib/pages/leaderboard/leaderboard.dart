@@ -79,8 +79,9 @@ class _LeaderboardState extends State<Leaderboard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget> [
                                     Text(
-                                        appUser.points.toString(),
-                                        style: norwesterTextStyle.copyWith(fontSize: 30)
+                                      key: const Key('LeaderboardPoints'),
+                                      appUser.points.toString(),
+                                      style: norwesterTextStyle.copyWith(fontSize: 30)
                                     ),
                                     const SizedBox(width: 15.0),
                                     Text(
@@ -94,8 +95,9 @@ class _LeaderboardState extends State<Leaderboard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget> [
                                     Text(
-                                        _getRank(_rank),
-                                        style: norwesterTextStyle.copyWith(fontSize: 30)
+                                      key: const Key('Rank'),
+                                      _getRank(_rank),
+                                      style: norwesterTextStyle.copyWith(fontSize: 30)
                                     ),
                                     const SizedBox(width: 15.0),
                                     Text(
@@ -145,6 +147,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                     width: 143,
                                     color: !_isCommunity ? whiteOpacity15 : Colors.transparent,
                                     child: TextButton(
+                                      key: const Key('FriendsButton'),
                                       child: Text(
                                         'Friends',
                                         style: chewyTextStyle.copyWith(fontSize: 21),
@@ -179,6 +182,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                 margin: const EdgeInsets.symmetric(vertical: 15.0),
                                 decoration: largeRadiusRoundedBox,
                                 child: TextButton(
+                                  key: const Key('AddFriendButton'),
                                   child: const Text('Add a new friend!'),
                                   style: TextButton.styleFrom(
                                     padding: const EdgeInsets.all(5.0),

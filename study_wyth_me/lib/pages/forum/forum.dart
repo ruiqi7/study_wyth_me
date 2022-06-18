@@ -70,6 +70,7 @@ class _ForumState extends State<Forum> {
                                     ),
                                   ),
                                   IconButton(
+                                    key: const Key('CreateNewPostButton'),
                                     padding: const EdgeInsets.only(right: 0.0),
                                     icon: const Icon(Icons.add, color: Colors.white),
                                     iconSize: 45,
@@ -81,6 +82,7 @@ class _ForumState extends State<Forum> {
                                     },
                                   ),
                                   IconButton(
+                                    key: const Key('SearchPostButton'),
                                     padding: const EdgeInsets.only(right: 10.0),
                                     icon: const Icon(Icons.search, color: Colors.white),
                                     iconSize: 40,

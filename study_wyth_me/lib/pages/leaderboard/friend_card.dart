@@ -46,6 +46,7 @@ class FriendCard extends StatelessWidget {
                   height: 40,
                   decoration: largeRadiusRoundedBox,
                   child: TextButton(
+                    key: isFriend ? const Key('RemoveButton') : const Key('AddButton'),
                     child: Text(isFriend ? 'Remove' : 'Add'),
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(5.0),

@@ -65,6 +65,7 @@ appBarButton(text, function) => Padding(
     height: 40,
     decoration: largeRadiusRoundedBox,
     child: TextButton(
+      key: Key(text),
       child: Text(text),
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(5.0),
@@ -113,6 +114,7 @@ const InputDecoration forumFormFieldDeco = InputDecoration(
 );
 
 backIcon(context) => IconButton(
+  key: const Key('BackIcon'),
   icon: const Icon(
     Icons.arrow_back_ios,
     color: Colors.white,
@@ -124,6 +126,7 @@ backIcon(context) => IconButton(
 );
 
 closeIcon(context) => Container(
+  key: const Key('CloseIcon'),
   margin: const EdgeInsets.only(bottom: 10.0),
   child: IconButton(
     icon: const Icon(
