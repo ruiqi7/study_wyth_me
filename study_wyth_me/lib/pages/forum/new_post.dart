@@ -68,6 +68,7 @@ class _NewPostState extends State<NewPost> {
                     Container(
                       margin: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 4.0),
                       child: TextFormField( // title
+                        key: const Key('NewPostTitleFormField'),
                         decoration: forumFormFieldDeco.copyWith(hintText: 'Add Title'),
                         style: oswaldTextStyle.copyWith(fontSize: 23.5, color: Colors.white),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your title' : null,
@@ -82,6 +83,7 @@ class _NewPostState extends State<NewPost> {
                         margin: const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 8.0),
                         child: SingleChildScrollView(
                           child: TextFormField( // text
+                            key: const Key('NewPostTextFormField'),
                             maxLines: null,
                             decoration: forumFormFieldDeco.copyWith(hintText: 'Add Text...'),
                             style: oswaldTextStyle.copyWith(fontSize: 20.0, color: Colors.white),

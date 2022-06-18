@@ -98,6 +98,7 @@ class _MainPostState extends State<MainPost> {
                               height: 50.0,
                               width: 40.0,
                               child: IconButton(
+                                key: const Key('ThreadPostThumbsUp'),
                                 icon: Icon(
                                   post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                   //Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
@@ -115,6 +116,7 @@ class _MainPostState extends State<MainPost> {
                             height: 50.0,
                             width: 40.0,
                             child: Icon(
+                              key: const Key('OwnThreadPostThumbsUp'),
                               post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                               color: Colors.grey,
                               size: 20,
@@ -123,6 +125,7 @@ class _MainPostState extends State<MainPost> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                           child: Text(
+                            key: const Key('ThreadPostLikes'),
                             '${post.likes.length}',
                             style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                           ),
@@ -140,6 +143,7 @@ class _MainPostState extends State<MainPost> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 10.0),
                           child: Text(
+                            key: const Key('ThreadPostComments'),
                             '${post.comments}',
                             style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                           ),
@@ -151,6 +155,7 @@ class _MainPostState extends State<MainPost> {
                           ? SizedBox(
                               width: 50.0,
                               child: TextButton(
+                                key: const Key('PostReplyButton'),
                                 style: TextButton.styleFrom(
                                   padding: const EdgeInsets.all(0.0),
                                 ),

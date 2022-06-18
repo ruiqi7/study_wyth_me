@@ -115,6 +115,7 @@ class _HomeState extends State<Home> {
                                 clipBehavior: Clip.hardEdge,
                                 color: Colors.transparent,
                                 child: Ink.image(
+                                  key: const Key('HomeProfilePicture'),
                                   image: NetworkImage(appUser.url),
                                   fit: BoxFit.cover,
                                   width: 50.0,
@@ -138,6 +139,7 @@ class _HomeState extends State<Home> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10.0),
                                 child: Text(
+                                  key: const Key('HomeUsername'),
                                   appUser.username,
                                   style: chewyTextStyle.copyWith(fontSize: 27.5),
                                   overflow: TextOverflow.ellipsis,
@@ -165,6 +167,7 @@ class _HomeState extends State<Home> {
                       child: Column(
                           children: <Widget>[
                             Text(
+                              key: const Key('HomePoints'),
                               appUser.points.toString(),
                               style: norwesterTextStyle.copyWith(fontSize: 35)
                             ),
@@ -188,6 +191,7 @@ class _HomeState extends State<Home> {
                     Expanded(
                       child: PieChart(
                         //dataMap: dataMap,
+                        key: const Key('HomeRingChart'),
                         PieChartData(
                           sectionsSpace: 0,
                           centerSpaceRadius: 80.0,

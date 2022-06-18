@@ -130,6 +130,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                 children: <Widget> [
                                                   widget.enableLikeAndReply && comment.uid != uid
                                                     ? IconButton(
+                                                        key: const Key('ThreadCommentThumbsUp'),
                                                         padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
                                                         constraints: const BoxConstraints(),
                                                         icon: Icon(
@@ -142,6 +143,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                         },
                                                       )
                                                     : Icon(
+                                                        key: const Key('OwnThreadResponseThumbsUp'),
                                                         comment.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                                         color: Colors.grey,
                                                         size: 20,
@@ -149,6 +151,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                   Padding(
                                                     padding: const EdgeInsets.fromLTRB(5.0, 8.0, 12.0, 10.0),
                                                     child: Text(
+                                                      key: const Key('ThreadCommentLikes'),
                                                       '${comment.likes.length}',
                                                       style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                                                     ),
@@ -164,6 +167,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                   Padding(
                                                     padding: const EdgeInsets.fromLTRB(5.0, 8.0, 0.0, 10.0),
                                                     child: Text(
+                                                      key: const Key('ThreadResponseComments'),
                                                       '${comment.comments}',
                                                       style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                                                     ),
@@ -175,6 +179,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                     ? SizedBox(
                                                         width: 50.0,
                                                         child: TextButton(
+                                                          key: const Key('CommentReplyButton'),
                                                           style: TextButton.styleFrom(
                                                             padding: const EdgeInsets.all(0.0),
                                                           ),

@@ -84,6 +84,7 @@ class _MythicsState extends State<Mythics> {
           decoration: largeRadiusRoundedBox,
           child: Center(
             child: TextButton(
+              key: const Key('ClaimButton'),
               child: Text(
                 'Claim!',
                 style: chewyTextStyle.copyWith(fontSize: 17),
@@ -182,8 +183,9 @@ class _MythicsState extends State<Mythics> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                            appUser.points.toString(),
-                            style: norwesterTextStyle.copyWith(fontSize: 30)
+                          key: const Key('MythicsPoints'),
+                          appUser.points.toString(),
+                          style: norwesterTextStyle.copyWith(fontSize: 30)
                         ),
                         const SizedBox(width: 10.0),
                         Text(
@@ -198,6 +200,7 @@ class _MythicsState extends State<Mythics> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: ListView(
+                      key: const Key('MythicsCollection'),
                       scrollDirection: Axis.horizontal,
                       children: <Widget> [
                         Column(

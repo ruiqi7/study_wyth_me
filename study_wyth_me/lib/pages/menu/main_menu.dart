@@ -66,6 +66,7 @@ class MainMenu extends StatelessWidget {
               height: buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
+                key: const Key('WelcomeBackButton'),
                 style: buttonStyle,
                 child: const Text('Welcome Back!'),
                 onPressed: () {
@@ -82,6 +83,7 @@ class MainMenu extends StatelessWidget {
               height: buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
+                key: const Key('ImNewHereButton'),
                 style: buttonStyle,
                 child: const Text('I\'m new here!'),
                 onPressed: () {
@@ -98,6 +100,7 @@ class MainMenu extends StatelessWidget {
               height: buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
+                key: const Key('AboutButton'),
                 style: buttonStyle,
                 child: const Text('About'),
                 onPressed: () {

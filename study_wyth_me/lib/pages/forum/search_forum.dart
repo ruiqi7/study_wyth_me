@@ -124,6 +124,7 @@ class _SearchForumState extends State<SearchForum> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextFormField(
+                  key: const Key('SearchForumFormField'),
                   initialValue: input,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: const InputDecoration(

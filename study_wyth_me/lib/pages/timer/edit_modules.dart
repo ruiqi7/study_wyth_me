@@ -60,6 +60,7 @@ class _EditModulesState extends State<EditModules> {
               Form(
                 key: _formKey,
                 child: TextFormField(
+                  key: const Key('ModuleFormField'),
                   decoration: formFieldDeco.copyWith(hintText: 'Module', hintStyle: const TextStyle(color: whiteOpacity70)),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
                   validator: (value) => value!.trim().isEmpty ? 'Enter a module' : null,
@@ -74,6 +75,7 @@ class _EditModulesState extends State<EditModules> {
                 height: 40,
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
+                  key: const Key('AddModuleButton'),
                   child: const Text('Add'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
@@ -85,7 +87,9 @@ class _EditModulesState extends State<EditModules> {
                       String result = await DatabaseService(uid: widget.uid).updateNewModule(module);
                       setState(() => message = result);
                       Future.delayed(const Duration(seconds: 1), () {
-                        setState(() => message = '');
+                        if (mounted) {
+                          setState(() => message = '');
+                        }
                       });
                     }
                   },

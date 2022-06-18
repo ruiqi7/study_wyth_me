@@ -35,6 +35,7 @@ class ModuleCard extends StatelessWidget {
                 height: 40,
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
+                  key: const Key('RemoveModuleButton'),
                   child: const Text('Remove'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),

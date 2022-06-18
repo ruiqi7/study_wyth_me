@@ -56,6 +56,7 @@ class _EditFriendsState extends State<EditFriends> {
               gapBox,
               gapBox,
               TextFormField(
+                key: const Key('EditFriendsUsernameFormField'),
                 initialValue: input,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(

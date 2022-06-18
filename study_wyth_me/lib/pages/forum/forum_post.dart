@@ -84,6 +84,7 @@ class _ForumPostState extends State<ForumPost> {
                         width: 40.0,
                         padding: const EdgeInsets.only(top: 5.0),
                         child: IconButton(
+                          key: const Key('RightPointingArrow'),
                           icon: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
                           iconSize: 25,
                           onPressed: () {
@@ -126,6 +127,7 @@ class _ForumPostState extends State<ForumPost> {
                             height: 50.0,
                             width: 40.0,
                             child: IconButton(
+                              key: const Key('ForumPostThumbsUp'),
                               icon: Icon(
                                 widget.post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                 color: Colors.grey
@@ -140,7 +142,8 @@ class _ForumPostState extends State<ForumPost> {
                               padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
                               height: 50.0,
                               width: 40.0,
-                              child: const Icon(
+                              child: Icon(
+                                key: const Key('OwnPostThumbsUp'),
                                 Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                 color: Colors.grey,
                                 size: 20
@@ -149,6 +152,7 @@ class _ForumPostState extends State<ForumPost> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
+                            key: const Key('ForumPostLikes'),
                             '${widget.post.likes.length}',
                             style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
                           ),

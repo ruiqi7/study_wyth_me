@@ -54,6 +54,7 @@ class _TimerState extends State<Timer> {
                 brightness: Brightness.dark // turns the picker text white
               ),
               child: CupertinoTimerPicker(
+                key: const Key('CupertinoTimerPicker'),
                 mode: CupertinoTimerPickerMode.hm,
                 initialTimerDuration: _currDuration,
                 onTimerDurationChanged: (Duration newDuration) async {
@@ -103,6 +104,7 @@ class _TimerState extends State<Timer> {
                       ),
                       child: CupertinoButton(
                         // Display a CupertinoTimerPicker with hour/minute mode.
+                        key: const Key('CircularTimerIcon'),
                         onPressed: () {
                           _showDialog(widget);
                         },
@@ -121,6 +123,7 @@ class _TimerState extends State<Timer> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 100.0),
                               child: DropdownButtonFormField2(
+                                key: const Key('DropdownMenu'),
                                 decoration: InputDecoration(
                                   fillColor: const Color.fromRGBO(
                                       255, 255, 255, 0.10),
@@ -187,6 +190,7 @@ class _TimerState extends State<Timer> {
                           padding: const EdgeInsets.only(
                               left: 5.0, right: 40.0, bottom: 5.0),
                           child: IconButton(
+                            key: const Key('EditModulesButton'),
                             icon: const Icon(Icons.edit, color: Colors.white),
                             iconSize: 33,
                             onPressed: () {
@@ -205,6 +209,7 @@ class _TimerState extends State<Timer> {
                       height: 40,
                       decoration: largeRadiusRoundedBox,
                       child: TextButton(
+                        key: const Key('StartTimerButton'),
                         child: const Text('Start'),
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(5.0),
