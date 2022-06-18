@@ -61,15 +61,6 @@ class ForumDatabase {
     });
   }
 
-  /*
-  Future<bool> hasLiked(String postId, String uid) async {
-    DocumentReference document = forumDatabaseCollection.doc(postId);
-    Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
-
-    return post.likes.contains(uid);
-  }
-  */
-
   Future changeLikeStatus(String postId, String uid) async {
     DocumentReference document = forumDatabaseCollection.doc(postId);
     Post post = await document.get().then((snapshot) => _postDataFromSnapshot(snapshot));
@@ -114,5 +105,4 @@ class ForumDatabase {
         .snapshots()
         .map(forumPostListFromSnapshot);
   }
-
 }

@@ -34,6 +34,9 @@ class _TimerState extends State<Timer> {
 
   String? _currentModule;
 
+  // to indicate if the selected duration is 0
+  String _message = '';
+
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoTimerPicker.
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -216,7 +219,14 @@ class _TimerState extends State<Timer> {
                           textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                          if (_currDuration == const Duration()) {
+                            setState(() => _message = 'Please select a duration.');
+                            Future.delayed(const Duration(seconds: 1), () {
+                              if (mounted) {
+                                setState(() => _message = '');
+                              }
+                            });
+                          } else if (_formKey.currentState!.validate()) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
@@ -229,6 +239,14 @@ class _TimerState extends State<Timer> {
                         : const SizedBox(
                       width: 100,
                       height: 40,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Text(
+                      _message,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 12.0,
+                      ),
                     ),
                   ],
                 )
