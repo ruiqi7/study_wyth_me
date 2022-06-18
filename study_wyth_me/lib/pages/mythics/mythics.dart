@@ -90,7 +90,7 @@ class _MythicsState extends State<Mythics> {
                 style: chewyTextStyle.copyWith(fontSize: 17),
               ),
               onPressed: () async {
-                if (_currPoints > points) {
+                if (_currPoints >= points) {
                   await DatabaseService(uid: uid).claimMythic(mythicName);
                 } else {
                   showDialog<String>(
