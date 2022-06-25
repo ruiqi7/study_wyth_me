@@ -68,7 +68,7 @@ navigationBar(context, position) => SafeArea(
                           color: Colors.white,
                         ),
                         Text(
-                          'forum',
+                          'Forum',
                           style: oswaldText,
                         )
                       ],
