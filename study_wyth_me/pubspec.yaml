@@ -74,10 +74,14 @@ flutter:
   assets:
     - assets/images/mythics/Catfish.png
     - assets/images/mythics/Chimera.png
+    - assets/images/mythics/Dragon.png
     - assets/images/mythics/Griffin.png
     - assets/images/mythics/Kitsune.png
     - assets/images/mythics/Kraken.png
+    - assets/images/mythics/Manticore.png
+    - assets/images/mythics/Pegasus.png
     - assets/images/mythics/Phoenix.png
+    - assets/images/mythics/Unicorn.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
