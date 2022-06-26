@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/pages/menu/main_menu.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
@@ -69,7 +70,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     final User? authUser = FirebaseAuth.instance.currentUser;
     if (authUser == null) {
       return const Loading();
@@ -126,7 +126,7 @@ class _HomeState extends State<Home> {
                                       Future.delayed(const Duration(milliseconds: 100), () {
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => EditProfile(url: appUser.url))
+                                            PageTransition(child: EditProfile(url: appUser.url), type: PageTransitionType.bottomToTop)
                                         );
                                       });
                                     },

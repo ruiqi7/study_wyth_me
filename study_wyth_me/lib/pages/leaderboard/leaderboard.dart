@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import '../../services/database.dart';
@@ -192,7 +193,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                   onPressed: () {
                                     Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => const EditFriends())
+                                        PageTransition(child: const EditFriends(), type: PageTransitionType.bottomToTop)
                                     );
                                   },
                                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/pages/menu/reset_password.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
@@ -114,7 +115,7 @@ class _SignInState extends State<SignIn> {
                       onPressed: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const ResetPassword())
+                            PageTransition(child: const ResetPassword(), type: PageTransitionType.rightToLeftPop, childCurrent: widget)
                         );
                       },
                     ),
