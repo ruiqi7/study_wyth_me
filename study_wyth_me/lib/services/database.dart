@@ -9,18 +9,18 @@ class DatabaseService {
   DatabaseService({ required this.uid });
 
   //collection reference
-  final CollectionReference userDatabaseCollection = FirebaseFirestore.instance
-      .collection('userDatabase');
+  final CollectionReference userDatabaseCollection = FirebaseFirestore.instance.collection('userDatabase');
 
   Future createNewUser(String username) async {
     return await userDatabaseCollection.doc(uid).set({
+      'verified': false,
       'username': username,
       'map': {},
       'resetMap': false,
       'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
       'points': 0,
       'duration': 30,
-      'friendsUsername': [username],
+      'friendsUsername': [uid],
       'mythics': {
         'Chimera': false,
         'Kraken': false,
@@ -33,6 +33,12 @@ class DatabaseService {
         'Kitsune': false,
         'Pegasus': false,
       },
+    });
+  }
+
+  Future updateStatusToVerified() async {
+    return await userDatabaseCollection.doc(uid).update({
+      'verified': true,
     });
   }
 
@@ -60,6 +66,22 @@ class DatabaseService {
     return await userDatabaseCollection.doc(uid).update({
       'url': url,
     });
+  }
+
+  // update user's username
+  Future updateUsername(String username) async {
+    bool usernameUsed = false;
+    Query query = userDatabaseCollection.where('username', isEqualTo: username);
+    await query.get().then((result) => usernameUsed = result.size != 0);
+
+    if (usernameUsed) {
+      return 'This username has been taken up by you or another user.';
+    } else {
+      await userDatabaseCollection.doc(uid).update({
+        'username': username,
+      });
+      return 'Saved!';
+    }
   }
 
   Future updateModule(String module, int hours) async {
@@ -101,6 +123,7 @@ class DatabaseService {
     });
   }
 
+  /*
   Future addFriend(String username) async {
     List<dynamic> list = [username];
     return await userDatabaseCollection.doc(uid).update({
@@ -113,6 +136,38 @@ class DatabaseService {
     return await userDatabaseCollection.doc(uid).update({
       'friendsUsername': FieldValue.arrayRemove(list),
     });
+  }
+  */
+
+  Future addFriend(String username) async {
+    QuerySnapshot? snapshot;
+    Query query = userDatabaseCollection.where('username', isEqualTo: username);
+    await query.get().then((result) => snapshot = result);
+
+    AppUser friend = _userDataListFromSnapshot(snapshot!).single;
+
+    List<dynamic> list = [friend.uid];
+    return await userDatabaseCollection.doc(uid).update({
+      'friendsUsername': FieldValue.arrayUnion(list),
+    });
+  }
+
+  Future removeFriend(String username) async {
+    QuerySnapshot? snapshot;
+    Query query = userDatabaseCollection.where('username', isEqualTo: username);
+    await query.get().then((result) => snapshot = result);
+
+    AppUser friend = userDataListFromSnapshot(snapshot!).single;
+
+    if (uid != friend.uid) {
+      List<dynamic> list = [friend.uid];
+      await userDatabaseCollection.doc(uid).update({
+        'friendsUsername': FieldValue.arrayRemove(list),
+      });
+      return '';
+    } else { // prevent users from removing themselves as friends
+      return 'Das you';
+    }
   }
 
   Future claimMythic(String mythic) async {
@@ -139,16 +194,16 @@ class DatabaseService {
   }
 
   //get userDatabase stream of top 20 users within the community
-  Stream<List<AppUser>> userLeaderboardStream(bool isCommunity, List<String> list) {
+  Stream<List<AppUser>> userLeaderboardStream(bool isCommunity, List<dynamic> list) {
     if (isCommunity) {
       return userDatabaseCollection
-          .orderBy("points", descending: true)
+          .where('verified', isEqualTo: true)
           .snapshots()
           .map(_userDataListFromSnapshot);
     } else {
       return userDatabaseCollection
-          .where("username", whereIn: list)
-          .orderBy("points", descending: true)
+          .where(FieldPath.documentId, whereIn: list)
+          .where('verified', isEqualTo: true)
           .snapshots()
           .map(_userDataListFromSnapshot);
     }
@@ -157,6 +212,7 @@ class DatabaseService {
   Stream<List<AppUser>> searchUserStream(String input) {
     return userDatabaseCollection
         .where('username', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
+        .where('verified', isEqualTo: true)
         .snapshots()
         .map(_userDataListFromSnapshot);
   }
@@ -164,7 +220,7 @@ class DatabaseService {
   List<AppUser> userDataListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return AppUser(
-        uid: doc.data().toString().contains('uid') ? doc.get('uid') : '',
+        uid: doc.id,
         username: doc.get('username'),
         map: doc.get('map'),
         url: doc.get('url'),
@@ -179,7 +235,7 @@ class DatabaseService {
   List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return AppUser(
-        uid: doc.data().toString().contains('uid') ? doc.get('uid') : '',
+        uid: doc.id,
         username: doc.get('username'),
         map: doc.get('map'),
         url: doc.get('url'),
@@ -202,7 +258,7 @@ class DatabaseService {
     snapshot = snapshot as DocumentSnapshot<Map<String, dynamic>>;
     final data = snapshot.data();
     return AppUser(
-      uid: uid,
+      uid: snapshot.id,
       username: data?['username'],
       map: data?['map'],
       url: data?['url'],
@@ -211,5 +267,10 @@ class DatabaseService {
       friendsUsername: data?['friendsUsername'],
       mythics: data?['mythics'],
     );
+  }
+
+  Future deleteUserDocument() async {
+    return await FirebaseFirestore.instance.runTransaction((transaction) async =>
+      transaction.delete(userDatabaseCollection.doc(uid)));
   }
 }

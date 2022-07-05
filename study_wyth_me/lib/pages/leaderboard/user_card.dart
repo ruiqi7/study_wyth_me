@@ -51,11 +51,14 @@ class UserCard extends StatelessWidget {
                   backgroundImage: NetworkImage(appUser.url),
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  appUser.username,
-                  style: chewyTextStyle.copyWith(fontSize: 20),
+                Expanded(
+                  child: Text(
+                    appUser.username,
+                    style: chewyTextStyle.copyWith(fontSize: 20),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Spacer(),
+                gapBox,
                 Text(
                   appUser.points.toString(),
                   style: norwesterTextStyle.copyWith(fontSize: 20),

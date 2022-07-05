@@ -93,53 +93,7 @@ class _MythicsState extends State<Mythics> {
                 if (_currPoints >= points) {
                   await DatabaseService(uid: uid).claimMythic(mythicName);
                 } else {
-                  showDialog<String>(
-                    context: context,
-                    builder: (context) {
-                      var width = MediaQuery.of(context).size.width;
-                      return AlertDialog(
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                        contentPadding: EdgeInsets.zero,
-                        insetPadding: const EdgeInsets.symmetric(horizontal: 60),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget> [
-                            SizedBox(
-                              height: 50,
-                              child: Center(
-                                child: Container(
-                                  padding: const EdgeInsets.only(top: 25.0),
-                                  child: const Text(
-                                    "Insufficient points to claim!",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            gapBox,
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: width,
-                                child: const Text(
-                                  'OK',
-                                  style: TextStyle(
-                                    color: Colors.lightBlue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
+                  alertDialogue(context, 'Insufficient points to claim!');
                 }
               },
             ),
