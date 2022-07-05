@@ -23,21 +23,30 @@ class _FriendListState extends State<FriendList> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             AppUser appUser = snapshot.data!;
-            var list = [];
-            for (var v in appUser.friendsUsername) {
-              list.add(v);
-            }
-            return ListView.builder(
-              itemCount: users.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return FriendCard(
-                    username: users[index].username,
-                    profile: users[index].url,
-                    uid: uid,
-                    isFriend: list.contains(users[index].username)
-                );
-              },
+
+            return StreamBuilder<List<AppUser>>(
+              stream: DatabaseService(uid: uid).userLeaderboardStream(false, appUser.friendsUsername),
+              builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
+                if (querySnapshot.hasData) {
+                  List<AppUser> friendsList = querySnapshot.data!;
+                  List<String> usernamesList = friendsList.map((user) => user.username).toList();
+
+                  return ListView.builder(
+                    itemCount: users.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return FriendCard(
+                          username: users[index].username,
+                          profile: users[index].url,
+                          uid: uid,
+                          isFriend: usernamesList.contains(users[index].username)
+                      );
+                    },
+                  );
+                } else {
+                  return const Loading();
+                }
+              }
             );
           } else {
             return const Loading();

@@ -19,4 +19,14 @@ class AppUser {
     required this.friendsUsername,
     required this.mythics,
   });
+
+  int compareTo(AppUser user) {
+    if (points < user.points) {
+      return -1;
+    } else if (points > user.points) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }

@@ -107,6 +107,51 @@ class _HomeState extends State<Home> {
                         height: 75.0,
                         child: Row(
                           children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: TextButton(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Material(
+                                        elevation: 0,
+                                        shape: const CircleBorder(),
+                                        clipBehavior: Clip.hardEdge,
+                                        color: Colors.transparent,
+                                        child: Ink.image(
+                                          key: const Key('HomeProfilePicture'),
+                                          image: NetworkImage(appUser.url),
+                                          fit: BoxFit.cover,
+                                          width: 50.0,
+                                          height: 50.0,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                          child: Text(
+                                            key: const Key('HomeUsername'),
+                                            appUser.username,
+                                            style: chewyTextStyle.copyWith(fontSize: 27.5),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => EditProfile(
+                                            username: appUser.username,
+                                            url: appUser.url
+                                        ))
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            /*
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
                               child: Material(
@@ -136,8 +181,7 @@ class _HomeState extends State<Home> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                 child: Text(
                                   key: const Key('HomeUsername'),
                                   appUser.username,
@@ -146,6 +190,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
+                            */
                             appBarButton(
                               'Logout',
                               () async {

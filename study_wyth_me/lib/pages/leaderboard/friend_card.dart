@@ -55,7 +55,10 @@ class FriendCard extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (isFriend) {
-                        await DatabaseService(uid: uid).removeFriend(username);
+                        String message = await DatabaseService(uid: uid).removeFriend(username);
+                        if (message.isNotEmpty) {
+                          alertDialogue(context, message);
+                        }
                       } else {
                         await DatabaseService(uid: uid).addFriend(username);
                       }

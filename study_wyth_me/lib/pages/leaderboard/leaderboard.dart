@@ -42,17 +42,13 @@ class _LeaderboardState extends State<Leaderboard> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
-          List<dynamic> friendsUsername = appUser.friendsUsername;
-          List<String> list = [];
-          for (var e in friendsUsername) {
-            list.add(e.toString());
-          }
 
           return StreamBuilder<List<AppUser>>(
-            stream: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
+            stream: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsUsername),
             builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
               if (querySnapshot.hasData) {
                 List<AppUser> userList = querySnapshot.data!;
+                userList.sort((a, b) => b.compareTo(a));
                 int _rank = userList.indexWhere((element) => element.username == appUser.username) + 1; // assuming usernames are unique
 
                 return Scaffold(
@@ -170,7 +166,7 @@ class _LeaderboardState extends State<Leaderboard> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               StreamProvider<List<AppUser>>.value(
-                                value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, list),
+                                value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsUsername),
                                 initialData: const [],
                                 child: Flexible(
                                     child: LeaderboardList(username: appUser.username)

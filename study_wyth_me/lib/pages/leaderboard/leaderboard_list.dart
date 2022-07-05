@@ -21,11 +21,17 @@ class _LeaderboardListState extends State<LeaderboardList> {
   @override
   Widget build(BuildContext context) {
     final appUsers = Provider.of<List<AppUser>>(context);
+    List<AppUser> list = [];
+    for (var e in appUsers) {
+      list.add(e);
+    }
+    list.sort((a, b) => b.compareTo(a));
+
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: appUsers.length <= 20 ? appUsers.length : 20,
+      itemCount: list.length <= 20 ? list.length : 20,
       itemBuilder: (context, index) {
-        return UserCard(appUser: appUsers[index], rank: index, username: widget.username);
+        return UserCard(appUser: list[index], rank: index, username: widget.username);
       }
     );
   }
