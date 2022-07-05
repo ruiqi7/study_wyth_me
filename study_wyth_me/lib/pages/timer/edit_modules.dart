@@ -34,7 +34,7 @@ class _EditModulesState extends State<EditModules> {
             height: 75.0,
             child: Row(
               children: <Widget> [
-                backIcon(context),
+                closeIcon(context),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),

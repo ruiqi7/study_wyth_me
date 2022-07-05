@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-
 import '../models/app_user.dart';
+import '../pages/forum/forum.dart';
+import '../pages/home/home.dart';
+import '../pages/leaderboard/leaderboard.dart';
+import '../pages/mythics/mythics.dart';
+import '../pages/timer/timer.dart';
 import '../services/database.dart';
 
 const oswaldText = TextStyle(
@@ -45,8 +50,16 @@ navigationBar(context, position) => SafeArea(
                       ],
                     ),
                     onPressed: () {
-                      if (position != 1) {
-                        Navigator.pushNamed(context, '/home');
+                      if (position > 1) {
+                        Navigator.push(
+                          context,
+                          PageTransition(child: const Home(), type: PageTransitionType.leftToRight)
+                        );
+                      } else if (position < 1) {
+                        Navigator.push(
+                            context,
+                            PageTransition(child: const Home(), type: PageTransitionType.rightToLeft)
+                        );
                       }
                     },
                   ),
@@ -74,8 +87,16 @@ navigationBar(context, position) => SafeArea(
                       ],
                     ),
                     onPressed: () {
-                      if (position != 2) {
-                        Navigator.pushNamed(context, '/forum');
+                      if (position > 2) {
+                        Navigator.push(
+                          context,
+                          PageTransition(child: const Forum(), type: PageTransitionType.leftToRight)
+                        );
+                      } else if (position < 2) {
+                        Navigator.push(
+                            context,
+                            PageTransition(child: const Forum(), type: PageTransitionType.rightToLeft)
+                        );
                       }
                     },
                   ),
@@ -103,8 +124,16 @@ navigationBar(context, position) => SafeArea(
                       ],
                     ),
                     onPressed: () {
-                      if (position != 3) {
-                        Navigator.pushNamed(context, '/timer');
+                      if (position > 3) {
+                        Navigator.push(
+                          context,
+                            PageTransition(child: const Timer(), type: PageTransitionType.leftToRight)
+                        );
+                      } else if (position < 3) {
+                        Navigator.push(
+                            context,
+                            PageTransition(child: const Timer(), type: PageTransitionType.rightToLeft)
+                        );
                       }
                     },
                   ),
@@ -132,8 +161,16 @@ navigationBar(context, position) => SafeArea(
                       ],
                     ),
                     onPressed: () {
-                      if (position != 4) {
-                        Navigator.pushNamed(context, '/leaderboard');
+                      if (position > 4) {
+                        Navigator.push(
+                          context,
+                            PageTransition(child: const Leaderboard(), type: PageTransitionType.leftToRight)
+                        );
+                      } else if (position < 4) {
+                        Navigator.push(
+                            context,
+                            PageTransition(child: const Leaderboard(), type: PageTransitionType.rightToLeft)
+                        );
                       }
                     },
                   ),
@@ -161,8 +198,16 @@ navigationBar(context, position) => SafeArea(
                       ],
                     ),
                     onPressed: () {
-                      if (position != 5) {
-                        Navigator.pushNamed(context, '/mythics');
+                      if (position > 5) {
+                        Navigator.push(
+                          context,
+                          PageTransition(child: const Mythics(), type: PageTransitionType.leftToRight)
+                        );
+                      } else if (position < 5) {
+                        Navigator.push(
+                            context,
+                            PageTransition(child: const Mythics(), type: PageTransitionType.rightToLeft)
+                        );
                       }
                     },
                   ),

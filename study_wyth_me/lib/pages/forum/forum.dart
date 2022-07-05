@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/pages/forum/forum_post.dart';
 import 'package:study_wyth_me/pages/forum/new_post.dart';
@@ -77,7 +78,7 @@ class _ForumState extends State<Forum> {
                                     onPressed: () {
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => const NewPost())
+                                          PageTransition(child: const NewPost(), type: PageTransitionType.bottomToTop)
                                       );
                                     },
                                   ),
@@ -89,7 +90,7 @@ class _ForumState extends State<Forum> {
                                     onPressed: () {
                                       Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => const SearchForum())
+                                          PageTransition(child: const SearchForum(), type: PageTransitionType.bottomToTop)
                                       );
                                     },
                                   )

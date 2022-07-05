@@ -22,74 +22,6 @@ class _SearchForumState extends State<SearchForum> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkBlueBackground,
-      /*appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(75),
-        child: SafeArea(
-          child: Container(
-            color: whiteOpacity20,
-            height: 75.0,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10.0),
-                    child: TextFormField(
-                      initialValue: input,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: const InputDecoration(
-                        fillColor: whiteOpacity15,
-                        filled: true,
-                        hintStyle: TextStyle(color: whiteOpacity70),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: whiteOpacity15,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                            width: 2.0,
-                          ),
-                        ),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(10.0),
-                        hintText: 'Search',
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: whiteOpacity70,
-                          size: 30,
-                        ),
-                      ),
-                      style: oswaldTextStyle.copyWith(fontSize: 20, color: Colors.white),
-                      onFieldSubmitted: (value) {
-                        setState(() {
-                          input = value;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10.0),
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Center(
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),*/
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(75),
           child: SafeArea(
@@ -99,7 +31,7 @@ class _SearchForumState extends State<SearchForum> {
                   height: 75.0,
                   child: Row(
                     children: <Widget> [
-                      backIcon(context),
+                      closeIcon(context),
                       Center(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),

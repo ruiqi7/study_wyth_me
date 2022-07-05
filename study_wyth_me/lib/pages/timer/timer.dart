@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/pages/timer/edit_modules.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
@@ -198,7 +199,7 @@ class _TimerState extends State<Timer> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => EditModules(uid: uid)),
+                                PageTransition(child: EditModules(uid: uid), type: PageTransitionType.bottomToTop)
                               );
                             },
                           ),
@@ -229,8 +230,7 @@ class _TimerState extends State<Timer> {
                           } else if (_formKey.currentState!.validate()) {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) =>
-                                  Countdown(duration: _currDuration, module: _currentModule!, uid: uid)),
+                              PageTransition(child: Countdown(duration: _currDuration, module: _currentModule!, uid: uid), type: PageTransitionType.fade)
                             );
                           }
                         },

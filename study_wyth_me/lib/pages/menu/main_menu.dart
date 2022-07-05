@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/pages/menu/about.dart';
 import 'package:study_wyth_me/pages/menu/sign_in.dart';
@@ -72,7 +73,7 @@ class MainMenu extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SignIn()),
+                    PageTransition(child: const SignIn(), type: PageTransitionType.rightToLeftPop, childCurrent: this)
                   );
                 },
               ),
@@ -89,7 +90,7 @@ class MainMenu extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SignUp()),
+                    PageTransition(child: const SignUp(), type: PageTransitionType.rightToLeftPop, childCurrent: this)
                   );
                 },
               ),
@@ -106,7 +107,7 @@ class MainMenu extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const About()),
+                    PageTransition(child: const About(), type: PageTransitionType.rightToLeftPop, childCurrent: this)
                   );
                 },
               ),

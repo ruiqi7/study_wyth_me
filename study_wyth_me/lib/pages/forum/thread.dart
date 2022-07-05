@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/forum/main_post.dart';
@@ -94,13 +95,14 @@ class _ThreadState extends State<Thread> {
                                       function: () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder:
-                                            (context) => ThreadReply(
+                                          PageTransition(
+                                            child: ThreadReply(
                                               post: post,
                                               replyPost: const SizedBox(width: 0.0, height: 0.0),
                                               commenter: '',
                                               commentId: '',
-                                            )
+                                            ),
+                                              type: PageTransitionType.rightToLeft
                                           )
                                         );
                                       },

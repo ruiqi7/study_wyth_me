@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/models/post.dart';
 import 'package:study_wyth_me/pages/forum/thread.dart';
@@ -90,12 +91,13 @@ class _ForumPostState extends State<ForumPost> {
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => Thread(
-                                      post: widget.post,
-                                      parentDirectReplies: const [],
-                                      replyIndex: -1,
-                                    )
+                                PageTransition(
+                                  child: Thread(
+                                    post: widget.post,
+                                    parentDirectReplies: const [],
+                                    replyIndex: -1,
+                                  ),
+                                  type: PageTransitionType.rightToLeft,
                                 )
                             );
                             /*

@@ -4,14 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/pages/authentication_wrapper.dart';
-import 'package:study_wyth_me/pages/forum/forum.dart';
-import 'package:study_wyth_me/pages/leaderboard/leaderboard.dart';
-import 'package:study_wyth_me/pages/mythics/mythics.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:study_wyth_me/services/notification.dart';
 import 'firebase_options.dart';
-import 'package:study_wyth_me/pages/home/home.dart';
-import 'package:study_wyth_me/pages/timer/timer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,16 +14,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await NotificationService().init();
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     initialRoute: '/',
-    home: const App(),
-    routes: {
-      '/home': (context) => const Home(),
-      '/timer': (context) => const Timer(),
-      '/forum': (context) => const Forum(),
-      '/leaderboard': (context) => const Leaderboard(),
-      '/mythics': (context) => const Mythics(),
-    },
+    home: App(),
   ));
 }
 
