@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/services/database.dart';
@@ -146,11 +147,13 @@ class _EditProfileState extends State<EditProfile> {
               width: 270.0,
               decoration: largeRadiusRoundedBox,
               child: TextButton(
-                child: const Text('Choose from Library'),
+                child: AutoSizeText(
+                  'Choose from Library',
+                  style: chewyTextStyle.copyWith(fontSize: 25.0),
+                  maxLines: 1,
+                ),
                 style: TextButton.styleFrom(
-                  padding: const EdgeInsets.all(5.0),
-                  primary: Colors.white,
-                  textStyle: chewyTextStyle.copyWith(fontSize: 25.0),
+                  padding: const EdgeInsets.all(10.0),
                 ),
                 onPressed: () async {
                   // open gallery to select an image

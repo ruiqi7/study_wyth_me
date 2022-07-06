@@ -20,7 +20,9 @@ class DatabaseService {
       'url': 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg',
       'points': 0,
       'duration': 30,
-      'friendsUsername': [uid],
+      'friendsId': [uid],
+      'friendRequestsSent': [],
+      'friendRequestsReceived': [],
       'mythics': {
         'Chimera': false,
         'Kraken': false,
@@ -123,51 +125,56 @@ class DatabaseService {
     });
   }
 
-  /*
-  Future addFriend(String username) async {
-    List<dynamic> list = [username];
-    return await userDatabaseCollection.doc(uid).update({
-      'friendsUsername': FieldValue.arrayUnion(list),
-    });
-  }
-
-  Future removeFriend(String username) async {
-    List<dynamic> list = [username];
-    return await userDatabaseCollection.doc(uid).update({
-      'friendsUsername': FieldValue.arrayRemove(list),
-    });
-  }
-  */
-
-  Future addFriend(String username) async {
-    QuerySnapshot? snapshot;
-    Query query = userDatabaseCollection.where('username', isEqualTo: username);
-    await query.get().then((result) => snapshot = result);
-
-    AppUser friend = _userDataListFromSnapshot(snapshot!).single;
-
-    List<dynamic> list = [friend.uid];
-    return await userDatabaseCollection.doc(uid).update({
-      'friendsUsername': FieldValue.arrayUnion(list),
-    });
-  }
-
-  Future removeFriend(String username) async {
+  Future updateFriendStatus(String username, String status) async {
     QuerySnapshot? snapshot;
     Query query = userDatabaseCollection.where('username', isEqualTo: username);
     await query.get().then((result) => snapshot = result);
 
     AppUser friend = userDataListFromSnapshot(snapshot!).single;
 
-    if (uid != friend.uid) {
-      List<dynamic> list = [friend.uid];
-      await userDatabaseCollection.doc(uid).update({
-        'friendsUsername': FieldValue.arrayRemove(list),
-      });
-      return '';
-    } else { // prevent users from removing themselves as friends
+    if (uid == friend.uid) { // prevent users from removing themselves as friends
       return 'Das you';
     }
+
+    if (status == "Unfriend") {
+      await userDatabaseCollection.doc(uid).update({
+        'friendsId': FieldValue.arrayRemove([friend.uid]),
+        'friendRequestsReceived': FieldValue.arrayUnion([friend.uid]),
+      });
+
+      await userDatabaseCollection.doc(friend.uid).update({
+        'friendsId': FieldValue.arrayRemove([uid]),
+        'friendRequestsSent': FieldValue.arrayUnion([uid]),
+      });
+    } else if (status == "Befriend") {
+      await userDatabaseCollection.doc(uid).update({
+        'friendRequestsReceived': FieldValue.arrayRemove([friend.uid]),
+        'friendsId': FieldValue.arrayUnion([friend.uid]),
+      });
+
+      await userDatabaseCollection.doc(friend.uid).update({
+        'friendRequestsSent': FieldValue.arrayRemove([uid]),
+        'friendsId': FieldValue.arrayUnion([uid]),
+      });
+    } else if (status == "Unrequest") {
+      await userDatabaseCollection.doc(uid).update({
+        'friendRequestsSent': FieldValue.arrayRemove([friend.uid]),
+      });
+
+      await userDatabaseCollection.doc(friend.uid).update({
+        'friendRequestsReceived': FieldValue.arrayRemove([uid]),
+      });
+    } else {
+      await userDatabaseCollection.doc(uid).update({
+        'friendRequestsSent': FieldValue.arrayUnion([friend.uid]),
+      });
+
+      await userDatabaseCollection.doc(friend.uid).update({
+        'friendRequestsReceived': FieldValue.arrayUnion([uid]),
+      });
+    }
+
+    return '';
   }
 
   Future claimMythic(String mythic) async {
@@ -199,13 +206,13 @@ class DatabaseService {
       return userDatabaseCollection
           .where('verified', isEqualTo: true)
           .snapshots()
-          .map(_userDataListFromSnapshot);
+          .map(userDataListFromSnapshot);
     } else {
       return userDatabaseCollection
           .where(FieldPath.documentId, whereIn: list)
           .where('verified', isEqualTo: true)
           .snapshots()
-          .map(_userDataListFromSnapshot);
+          .map(userDataListFromSnapshot);
     }
   }
 
@@ -214,7 +221,7 @@ class DatabaseService {
         .where('username', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
         .where('verified', isEqualTo: true)
         .snapshots()
-        .map(_userDataListFromSnapshot);
+        .map(userDataListFromSnapshot);
   }
 
   List<AppUser> userDataListFromSnapshot(QuerySnapshot snapshot) {
@@ -226,22 +233,9 @@ class DatabaseService {
         url: doc.get('url'),
         points: doc.data().toString().contains('points') ? doc.get('points') : '',
         duration: doc.get('duration'),
-        friendsUsername: doc.data().toString().contains('friendsUsername') ? doc.get('friendsUsername'): [],
-        mythics: doc.get('mythics'),
-      );
-    }).toList();
-  }
-
-  List<AppUser> _userDataListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return AppUser(
-        uid: doc.id,
-        username: doc.get('username'),
-        map: doc.get('map'),
-        url: doc.get('url'),
-        points: doc.data().toString().contains('points') ? doc.get('points') : '',
-        duration: doc.get('duration'),
-        friendsUsername: doc.data().toString().contains('friendsUsername') ? doc.get('friendsUsername'): [],
+        friendsId: doc.data().toString().contains('friendsId') ? doc.get('friendsId'): [doc.id],
+        friendRequestsSent: doc.data().toString().contains('friendRequestsSent') ? doc.get('friendRequestsSent'): [],
+        friendRequestsReceived: doc.data().toString().contains('friendRequestsReceived') ? doc.get('friendRequestsReceived'): [],
         mythics: doc.get('mythics'),
       );
     }).toList();
@@ -264,7 +258,9 @@ class DatabaseService {
       url: data?['url'],
       points: data?['points'],
       duration: data?['duration'],
-      friendsUsername: data?['friendsUsername'],
+      friendsId: data?['friendsId'],
+      friendRequestsSent: data?['friendRequestsSent'],
+      friendRequestsReceived: data?['friendRequestsReceived'],
       mythics: data?['mythics'],
     );
   }
