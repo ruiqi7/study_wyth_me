@@ -25,7 +25,7 @@ class _FriendListState extends State<FriendList> {
             AppUser appUser = snapshot.data!;
 
             return StreamBuilder<List<AppUser>>(
-              stream: DatabaseService(uid: uid).userLeaderboardStream(false, appUser.friendsUsername),
+              stream: DatabaseService(uid: uid).userLeaderboardStream(false, appUser.friendsId),
               builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
                 if (querySnapshot.hasData) {
                   List<AppUser> friendsList = querySnapshot.data!;
@@ -39,7 +39,13 @@ class _FriendListState extends State<FriendList> {
                           username: users[index].username,
                           profile: users[index].url,
                           uid: uid,
-                          isFriend: usernamesList.contains(users[index].username)
+                          friendStatus: appUser.friendsId.contains(users[index].uid)
+                              ? 'Unfriend'
+                              : appUser.friendRequestsReceived.contains(users[index].uid)
+                              ? 'Befriend'
+                              : appUser.friendRequestsSent.contains(users[index].uid)
+                              ? 'Unrequest'
+                              : 'Request',
                       );
                     },
                   );

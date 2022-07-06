@@ -36,7 +36,9 @@ class Authentication {
       }
     } on FirebaseAuthException catch (authException) {
       String error = authException.code;
-      if (error == 'email-already-in-use') {
+      if (error == 'invalid-email') {
+        return 'Invalid email.';
+      } else if (error == 'email-already-in-use') {
         return 'There exists an account with this email.';
       } else {
         return 'Please try again.';

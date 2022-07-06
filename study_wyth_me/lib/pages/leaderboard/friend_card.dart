@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -6,13 +7,13 @@ class FriendCard extends StatelessWidget {
   final String username;
   final String profile;
   final String uid;
-  final bool isFriend;
+  final String friendStatus;
   const FriendCard({
     Key? key,
     required this.username,
     required this.profile,
     required this.uid,
-    required this.isFriend,
+    required this.friendStatus,
   }) : super(key: key);
 
   @override
@@ -46,21 +47,19 @@ class FriendCard extends StatelessWidget {
                   height: 40,
                   decoration: largeRadiusRoundedBox,
                   child: TextButton(
-                    key: isFriend ? const Key('RemoveButton') : const Key('AddButton'),
-                    child: Text(isFriend ? 'Remove' : 'Add'),
+                    key: Key(friendStatus + 'Button'), // yet to update test case
+                    child: AutoSizeText(
+                      friendStatus,
+                      style: chewyTextStyle.copyWith(fontSize: 20.0),
+                      maxLines: 1
+                    ),
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(5.0),
-                      primary: Colors.white,
-                      textStyle: chewyTextStyle.copyWith(fontSize: 20.0),
                     ),
                     onPressed: () async {
-                      if (isFriend) {
-                        String message = await DatabaseService(uid: uid).removeFriend(username);
-                        if (message.isNotEmpty) {
-                          alertDialogue(context, message);
-                        }
-                      } else {
-                        await DatabaseService(uid: uid).addFriend(username);
+                      String message = await DatabaseService(uid: uid).updateFriendStatus(username, friendStatus);
+                      if (message.isNotEmpty) {
+                        alertDialogue(context, message);
                       }
                     },
                   )

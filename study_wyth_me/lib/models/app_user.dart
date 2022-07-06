@@ -6,7 +6,9 @@ class AppUser {
   final String url;
   final dynamic points;
   final dynamic duration;
-  final List<dynamic> friendsUsername;
+  final List<dynamic> friendsId;
+  final List<dynamic> friendRequestsSent;
+  final List<dynamic> friendRequestsReceived;
   final Map<String, dynamic> mythics;
 
   AppUser({
@@ -16,7 +18,9 @@ class AppUser {
     required this.url,
     required this.points,
     required this.duration,
-    required this.friendsUsername,
+    required this.friendsId,
+    required this.friendRequestsSent,
+    required this.friendRequestsReceived,
     required this.mythics,
   });
 

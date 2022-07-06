@@ -45,7 +45,7 @@ class _LeaderboardState extends State<Leaderboard> {
           AppUser appUser = snapshot.data!;
 
           return StreamBuilder<List<AppUser>>(
-            stream: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsUsername),
+            stream: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
             builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
               if (querySnapshot.hasData) {
                 List<AppUser> userList = querySnapshot.data!;
@@ -167,7 +167,7 @@ class _LeaderboardState extends State<Leaderboard> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               StreamProvider<List<AppUser>>.value(
-                                value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsUsername),
+                                value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
                                 initialData: const [],
                                 child: Flexible(
                                     child: LeaderboardList(username: appUser.username)
