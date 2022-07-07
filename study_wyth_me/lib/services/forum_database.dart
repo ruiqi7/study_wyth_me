@@ -99,9 +99,8 @@ class ForumDatabase {
     });
   }
 
-  Stream<List<Post>> searchForumStream(String input) {
+  Stream<List<Post>> get searchForumStream {
     return forumDatabaseCollection
-        .where('title', isGreaterThanOrEqualTo: input, isLessThan: input.substring(0, input.length-1) + String.fromCharCode(input.codeUnitAt(input.length - 1) + 1))
         .snapshots()
         .map(forumPostListFromSnapshot);
   }

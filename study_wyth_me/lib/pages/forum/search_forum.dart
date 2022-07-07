@@ -102,10 +102,10 @@ class _SearchForumState extends State<SearchForum> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget> [
                     StreamProvider<List<Post>>.value(
-                      value: ForumDatabase().searchForumStream(input),
+                      value: ForumDatabase().searchForumStream,
                       initialData: const [],
-                      child: const Flexible(
-                        child: SearchList(),
+                      child: Flexible(
+                        child: SearchList(input: input),
                       ),
                     ),
                   ],
