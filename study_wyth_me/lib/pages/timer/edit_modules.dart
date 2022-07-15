@@ -21,6 +21,8 @@ class _EditModulesState extends State<EditModules> {
   // to indicate if the module has been added
   String message = '';
 
+  final fieldText = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,7 @@ class _EditModulesState extends State<EditModules> {
                   decoration: formFieldDeco.copyWith(hintText: 'Module', hintStyle: const TextStyle(color: whiteOpacity70)),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
                   validator: (value) => value!.trim().isEmpty ? 'Enter a module' : null,
+                  controller: fieldText,
                   onChanged: (value) {
                     setState(() => module = value.trim());
                   },
@@ -91,6 +94,7 @@ class _EditModulesState extends State<EditModules> {
                           setState(() => message = '');
                         }
                       });
+                      fieldText.clear();
                     }
                   },
                 ),
