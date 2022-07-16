@@ -78,7 +78,7 @@ void main() {
     expect(addFriendButton, findsOneWidget);
   });
   
-  testWidgets('A user can search, add and remove a friend.', (tester) async {
+  testWidgets('A user can search for other users, send and cancel friend requests to them.', (tester) async {
     await navigateToLeaderboardPage(tester);
 
     final friendsButton = find.byKey(const Key('FriendsButton'));
@@ -93,7 +93,7 @@ void main() {
 
     final usernameFormField = find.byKey(const Key('EditFriendsUsernameFormField'));
 
-    await tester.enterText(usernameFormField, 'loremipsum');
+    await tester.enterText(usernameFormField, 'rq');
     await tester.pumpAndSettle();
 
     await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -101,14 +101,56 @@ void main() {
 
     final friendCard = find.byWidgetPredicate(
             (widget) => widget is FriendCard
-                && widget.username == 'loremipsum');
-                //&& widget.isFriend == false);
-    final addButton = find.descendant(of: friendCard, matching: find.byKey(const Key('AddButton')));
+                && widget.username == 'rq'
+                && widget.friendStatus == 'Request');
+    final requestButton = find.descendant(of: friendCard, matching: find.byKey(const Key('RequestButton')));
 
-    await tester.tap(addButton);
+    await tester.tap(requestButton);
     await tester.pumpAndSettle();
 
-    final backButton = find.byKey(const Key('BackIcon'));
+    final friendCard1 = find.byWidgetPredicate(
+            (widget) => widget is FriendCard
+            && widget.username == 'rq'
+            && widget.friendStatus == 'Unrequest');
+    final unrequestButton = find.descendant(of: friendCard1, matching: find.byKey(const Key('UnrequestButton')));
+
+    await tester.tap(unrequestButton);
+    await tester.pumpAndSettle();
+
+    expect(friendCard, findsOneWidget);
+  });
+
+  testWidgets('A user can search for other users, befriend and unfriend them.', (tester) async {
+    await navigateToLeaderboardPage(tester);
+
+    final friendsButton = find.byKey(const Key('FriendsButton'));
+    await tester.tap(friendsButton);
+    await tester.pumpAndSettle();
+
+    final addFriendButton = find.byKey(const Key('AddFriendButton'));
+    await tester.tap(addFriendButton);
+    await tester.pumpAndSettle();
+
+    expect(find.byWidgetPredicate((widget) => widget is EditFriends), findsOneWidget);
+
+    final usernameFormField = find.byKey(const Key('EditFriendsUsernameFormField'));
+
+    await tester.enterText(usernameFormField, 'szeying');
+    await tester.pumpAndSettle();
+
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    final friendCard = find.byWidgetPredicate(
+            (widget) => widget is FriendCard
+            && widget.username == 'szeying'
+            && widget.friendStatus == 'Befriend');
+    final befriendButton = find.descendant(of: friendCard, matching: find.byKey(const Key('BefriendButton')));
+
+    await tester.tap(befriendButton);
+    await tester.pumpAndSettle();
+
+    final backButton = find.byKey(const Key('CloseIcon'));
     await tester.tap(backButton);
     await tester.pumpAndSettle();
 
@@ -119,7 +161,7 @@ void main() {
     final friendsLeaderboard = find.byWidgetPredicate((widget) => widget is LeaderboardList);
     final friendOnLeaderboard = find.descendant(
         of: friendsLeaderboard,
-        matching: find.byWidgetPredicate((widget) => widget is UserCard && widget.appUser.username == 'loremipsum')
+        matching: find.byWidgetPredicate((widget) => widget is UserCard && widget.appUser.username == 'szeying')
     );
     expect(friendOnLeaderboard, findsOneWidget);
 
@@ -128,7 +170,7 @@ void main() {
 
     expect(find.byWidgetPredicate((widget) => widget is EditFriends), findsOneWidget);
 
-    await tester.enterText(usernameFormField, 'loremipsum');
+    await tester.enterText(usernameFormField, 'szeying');
     await tester.pumpAndSettle();
 
     await tester.testTextInput.receiveAction(TextInputAction.done);
@@ -136,11 +178,11 @@ void main() {
 
     final friendCard1 = find.byWidgetPredicate(
             (widget) => widget is FriendCard
-            && widget.username == 'loremipsum');
-            //&& widget.isFriend == true);
-    final removeButton = find.descendant(of: friendCard1, matching: find.byKey(const Key('RemoveButton')));
+            && widget.username == 'szeying'
+            && widget.friendStatus == 'Unfriend');
+    final unfriendButton = find.descendant(of: friendCard1, matching: find.byKey(const Key('UnfriendButton')));
 
-    await tester.tap(removeButton);
+    await tester.tap(unfriendButton);
     await tester.pumpAndSettle();
 
     await tester.tap(backButton);
@@ -153,7 +195,7 @@ void main() {
     final friendsLeaderboard1 = find.byWidgetPredicate((widget) => widget is LeaderboardList);
     final friendOnLeaderboard1 = find.descendant(
         of: friendsLeaderboard1,
-        matching: find.byWidgetPredicate((widget) => widget is UserCard && widget.appUser.username == 'loremipsum')
+        matching: find.byWidgetPredicate((widget) => widget is UserCard && widget.appUser.username == 'szeying')
     );
     expect(friendOnLeaderboard1, findsNothing);
   });

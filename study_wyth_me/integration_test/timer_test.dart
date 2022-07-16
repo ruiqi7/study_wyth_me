@@ -82,7 +82,7 @@ void main() {
     await tester.tap(addModuleButton);
     await tester.pumpAndSettle();
 
-    final backButton = find.byKey(const Key('BackIcon'));
+    final backButton = find.byKey(const Key('CloseIcon'));
     await tester.tap(backButton);
     await tester.pumpAndSettle();
 
@@ -139,7 +139,7 @@ void main() {
     await tester.tap(addModuleButton);
     await tester.pumpAndSettle();
 
-    final backButton = find.byKey(const Key('BackIcon'));
+    final backButton = find.byKey(const Key('CloseIcon'));
     await tester.tap(backButton);
     await tester.pumpAndSettle();
 

@@ -47,7 +47,7 @@ class FriendCard extends StatelessWidget {
                   height: 40,
                   decoration: largeRadiusRoundedBox,
                   child: TextButton(
-                    key: Key(friendStatus + 'Button'), // yet to update test case
+                    key: Key(friendStatus + 'Button'),
                     child: AutoSizeText(
                       friendStatus,
                       style: chewyTextStyle.copyWith(fontSize: 20.0),

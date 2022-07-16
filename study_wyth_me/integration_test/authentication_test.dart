@@ -34,33 +34,6 @@ void main() {
 
     expect(find.byWidgetPredicate((widget) => widget is Home), findsOneWidget);
   });
-
-  testWidgets('A new user can register an account.', (tester) async {
-    app.main();
-    await tester.pumpAndSettle();
-
-    final imNewHereButton = find.byKey(const Key('ImNewHereButton'));
-    await tester.ensureVisible(imNewHereButton);
-    await tester.tap(imNewHereButton);
-    await tester.pumpAndSettle();
-
-    expect(find.byWidgetPredicate((widget) => widget is SignUp), findsOneWidget);
-
-    final emailFormField = find.byKey(const Key('SignUpEmailFormField'));
-    final usernameFormField = find.byKey(const Key('SignUpUsernameFormField'));
-    final passwordFormField = find.byKey(const Key('SignUpPasswordFormField'));
-    final signUpButton = find.byKey(const Key('SignUpButton'));
-
-    await tester.enterText(emailFormField, 'loremipsum@gmail.com');
-    await tester.enterText(usernameFormField, 'loremipsum');
-    await tester.enterText(passwordFormField, 'loremipsum');
-    await tester.pumpAndSettle();
-
-    await tester.tap(signUpButton);
-    await tester.pumpAndSettle(const Duration(seconds: 3)); // buffer time for the loading page
-
-    expect(find.byWidgetPredicate((widget) => widget is Home), findsOneWidget);
-  });
   
   testWidgets('A user cannot sign in with an invalid email and / or password.', (tester) async {
     app.main();
@@ -119,7 +92,7 @@ void main() {
     expect(find.byWidgetPredicate((widget) => widget is SignUp), findsOneWidget);
 
     await tester.pump(const Duration(seconds: 1));
-    expect(find.text('Please try again.'), findsOneWidget);
+    expect(find.text('Invalid email.'), findsOneWidget);
   });
   
   testWidgets('A user cannot register with an existing email.', (tester) async {
