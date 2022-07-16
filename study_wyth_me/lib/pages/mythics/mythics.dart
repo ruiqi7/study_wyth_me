@@ -34,7 +34,7 @@ class _MythicsState extends State<Mythics> {
   late int _currPoints;
 
   Widget _mythicBox(bool obtained, String mythicName) {
-    int points = _mythicNumbers[mythicName]! * 1;
+    int points = _mythicNumbers[mythicName]! * 1000;
     return Column(
       children: <Widget> [
         Container(
