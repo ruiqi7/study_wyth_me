@@ -97,13 +97,13 @@ class _HomeState extends State<Home> {
             if (snapshot.hasData) {
               AppUser appUser = snapshot.data!;
               return Scaffold(
-                backgroundColor: darkBlueBackground,
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SafeArea(
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(75.0),
+                  child: Container(
+                    color: whiteOpacity20,
+                    child: SafeArea(
                       child: Container(
-                        color: whiteOpacity20,
+                        color: transparent,
                         height: 75.0,
                         child: Row(
                           children: <Widget>[
@@ -192,17 +192,24 @@ class _HomeState extends State<Home> {
                             ),
                             */
                             appBarButton(
-                              'Logout',
-                              () async {
-                                setState(() => _loading = true);
-                                await Authentication().customSignOut();
-                                Navigator.pushNamed(context, '/');
-                              }
+                                'Logout',
+                                    () async {
+                                  setState(() => _loading = true);
+                                  await Authentication().customSignOut();
+                                  Navigator.pushNamed(context, '/');
+                                }
                             )
                           ],
                         ),
                       ),
                     ),
+                  ),
+                ),
+                backgroundColor: darkBlueBackground,
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+
                     const SizedBox(height: 40.0),
                     Container(
                       width: 300,
@@ -246,7 +253,10 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                bottomNavigationBar: navigationBar(context, _position),
+                bottomNavigationBar: Container(
+                  color: whiteOpacity20,
+                  child: navigationBar(context, _position),
+                )
               );
             } else {
               return const MainMenu();

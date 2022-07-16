@@ -24,26 +24,29 @@ class _SearchForumState extends State<SearchForum> {
       backgroundColor: darkBlueBackground,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(75),
-          child: SafeArea(
-              child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  color: whiteOpacity20,
-                  height: 75.0,
-                  child: Row(
-                    children: <Widget> [
-                      closeIcon(context),
-                      Center(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                            child: Text(
-                              'Search Post by Title!',
-                              style: chewyTextStyle.copyWith(fontSize: 25.0),
-                            ),
-                          )
-                      )
-                    ],
-                  )
-              )
+          child: Container(
+            color: whiteOpacity20,
+            child: SafeArea(
+                child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
+                    color: transparent,
+                    height: 75.0,
+                    child: Row(
+                      children: <Widget> [
+                        closeIcon(context),
+                        Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
+                              child: Text(
+                                'Search Post by Title!',
+                                style: chewyTextStyle.copyWith(fontSize: 25.0),
+                              ),
+                            )
+                        )
+                      ],
+                    )
+                )
+            ),
           )
       ),
       body: Center(
