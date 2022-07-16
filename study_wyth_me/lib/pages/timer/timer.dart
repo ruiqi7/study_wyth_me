@@ -92,7 +92,13 @@ class _TimerState extends State<Timer> {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: darkBlueBackground,
-            appBar: appBar(context, uid),
+            appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(75.0),
+                  child: Container(
+                    color: whiteOpacity20,
+                    child: appBar(context, uid),
+                  )
+              ),
             body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -251,7 +257,10 @@ class _TimerState extends State<Timer> {
                   ],
                 )
             ),
-            bottomNavigationBar: navigationBar(context, _position),
+            bottomNavigationBar: Container(
+              color: whiteOpacity20,
+              child: navigationBar(context, _position),
+            )
           );
         } else {
           return const Loading();

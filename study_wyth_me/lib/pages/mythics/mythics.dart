@@ -116,7 +116,13 @@ class _MythicsState extends State<Mythics> {
           _currPoints = appUser.points;
           return Scaffold(
             backgroundColor: darkBlueBackground,
-            appBar: appBar(context, uid),
+            appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(75.0),
+                child: Container(
+                  color: whiteOpacity20,
+                  child: appBar(context, uid),
+                )
+            ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -202,7 +208,10 @@ class _MythicsState extends State<Mythics> {
                 ),
               ],
             ),
-            bottomNavigationBar: navigationBar(context, _position),
+            bottomNavigationBar: Container(
+              color: whiteOpacity20,
+              child: navigationBar(context, _position),
+            ),
           );
         } else {
           return const Loading();

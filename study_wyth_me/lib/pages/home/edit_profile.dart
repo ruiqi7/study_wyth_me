@@ -43,52 +43,58 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: darkBlueBackground,
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(75.0),
+          child: Container(
+            color: whiteOpacity20,
+            child: SafeArea(
+              child: Container(
+                color: transparent,
+                height: 75.0,
+                child: Row(
+                  children: <Widget>[
+                    closeIcon(context),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    appBarButton(
+                        'Save',
+                            () async {
+                          String notification = 'No new changes.';
+
+                          if (_changedProfile) {
+                            notification = 'Saved!';
+                            String newURL = await storage.uploadFile(_currImage!, uid, true);
+                            await databaseService.updatePicture(newURL);
+                          }
+
+                          if (_formKey.currentState!.validate()) {
+                            if (_changedUsername) {
+                              notification = await databaseService.updateUsername(_currUsername!);
+                            }
+                          }
+
+                          setState(() {
+                            message = notification;
+                            _changedUsername = false;
+                            _changedProfile = false;
+                          });
+                          Future.delayed(const Duration(seconds: 2), () {
+                            if (mounted) {
+                              setState(() => message = '');
+                            }
+                          });
+                        }
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SafeArea(
-            child: Container(
-              color: whiteOpacity20,
-              height: 75.0,
-              child: Row(
-                children: <Widget>[
-                  closeIcon(context),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  appBarButton(
-                      'Save',
-                      () async {
-                        String notification = 'No new changes.';
-
-                        if (_changedProfile) {
-                          notification = 'Saved!';
-                          String newURL = await storage.uploadFile(_currImage!, uid, true);
-                          await databaseService.updatePicture(newURL);
-                        }
-
-                        if (_formKey.currentState!.validate()) {
-                          if (_changedUsername) {
-                            notification = await databaseService.updateUsername(_currUsername!);
-                          }
-                        }
-
-                        setState(() {
-                          message = notification;
-                          _changedUsername = false;
-                          _changedProfile = false;
-                        });
-                        Future.delayed(const Duration(seconds: 2), () {
-                          if (mounted) {
-                            setState(() => message = '');
-                          }
-                        });
-                      }
-                  ),
-                ],
-              ),
-            ),
-          ),
           const SizedBox(height: 10.0),
           Container(
             height: 38.0,

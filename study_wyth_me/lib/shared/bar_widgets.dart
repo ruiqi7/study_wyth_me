@@ -22,7 +22,7 @@ navigationBar(context, position) => SafeArea(
       Expanded(
           child: Container(
             padding: const EdgeInsets.all(8.0),
-            color: whiteOpacity20,
+            color: transparent,
             height: 75.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -224,7 +224,7 @@ appBar(context, uid) => PreferredSize(
   preferredSize: const Size.fromHeight(75),
   child: SafeArea(
     child: Container(
-      color: whiteOpacity20,
+      color: transparent,
       height: 75.0,
       child: StreamBuilder<AppUser>(
         stream: DatabaseService(uid: uid).userData,

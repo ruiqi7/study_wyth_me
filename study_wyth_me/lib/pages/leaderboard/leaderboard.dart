@@ -54,7 +54,13 @@ class _LeaderboardState extends State<Leaderboard> {
 
                 return Scaffold(
                   backgroundColor: darkBlueBackground,
-                  appBar: appBar(context, uid),
+                  appBar: PreferredSize(
+                    preferredSize: const Size.fromHeight(75.0),
+                    child: Container(
+                      color: whiteOpacity20,
+                      child: appBar(context, uid),
+                    )
+                  ),
                   body: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Column(
@@ -204,7 +210,10 @@ class _LeaderboardState extends State<Leaderboard> {
                       ],
                     ),
                   ),
-                  bottomNavigationBar: navigationBar(context, _position),
+                  bottomNavigationBar: Container(
+                    color: whiteOpacity20,
+                    child: navigationBar(context, _position),
+                  )
                 );
               } else {
                 return const Loading();

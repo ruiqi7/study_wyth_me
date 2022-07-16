@@ -42,62 +42,68 @@ class _ForumState extends State<Forum> {
                     AppUser appUser = snapshot.data!;
 
                     return Scaffold(
+                      appBar: PreferredSize(
+                            preferredSize: const Size.fromHeight(75.0),
+                            child: Container(
+                              color: whiteOpacity20,
+                              child: SafeArea(
+                                child: Container(
+                                  color: transparent,
+                                  height: 75.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10.0),
+                                        child: CircleAvatar(
+                                          radius: 25.0,
+                                          backgroundImage: NetworkImage(appUser.url),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Text(
+                                            appUser.username,
+                                            style: chewyTextStyle.copyWith(fontSize: 27.5),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        key: const Key('CreateNewPostButton'),
+                                        padding: const EdgeInsets.only(right: 0.0),
+                                        icon: const Icon(Icons.add, color: Colors.white),
+                                        iconSize: 45,
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(child: const NewPost(), type: PageTransitionType.bottomToTop)
+                                          );
+                                        },
+                                      ),
+                                      IconButton(
+                                        key: const Key('SearchPostButton'),
+                                        padding: const EdgeInsets.only(right: 10.0),
+                                        icon: const Icon(Icons.search, color: Colors.white),
+                                        iconSize: 40,
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(child: const SearchForum(), type: PageTransitionType.bottomToTop)
+                                          );
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                        ),
                       backgroundColor: darkBlueBackground,
                       body: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SafeArea(
-                            child: Container(
-                              color: whiteOpacity20,
-                              height: 75.0,
-                              child: Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: CircleAvatar(
-                                      radius: 25.0,
-                                      backgroundImage: NetworkImage(appUser.url),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      child: Text(
-                                        appUser.username,
-                                        style: chewyTextStyle.copyWith(fontSize: 27.5),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    key: const Key('CreateNewPostButton'),
-                                    padding: const EdgeInsets.only(right: 0.0),
-                                    icon: const Icon(Icons.add, color: Colors.white),
-                                    iconSize: 45,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(child: const NewPost(), type: PageTransitionType.bottomToTop)
-                                      );
-                                    },
-                                  ),
-                                  IconButton(
-                                    key: const Key('SearchPostButton'),
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    icon: const Icon(Icons.search, color: Colors.white),
-                                    iconSize: 40,
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(child: const SearchForum(), type: PageTransitionType.bottomToTop)
-                                      );
-                                    },
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
                           Expanded(
                             child: Scrollbar(
                               radius: const Radius.circular(10.0),
@@ -113,7 +119,10 @@ class _ForumState extends State<Forum> {
                           ),
                         ],
                       ),
-                      bottomNavigationBar: navigationBar(context, _position),
+                      bottomNavigationBar: Container(
+                        color: whiteOpacity20,
+                        child: navigationBar(context, _position),
+                      )
                     );
                   } else {
                     return const Loading();

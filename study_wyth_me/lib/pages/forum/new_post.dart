@@ -25,31 +25,34 @@ class _NewPostState extends State<NewPost> {
       backgroundColor: darkBlueBackground,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(75),
-        child: SafeArea(
-          child: Container(
-            color: whiteOpacity20,
-            height: 75.0,
-            child: Row(
-              children: <Widget>[
-                closeIcon(context),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                appBarButton(
-                  'Post',
-                  () async {
-                    if (_formKey.currentState!.validate()) {
-                      await ForumDatabase().createNewPost(
-                        uid,
-                        _title,
-                        _text,
-                        DateTime.now().millisecondsSinceEpoch,
-                      );
-                      Navigator.pop(context);
+        child: Container(
+          color: whiteOpacity20,
+          child: SafeArea(
+            child: Container(
+              color: transparent,
+              height: 75.0,
+              child: Row(
+                children: <Widget>[
+                  closeIcon(context),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  appBarButton(
+                    'Post',
+                    () async {
+                      if (_formKey.currentState!.validate()) {
+                        await ForumDatabase().createNewPost(
+                          uid,
+                          _title,
+                          _text,
+                          DateTime.now().millisecondsSinceEpoch,
+                        );
+                        Navigator.pop(context);
+                      }
                     }
-                  }
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
