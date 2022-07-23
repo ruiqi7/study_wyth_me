@@ -25,8 +25,8 @@ class MainPost extends StatefulWidget {
 }
 
 class _MainPostState extends State<MainPost> {
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-  final ForumDatabase forumDatabase = ForumDatabase();
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
+  final ForumDatabase _forumDatabase = ForumDatabase();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _MainPostState extends State<MainPost> {
               ),
               child: Column(
                 children: <Widget> [
-                  const SizedBox(height: 15.0),
+                  gapBox,
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
@@ -92,7 +92,7 @@ class _MainPostState extends State<MainPost> {
                     height: 35.0,
                     child: Row(
                       children: <Widget> [
-                        widget.enableLikeAndReply && widget.post.uid != uid
+                        widget.enableLikeAndReply && widget.post.uid != _uid
                           ? Container(
                               padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 10.0),
                               height: 50.0,
@@ -100,14 +100,12 @@ class _MainPostState extends State<MainPost> {
                               child: IconButton(
                                 key: const Key('ThreadPostThumbsUp'),
                                 icon: Icon(
-                                  post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                                  //Icons.thumb_up_alt_outlined, // _liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                  post.likes.contains(_uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                   color: Colors.grey
                                 ),
                                 iconSize: 20,
                                 onPressed: () async {
-                                  await forumDatabase.changeLikeStatus(widget.post.postId, uid);
-                                  // setState(() => _liked = !_liked!);
+                                  await _forumDatabase.changeLikeStatus(widget.post.postId, _uid);
                                 },
                               )
                           )
@@ -117,7 +115,7 @@ class _MainPostState extends State<MainPost> {
                             width: 40.0,
                             child: Icon(
                               key: const Key('OwnThreadPostThumbsUp'),
-                              post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                              post.likes.contains(_uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                               color: Colors.grey,
                               size: 20,
                             ),

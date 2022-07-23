@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-
-import 'bar_widgets.dart';
+import 'package:study_wyth_me/shared/bar_widgets.dart';
 
 const darkBlueBackground = Color.fromRGBO(0, 34, 75, 1.0);
+const darkBlueOpacity50 = Color.fromRGBO(0, 34, 75, 0.5);
 
 const whiteOpacity10 = Color.fromRGBO(255, 255, 255, 0.10);
 const whiteOpacity15 = Color.fromRGBO(255, 255, 255, 0.15);
 const whiteOpacity20 = Color.fromRGBO(255, 255, 255, 0.20);
 const whiteOpacity70 = Color.fromRGBO(255, 255, 255, 0.70);
-const transparent = Color.fromRGBO(255, 255, 255, 0);
-const darkBlueOpacity50 = Color.fromRGBO(0, 34, 75, 0.5);
 
 const SizedBox gapBox = SizedBox(height: 15);
 const SizedBox gapBoxH10 = SizedBox(height: 10);
+const SizedBox emptyBox = SizedBox(height: 0, width: 0);
 
 const BoxDecoration smallRadiusRoundedBox = BoxDecoration(
   borderRadius: BorderRadius.all(Radius.circular(10)),

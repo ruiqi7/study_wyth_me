@@ -17,7 +17,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
 
-  final Storage storage = Storage();
+  final Storage _storage = Storage();
 
   bool _changedProfileBefore = false;
   bool _changedProfile = false;
@@ -25,7 +25,7 @@ class _EditProfileState extends State<EditProfile> {
   XFile? _currImage;
 
   // to notify the user if the profile has been saved
-  String message = '';
+  String _message = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _changedUsername = false;
@@ -33,8 +33,8 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
-    final DatabaseService databaseService = DatabaseService(uid: uid);
+    final String _uid = FirebaseAuth.instance.currentUser!.uid;
+    final DatabaseService _databaseService = DatabaseService(uid: _uid);
 
     if (!_changedProfileBefore) {
       _currURL = widget.url; // get the user's current profile picture
@@ -49,7 +49,7 @@ class _EditProfileState extends State<EditProfile> {
             color: whiteOpacity20,
             child: SafeArea(
               child: Container(
-                color: transparent,
+                color: Colors.transparent,
                 height: 75.0,
                 child: Row(
                   children: <Widget>[
@@ -58,33 +58,33 @@ class _EditProfileState extends State<EditProfile> {
                       child: SizedBox(),
                     ),
                     appBarButton(
-                        'Save',
-                            () async {
-                          String notification = 'No new changes.';
+                      'Save',
+                          () async {
+                        String notification = 'No new changes.';
 
-                          if (_changedProfile) {
-                            notification = 'Saved!';
-                            String newURL = await storage.uploadFile(_currImage!, uid, true);
-                            await databaseService.updatePicture(newURL);
-                          }
-
-                          if (_formKey.currentState!.validate()) {
-                            if (_changedUsername) {
-                              notification = await databaseService.updateUsername(_currUsername!);
-                            }
-                          }
-
-                          setState(() {
-                            message = notification;
-                            _changedUsername = false;
-                            _changedProfile = false;
-                          });
-                          Future.delayed(const Duration(seconds: 2), () {
-                            if (mounted) {
-                              setState(() => message = '');
-                            }
-                          });
+                        if (_changedProfile) {
+                          notification = 'Saved!';
+                          String newURL = await _storage.uploadFile(_currImage!, _uid, true);
+                          await _databaseService.updatePicture(newURL);
                         }
+
+                        if (_formKey.currentState!.validate()) {
+                          if (_changedUsername) {
+                            notification = await _databaseService.updateUsername(_currUsername!);
+                          }
+                        }
+
+                        setState(() {
+                          _message = notification;
+                          _changedUsername = false;
+                          _changedProfile = false;
+                        });
+                        Future.delayed(const Duration(seconds: 2), () {
+                          if (mounted) {
+                            setState(() => _message = '');
+                          }
+                        });
+                      }
                     ),
                   ],
                 ),
@@ -95,12 +95,12 @@ class _EditProfileState extends State<EditProfile> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const SizedBox(height: 10.0),
+          gapBoxH10,
           Container(
             height: 38.0,
             padding: const EdgeInsets.symmetric(horizontal: 55.0),
             child: Text(
-              message,
+              _message,
               style: const TextStyle(
                 color: Colors.red,
                 fontSize: 16.0,
@@ -166,7 +166,7 @@ class _EditProfileState extends State<EditProfile> {
                   XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
                   if (image != null) { // image selected
-                    String newURL = await storage.uploadFile(image, uid, false);
+                    String newURL = await _storage.uploadFile(image, _uid, false);
                     setState(() {
                       _changedProfileBefore = true;
                       _changedProfile = true;

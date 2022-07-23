@@ -16,34 +16,31 @@ class FriendList extends StatefulWidget {
 class _FriendListState extends State<FriendList> {
   @override
   Widget build(BuildContext context) {
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
-    final users = Provider.of<List<AppUser>>(context);
+    final String _uid = FirebaseAuth.instance.currentUser!.uid;
+    final _users = Provider.of<List<AppUser>>(context);
     return StreamBuilder<AppUser>(
-        stream: DatabaseService(uid: uid).userData,
+        stream: DatabaseService(uid: _uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             AppUser appUser = snapshot.data!;
 
             return StreamBuilder<List<AppUser>>(
-              stream: DatabaseService(uid: uid).userLeaderboardStream(false, appUser.friendsId),
+              stream: DatabaseService(uid: _uid).userLeaderboardStream(false, appUser.friendsId),
               builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
                 if (querySnapshot.hasData) {
-                  List<AppUser> friendsList = querySnapshot.data!;
-                  List<String> usernamesList = friendsList.map((user) => user.username).toList();
-
                   return ListView.builder(
-                    itemCount: users.length,
+                    itemCount: _users.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return FriendCard(
-                          username: users[index].username,
-                          profile: users[index].url,
-                          uid: uid,
-                          friendStatus: appUser.friendsId.contains(users[index].uid)
+                          username: _users[index].username,
+                          profile: _users[index].url,
+                          uid: _uid,
+                          friendStatus: appUser.friendsId.contains(_users[index].uid)
                               ? 'Unfriend'
-                              : appUser.friendRequestsReceived.contains(users[index].uid)
+                              : appUser.friendRequestsReceived.contains(_users[index].uid)
                               ? 'Befriend'
-                              : appUser.friendRequestsSent.contains(users[index].uid)
+                              : appUser.friendRequestsSent.contains(_users[index].uid)
                               ? 'Unrequest'
                               : 'Request',
                       );

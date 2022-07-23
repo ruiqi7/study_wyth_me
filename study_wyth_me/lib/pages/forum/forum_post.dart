@@ -18,8 +18,8 @@ class ForumPost extends StatefulWidget {
 }
 
 class _ForumPostState extends State<ForumPost> {
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-  final ForumDatabase forumDatabase = ForumDatabase();
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
+  final ForumDatabase _forumDatabase = ForumDatabase();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _ForumPostState extends State<ForumPost> {
               ),
               child: Column(
                 children: <Widget> [
-                  const SizedBox(height: 15.0),
+                  gapBox,
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
@@ -100,18 +100,6 @@ class _ForumPostState extends State<ForumPost> {
                                   type: PageTransitionType.rightToLeft,
                                 )
                             );
-                            /*
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Thread(
-                                        post: widget.post,
-                                        parentDirectReplies: const [],
-                                        replyIndex: -1,
-                                    )
-                                )
-                            );
-                            */
                           },
                         ),
                       )
@@ -123,7 +111,7 @@ class _ForumPostState extends State<ForumPost> {
                     height: 35.0,
                     child: Row(
                       children: <Widget> [
-                        widget.post.uid != uid
+                        widget.post.uid != _uid
                           ? Container(
                             padding: const EdgeInsets.fromLTRB(6.0, 0.0, 0.0, 0.0),
                             height: 50.0,
@@ -131,12 +119,12 @@ class _ForumPostState extends State<ForumPost> {
                             child: IconButton(
                               key: const Key('ForumPostThumbsUp'),
                               icon: Icon(
-                                widget.post.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                widget.post.likes.contains(_uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
                                 color: Colors.grey
                               ),
                               iconSize: 20,
                               onPressed: () async {
-                                await forumDatabase.changeLikeStatus(widget.post.postId, uid);
+                                await _forumDatabase.changeLikeStatus(widget.post.postId, _uid);
                               },
                             ),
                           )
@@ -146,7 +134,7 @@ class _ForumPostState extends State<ForumPost> {
                               width: 40.0,
                               child: Icon(
                                 key: const Key('OwnPostThumbsUp'),
-                                Icons.thumb_up_alt_outlined, //_liked! ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                Icons.thumb_up_alt_outlined,
                                 color: Colors.grey,
                                 size: 20
                               ),

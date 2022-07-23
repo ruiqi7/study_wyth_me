@@ -8,9 +8,9 @@ import 'package:study_wyth_me/pages/menu/sign_up.dart';
 class MainMenu extends StatelessWidget {
   const MainMenu({Key? key}) : super(key: key);
 
-  final double buttonWidth = 300;
-  final double buttonHeight = 80;
-  static ButtonStyle buttonStyle = TextButton.styleFrom(
+  final double _buttonWidth = 300;
+  final double _buttonHeight = 80;
+  static final ButtonStyle _buttonStyle = TextButton.styleFrom(
     padding: const EdgeInsets.all(16.0),
     primary: Colors.white,
     textStyle: chewyTextStyle.copyWith(fontSize: 33.0),
@@ -63,12 +63,12 @@ class MainMenu extends StatelessWidget {
             ),
             const SizedBox(height: 45),
             Container(
-              width: buttonWidth,
-              height: buttonHeight,
+              width: _buttonWidth,
+              height: _buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
                 key: const Key('WelcomeBackButton'),
-                style: buttonStyle,
+                style: _buttonStyle,
                 child: const Text('Welcome Back!'),
                 onPressed: () {
                   Navigator.push(
@@ -80,12 +80,12 @@ class MainMenu extends StatelessWidget {
             ),
             gapBox,
             Container(
-              width: buttonWidth,
-              height: buttonHeight,
+              width: _buttonWidth,
+              height: _buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
                 key: const Key('ImNewHereButton'),
-                style: buttonStyle,
+                style: _buttonStyle,
                 child: const Text('I\'m new here!'),
                 onPressed: () {
                   Navigator.push(
@@ -97,12 +97,12 @@ class MainMenu extends StatelessWidget {
             ),
             gapBox,
             Container(
-              width: buttonWidth,
-              height: buttonHeight,
+              width: _buttonWidth,
+              height: _buttonHeight,
               decoration: smallRadiusRoundedBox,
               child: TextButton(
                 key: const Key('AboutButton'),
-                style: buttonStyle,
+                style: _buttonStyle,
                 child: const Text('About'),
                 onPressed: () {
                   Navigator.push(

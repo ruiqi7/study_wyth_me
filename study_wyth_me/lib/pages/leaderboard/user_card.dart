@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../models/app_user.dart';
-import '../../shared/constants.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/shared/constants.dart';
 
 class UserCard extends StatelessWidget {
   final AppUser appUser;
@@ -14,7 +13,7 @@ class UserCard extends StatelessWidget {
     required this.username,
   }) : super(key: key);
 
-  String getRank() {
+  String _getRank() {
     int adjustedRank = rank + 1;
     if (adjustedRank < 10) {
       return "0" + adjustedRank.toString();
@@ -26,7 +25,7 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: appUser.username == username ? whiteOpacity15 : transparent,
+      color: appUser.username == username ? whiteOpacity15 : Colors.transparent,
       child: Column(
         children: <Widget>[
           gapBoxH10,
@@ -41,7 +40,7 @@ class UserCard extends StatelessWidget {
                 SizedBox(
                   width: 40,
                   child: Text(
-                    getRank(),
+                    _getRank(),
                     style: norwesterTextStyle.copyWith(fontSize: 28),
                   ),
                 ),

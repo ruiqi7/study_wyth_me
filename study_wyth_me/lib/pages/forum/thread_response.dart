@@ -31,9 +31,8 @@ class ThreadResponse extends StatefulWidget {
 
 class _ThreadResponseState extends State<ThreadResponse> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-
-  final CommentsDatabase commentsDatabase = CommentsDatabase();
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
+  final CommentsDatabase _commentsDatabase = CommentsDatabase();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
 
       return IntrinsicHeight(
         child: StreamBuilder<Comment>(
-            stream: commentsDatabase.commentData(commentId),
+            stream: _commentsDatabase.commentData(commentId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 Comment comment = snapshot.data!;
@@ -66,14 +65,11 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                   children: <Widget> [
                                     Container(
                                       padding: widget.position == 1 ? const EdgeInsets.only(left: 10.0) : const EdgeInsets.only(left: 0.0),
-                                      decoration: const BoxDecoration(
-                                        //color: Colors.red,
-                                      ),
                                       width: widget.position == 1 ? 50.0 : 40.0,
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: <Widget> [
-                                          const SizedBox(height: 10.0),
+                                          gapBoxH10,
                                           CircleAvatar(
                                             radius: 20.0,
                                             backgroundImage: NetworkImage(commenter.url),
@@ -91,180 +87,165 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                       ),
                                     ),
                                     Expanded(
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          //color: Colors.pink,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget> [
-                                            Container(
-                                              padding: const EdgeInsets.fromLTRB(10.0, 25.0, 5.0, 15.0),
-                                              child: RichText(
-                                                text: TextSpan(
-                                                  style: oswaldTextStyle.copyWith(fontSize: 9.0, color: Colors.grey),
-                                                  children: <TextSpan>[
-                                                    TextSpan(text: commenter.username, style: const TextStyle(fontWeight: FontWeight.bold)),
-                                                    const TextSpan(text: ' replied '),
-                                                    TextSpan(text: timeDifference(comment.timestamp)),
-                                                  ],
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 10.0, bottom: 5.0, right: 5.0),
-                                              child: Text(
-                                                comment.content,
-                                                style: oswaldTextStyle.copyWith(fontSize: 12.5, color: Colors.white),
-                                              ),
-                                            ),
-                                            Container(
-                                              decoration: const BoxDecoration(
-                                                //color: Colors.deepPurpleAccent,
-                                              ),
-                                              height: 35.0,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: <Widget> [
-                                                  widget.enableLikeAndReply && comment.uid != uid
-                                                    ? IconButton(
-                                                        key: const Key('ThreadCommentThumbsUp'),
-                                                        padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
-                                                        constraints: const BoxConstraints(),
-                                                        icon: Icon(
-                                                          comment.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                                                          color: Colors.grey
-                                                        ),
-                                                        iconSize: 20,
-                                                        onPressed: () async {
-                                                          await commentsDatabase.changeLikeStatus(commentId, uid);
-                                                        },
-                                                      )
-                                                    : Icon(
-                                                        key: const Key('OwnThreadResponseThumbsUp'),
-                                                        comment.likes.contains(uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                                                        color: Colors.grey,
-                                                        size: 20,
-                                                      ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.fromLTRB(5.0, 8.0, 12.0, 10.0),
-                                                    child: Text(
-                                                      key: const Key('ThreadCommentLikes'),
-                                                      '${comment.likes.length}',
-                                                      style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
-                                                    ),
-                                                  ),
-                                                  const Padding(
-                                                    padding: EdgeInsets.only(top: 2.0),
-                                                    child: Icon(
-                                                      Icons.chat_bubble_outline,
-                                                      color: Colors.grey,
-                                                      size: 20.0,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.fromLTRB(5.0, 8.0, 0.0, 10.0),
-                                                    child: Text(
-                                                      key: const Key('ThreadResponseComments'),
-                                                      '${comment.comments}',
-                                                      style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
-                                                    ),
-                                                  ),
-                                                  const Expanded(
-                                                    child: SizedBox(),
-                                                  ),
-                                                  widget.enableLikeAndReply
-                                                    ? SizedBox(
-                                                        width: 50.0,
-                                                        child: TextButton(
-                                                          key: const Key('CommentReplyButton'),
-                                                          style: TextButton.styleFrom(
-                                                            padding: const EdgeInsets.all(0.0),
-                                                          ),
-                                                          child: Text(
-                                                            'Reply',
-                                                            style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(builder:
-                                                                (context) => ThreadReply(
-                                                                  post: widget.post,
-                                                                  replyPost: ThreadResponse(
-                                                                    position: 1,
-                                                                    parentDirectReplies: widget.parentDirectReplies,
-                                                                    replyIndex: widget.replyIndex,
-                                                                    post: widget.post,
-                                                                    enableLikeAndReply: false,
-                                                                  ),
-                                                                  commenter: commenter.username,
-                                                                  commentId: commentId,
-                                                                )
-                                                              )
-                                                            );
-                                                          },
-                                                        ),
-                                                      )
-                                                    : const SizedBox(width: 5.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget> [
+                                          Container(
+                                            padding: const EdgeInsets.fromLTRB(10.0, 25.0, 5.0, 15.0),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                style: oswaldTextStyle.copyWith(fontSize: 9.0, color: Colors.grey),
+                                                children: <TextSpan>[
+                                                  TextSpan(text: commenter.username, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                                  const TextSpan(text: ' replied '),
+                                                  TextSpan(text: timeDifference(comment.timestamp)),
                                                 ],
                                               ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                            widget.position == 5 && comment.directReplies.isNotEmpty
-                                                ? Container(
-                                              height: 25.0,
-                                              margin: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                                              decoration: largeRadiusRoundedBox,
-                                              child: TextButton(
-                                                child: const Text('See more replies'),
-                                                style: TextButton.styleFrom(
-                                                  padding: const EdgeInsets.all(5.0),
-                                                  primary: Colors.white,
-                                                  textStyle: oswaldTextStyle.copyWith(fontSize: 12.0),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0, bottom: 5.0, right: 5.0),
+                                            child: Text(
+                                              comment.content,
+                                              style: oswaldTextStyle.copyWith(fontSize: 12.5, color: Colors.white),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 35.0,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget> [
+                                                widget.enableLikeAndReply && comment.uid != _uid
+                                                  ? IconButton(
+                                                      key: const Key('ThreadCommentThumbsUp'),
+                                                      padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 0.0),
+                                                      constraints: const BoxConstraints(),
+                                                      icon: Icon(
+                                                        comment.likes.contains(_uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                        color: Colors.grey
+                                                      ),
+                                                      iconSize: 20,
+                                                      onPressed: () async {
+                                                        await _commentsDatabase.changeLikeStatus(commentId, _uid);
+                                                      },
+                                                    )
+                                                  : Icon(
+                                                      key: const Key('OwnThreadResponseThumbsUp'),
+                                                      comment.likes.contains(_uid) ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+                                                      color: Colors.grey,
+                                                      size: 20,
+                                                    ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(5.0, 8.0, 12.0, 10.0),
+                                                  child: Text(
+                                                    key: const Key('ThreadCommentLikes'),
+                                                    '${comment.likes.length}',
+                                                    style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                                                  ),
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => Thread(
+                                                const Padding(
+                                                  padding: EdgeInsets.only(top: 2.0),
+                                                  child: Icon(
+                                                    Icons.chat_bubble_outline,
+                                                    color: Colors.grey,
+                                                    size: 20.0,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(5.0, 8.0, 0.0, 10.0),
+                                                  child: Text(
+                                                    key: const Key('ThreadResponseComments'),
+                                                    '${comment.comments}',
+                                                    style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                                                  ),
+                                                ),
+                                                const Expanded(
+                                                  child: SizedBox(),
+                                                ),
+                                                widget.enableLikeAndReply ? SizedBox(
+                                                  width: 50.0,
+                                                  child: TextButton(
+                                                    key: const Key('CommentReplyButton'),
+                                                    style: TextButton.styleFrom(
+                                                      padding: const EdgeInsets.all(0.0),
+                                                    ),
+                                                    child: Text(
+                                                      'Reply',
+                                                      style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(builder:
+                                                          (context) => ThreadReply(
                                                             post: widget.post,
-                                                            parentDirectReplies: widget.parentDirectReplies,
-                                                            replyIndex: widget.replyIndex,
+                                                            replyPost: ThreadResponse(
+                                                              position: 1,
+                                                              parentDirectReplies: widget.parentDirectReplies,
+                                                              replyIndex: widget.replyIndex,
+                                                              post: widget.post,
+                                                              enableLikeAndReply: false,
+                                                            ),
+                                                            commenter: commenter.username,
+                                                            commentId: commentId,
                                                           )
-                                                      )
-                                                  );
-                                                },
+                                                        )
+                                                      );
+                                                    },
+                                                  ),
+                                                ) : const SizedBox(width: 5.0),
+                                              ],
+                                            ),
+                                          ),
+                                          widget.position == 5 && comment.directReplies.isNotEmpty ? Container(
+                                            height: 25.0,
+                                            margin: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                                            decoration: largeRadiusRoundedBox,
+                                            child: TextButton(
+                                              child: const Text('See more replies'),
+                                              style: TextButton.styleFrom(
+                                                padding: const EdgeInsets.all(5.0),
+                                                primary: Colors.white,
+                                                textStyle: oswaldTextStyle.copyWith(fontSize: 12.0),
                                               ),
-                                            )
-                                                : const SizedBox(width: 0.0, height: 0.0),
-                                            comment.directReplies.isNotEmpty
-                                              ? ThreadResponse(
-                                                  position: widget.position + 1,
-                                                  parentDirectReplies: comment.directReplies,
-                                                  replyIndex: 0,
-                                                  post: widget.post,
-                                                  enableLikeAndReply: widget.enableLikeAndReply,
-                                                )
-                                              : const SizedBox(width: 0.0, height: 0.0),
-                                          ],
-                                        ),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => Thread(
+                                                          post: widget.post,
+                                                          parentDirectReplies: widget.parentDirectReplies,
+                                                          replyIndex: widget.replyIndex,
+                                                        )
+                                                    )
+                                                );
+                                              },
+                                            ),
+                                          ) : emptyBox,
+                                          comment.directReplies.isNotEmpty ? ThreadResponse(
+                                            position: widget.position + 1,
+                                            parentDirectReplies: comment.directReplies,
+                                            replyIndex: 0,
+                                            post: widget.post,
+                                            enableLikeAndReply: widget.enableLikeAndReply,
+                                          )
+                                            : emptyBox,
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            widget.replyIndex + 1 >= widget.parentDirectReplies.length || widget.position == 1
-                              ? const SizedBox(width: 0.0, height: 0.0)
-                              : ThreadResponse(
-                                  position: widget.position,
-                                  parentDirectReplies: widget.parentDirectReplies,
-                                  replyIndex: widget.replyIndex + 1,
-                                  post: widget.post,
-                                  enableLikeAndReply: widget.enableLikeAndReply,
-                                ),
+                            widget.replyIndex + 1 >= widget.parentDirectReplies.length || widget.position == 1 ? emptyBox : ThreadResponse(
+                              position: widget.position,
+                              parentDirectReplies: widget.parentDirectReplies,
+                              replyIndex: widget.replyIndex + 1,
+                              post: widget.post,
+                              enableLikeAndReply: widget.enableLikeAndReply,
+                            ),
                           ],
                         );
                       } else {
@@ -279,7 +260,7 @@ class _ThreadResponseState extends State<ThreadResponse> {
         ),
       );
     } else {
-      return const SizedBox(height: 0.0, width: 0.0);
+      return emptyBox;
     }
   }
 }

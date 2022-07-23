@@ -39,21 +39,10 @@ class CommentsDatabase {
     return document.id;
   }
 
-  /*
-  Future hasLiked(String commentId, String uid) async {
-    DocumentReference document = commentsDatabaseCollection.doc(commentId);
-    Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
-
-    return comment.likes.contains(uid);
-  }
-  */
-
   Future changeLikeStatus(String commentId, String uid) async {
     DocumentReference document = commentsDatabaseCollection.doc(commentId);
     Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
-
     DatabaseService databaseService = DatabaseService(uid: comment.uid);
-
     List<dynamic> usersWhoLiked = comment.likes;
     if (usersWhoLiked.contains(uid)) {
       usersWhoLiked.remove(uid);
@@ -70,28 +59,21 @@ class CommentsDatabase {
   Future addReply(String commentId, String newCommentId) async {
     DocumentReference document = commentsDatabaseCollection.doc(commentId);
     Comment comment = await document.get().then((snapshot) => _commentDataFromSnapshot(snapshot));
-
     comment.directReplies.add(newCommentId);
-
     await document.update({
       'comments' : FieldValue.increment(1),
       'directReplies' : comment.directReplies,
     });
-
     return await updateCommentCount(commentId);
   }
 
   Future updateCommentCount(String commentId) async {
     final parentComments = await commentsDatabaseCollection.where('directReplies', arrayContains: commentId).get();
-
     if (parentComments.docs.isEmpty) return;
-
     QueryDocumentSnapshot snapshot = parentComments.docs.first;
-
     await snapshot.reference.update({
       'comments': FieldValue.increment(1),
     });
-
     await updateCommentCount(snapshot.id);
   }
 

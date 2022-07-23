@@ -16,10 +16,10 @@ class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // value of the form field
-  String email = '';
+  String _email = '';
 
   // message to indicate if password reset email was sent
-  String message = '';
+  String _message = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value.trim());
+                          setState(() => _email = value.trim());
                         },
                       )
                     ],
@@ -67,17 +67,17 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      String status = await _authenticate.customResetPassword(email);
-                      setState(() => message = status);
+                      String status = await _authenticate.customResetPassword(_email);
+                      setState(() => _message = status);
                     }
                   },
                 ),
               ),
               gapBox,
               backButton(context),
-              const SizedBox(height: 10.0),
+              gapBoxH10,
               Text(
-                message,
+                _message,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,

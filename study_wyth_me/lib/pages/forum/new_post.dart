@@ -12,7 +12,7 @@ class NewPost extends StatefulWidget {
 
 class _NewPostState extends State<NewPost> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // values of the form fields
@@ -29,7 +29,7 @@ class _NewPostState extends State<NewPost> {
           color: whiteOpacity20,
           child: SafeArea(
             child: Container(
-              color: transparent,
+              color: Colors.transparent,
               height: 75.0,
               child: Row(
                 children: <Widget>[
@@ -42,7 +42,7 @@ class _NewPostState extends State<NewPost> {
                     () async {
                       if (_formKey.currentState!.validate()) {
                         await ForumDatabase().createNewPost(
-                          uid,
+                          _uid,
                           _title,
                           _text,
                           DateTime.now().millisecondsSinceEpoch,

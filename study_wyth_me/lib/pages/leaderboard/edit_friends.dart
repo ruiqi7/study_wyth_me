@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import '../../shared/constants.dart';
-import 'friends_list.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/pages/leaderboard/friends_list.dart';
 
 class EditFriends extends StatefulWidget {
   const EditFriends({Key? key}) : super(key: key);
@@ -16,8 +15,8 @@ class EditFriends extends StatefulWidget {
 
 class _EditFriendsState extends State<EditFriends> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-  String input = "";
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
+  String _input = "";
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class _EditFriendsState extends State<EditFriends> {
             child: SafeArea(
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                    color: transparent,
+                    color: Colors.transparent,
                     height: 75.0,
                     child: Row(
                       children: <Widget> [
@@ -60,7 +59,7 @@ class _EditFriendsState extends State<EditFriends> {
               gapBox,
               TextFormField(
                 key: const Key('EditFriendsUsernameFormField'),
-                initialValue: input,
+                initialValue: _input,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(
                   fillColor: whiteOpacity15,
@@ -89,18 +88,18 @@ class _EditFriendsState extends State<EditFriends> {
                 style: chewyTextStyle.copyWith(fontSize: 20, color: Colors.white),
                 onFieldSubmitted: (value) {
                   setState(() {
-                    input = value;
+                    _input = value;
                   });
                 },
               ),
               gapBox,
               horizontalDivider,
-              input != "" ? Expanded(
+              _input != "" ? Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget> [
                     StreamProvider<List<AppUser>>.value(
-                      value: DatabaseService(uid: uid).searchUserStream(input),
+                      value: DatabaseService(uid: _uid).searchUserStream(_input),
                       initialData: const [],
                       child: const Flexible(
                         child: FriendList()
