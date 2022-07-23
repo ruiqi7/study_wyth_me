@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,13 +6,10 @@ import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/pages/timer/edit_modules.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import 'countdown.dart';
-import '../loading.dart';
-
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/pages/timer/countdown.dart';
+import 'package:study_wyth_me/pages/loading.dart';
 
 class Timer extends StatefulWidget {
   const Timer({Key? key}) : super(key: key);
@@ -22,7 +20,7 @@ class Timer extends StatefulWidget {
 
 class _TimerState extends State<Timer> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
 
   // passed into navigation bar to identify which page we are on
   final _position = 3;
@@ -62,7 +60,7 @@ class _TimerState extends State<Timer> {
                 initialTimerDuration: _currDuration,
                 onTimerDurationChanged: (Duration newDuration) async {
                   setState(() => _currDuration = newDuration);
-                  await DatabaseService(uid: uid).updateDuration(newDuration.inMinutes);
+                  await DatabaseService(uid: _uid).updateDuration(newDuration.inMinutes);
                 },
               ),
             ),
@@ -73,7 +71,7 @@ class _TimerState extends State<Timer> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<AppUser>(
-      stream: DatabaseService(uid: uid).userData,
+      stream: DatabaseService(uid: _uid).userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
@@ -96,7 +94,7 @@ class _TimerState extends State<Timer> {
                   preferredSize: const Size.fromHeight(75.0),
                   child: Container(
                     color: whiteOpacity20,
-                    child: appBar(context, uid),
+                    child: appBar(context, _uid),
                   )
               ),
             body: Center(
@@ -134,15 +132,13 @@ class _TimerState extends State<Timer> {
                               child: DropdownButtonFormField2(
                                 key: const Key('DropdownMenu'),
                                 decoration: InputDecoration(
-                                  fillColor: const Color.fromRGBO(
-                                      255, 255, 255, 0.10),
+                                  fillColor: whiteOpacity10,
                                   filled: true,
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide.none
                                   ),
-                                  contentPadding: const EdgeInsets.fromLTRB(
-                                      15.0, 10.0, 5.0, 10.0),
+                                  contentPadding: const EdgeInsets.fromLTRB(15.0, 10.0, 5.0, 10.0),
                                   hintText: 'Choose a Module',
                                   hintStyle: chewyTextStyle.copyWith(fontSize: 16.0)
                                 ),
@@ -205,7 +201,7 @@ class _TimerState extends State<Timer> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                PageTransition(child: EditModules(uid: uid), type: PageTransitionType.bottomToTop)
+                                PageTransition(child: EditModules(uid: _uid), type: PageTransitionType.bottomToTop)
                               );
                             },
                           ),
@@ -236,17 +232,16 @@ class _TimerState extends State<Timer> {
                           } else if (_formKey.currentState!.validate()) {
                             Navigator.push(
                               context,
-                              PageTransition(child: Countdown(duration: _currDuration, module: _currentModule!, uid: uid), type: PageTransitionType.fade)
+                              PageTransition(child: Countdown(duration: _currDuration, module: _currentModule!, uid: _uid), type: PageTransitionType.fade)
                             );
                           }
                         },
                       ),
-                    )
-                        : const SizedBox(
+                    ) : const SizedBox(
                       width: 100,
                       height: 40,
                     ),
-                    const SizedBox(height: 10.0),
+                    gapBoxH10,
                     Text(
                       _message,
                       style: const TextStyle(

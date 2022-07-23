@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../models/app_user.dart';
+import 'package:study_wyth_me/models/app_user.dart';
 
 class DatabaseService {
 
@@ -200,7 +199,7 @@ class DatabaseService {
     return userDatabaseCollection.snapshots();
   }
 
-  //get userDatabase stream of top 20 users within the community
+  //get userDatabase stream of users within the community
   Stream<List<AppUser>> userLeaderboardStream(bool isCommunity, List<dynamic> list) {
     if (isCommunity) {
       return userDatabaseCollection

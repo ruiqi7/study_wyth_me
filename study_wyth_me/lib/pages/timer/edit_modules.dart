@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/timer/module_list.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-import '../../services/database.dart';
+import 'package:study_wyth_me/services/database.dart';
 
 class EditModules extends StatefulWidget {
 
-  const EditModules({ Key? key, required this.uid }) : super(key: key);
-
   final String uid;
+  const EditModules({ Key? key, required this.uid }) : super(key: key);
 
   @override
   State<EditModules> createState() => _EditModulesState();
@@ -16,12 +15,12 @@ class EditModules extends StatefulWidget {
 class _EditModulesState extends State<EditModules> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String module = '';
+  String _module = '';
 
   // to indicate if the module has been added
-  String message = '';
+  String _message = '';
 
-  final fieldText = TextEditingController();
+  final _fieldText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _EditModulesState extends State<EditModules> {
           child: SafeArea(
             child: Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-              color: transparent,
+              color: Colors.transparent,
               height: 75.0,
               child: Row(
                 children: <Widget> [
@@ -69,9 +68,9 @@ class _EditModulesState extends State<EditModules> {
                   decoration: formFieldDeco.copyWith(hintText: 'Module', hintStyle: const TextStyle(color: whiteOpacity70)),
                   style: chewyTextStyle.copyWith(fontSize: 18.0),
                   validator: (value) => value!.trim().isEmpty ? 'Enter a module' : null,
-                  controller: fieldText,
+                  controller: _fieldText,
                   onChanged: (value) {
-                    setState(() => module = value.trim());
+                    setState(() => _module = value.trim());
                   },
                 ),
               ),
@@ -90,21 +89,21 @@ class _EditModulesState extends State<EditModules> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      String result = await DatabaseService(uid: widget.uid).updateNewModule(module);
-                      setState(() => message = result);
+                      String result = await DatabaseService(uid: widget.uid).updateNewModule(_module);
+                      setState(() => _message = result);
                       Future.delayed(const Duration(seconds: 1), () {
                         if (mounted) {
-                          setState(() => message = '');
+                          setState(() => _message = '');
                         }
                       });
-                      fieldText.clear();
+                      _fieldText.clear();
                     }
                   },
                 ),
               ),
-              const SizedBox(height: 10.0),
+              gapBoxH10,
               Text(
-                message,
+                _message,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,

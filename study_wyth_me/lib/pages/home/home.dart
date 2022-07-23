@@ -1,16 +1,15 @@
+import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:study_wyth_me/pages/menu/main_menu.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/services/authentication.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:cron/cron.dart';
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import 'edit_profile.dart';
-import '../loading.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/pages/home/edit_profile.dart';
+import 'package:study_wyth_me/pages/loading.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,9 +22,6 @@ class _HomeState extends State<Home> {
 
   // passed into navigation bar to identify which page we are on
   final int _position = 1;
-
-  // determines whether to display loading screen
-  bool _loading = false;
 
   List<PieChartSectionData> showSections(AppUser appUser) {
     List<PieChartSectionData> list = [];
@@ -103,7 +99,7 @@ class _HomeState extends State<Home> {
                     color: whiteOpacity20,
                     child: SafeArea(
                       child: Container(
-                        color: transparent,
+                        color: Colors.transparent,
                         height: 75.0,
                         child: Row(
                           children: <Widget>[
@@ -151,53 +147,12 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-                            /*
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Material(
-                                elevation: 0,
-                                shape: const CircleBorder(),
-                                clipBehavior: Clip.hardEdge,
-                                color: Colors.transparent,
-                                child: Ink.image(
-                                  key: const Key('HomeProfilePicture'),
-                                  image: NetworkImage(appUser.url),
-                                  fit: BoxFit.cover,
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: InkWell(
-                                    splashColor: darkBlueBackground,
-                                    onTap: () {
-                                      Future.delayed(const Duration(milliseconds: 100), () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(child: EditProfile(url: appUser.url), type: PageTransitionType.bottomToTop)
-                                        );
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Text(
-                                  key: const Key('HomeUsername'),
-                                  appUser.username,
-                                  style: chewyTextStyle.copyWith(fontSize: 27.5),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                            */
                             appBarButton(
-                                'Logout',
-                                    () async {
-                                  setState(() => _loading = true);
-                                  await Authentication().customSignOut();
-                                  Navigator.pushNamed(context, '/');
-                                }
+                              'Logout',
+                                  () async {
+                                await Authentication().customSignOut();
+                                Navigator.pushNamed(context, '/');
+                              }
                             )
                           ],
                         ),
@@ -209,7 +164,6 @@ class _HomeState extends State<Home> {
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-
                     const SizedBox(height: 40.0),
                     Container(
                       width: 300,

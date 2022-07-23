@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/home/home.dart';
@@ -137,7 +136,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     },
                   ),
                 ),
-                const SizedBox(height: 10.0),
+                gapBoxH10,
                 Text(
                   _message,
                   style: const TextStyle(

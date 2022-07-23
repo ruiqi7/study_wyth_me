@@ -5,8 +5,7 @@ import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/models/custom_user.dart';
 import 'package:study_wyth_me/services/authentication.dart';
-
-import '../loading.dart';
+import 'package:study_wyth_me/pages/loading.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -21,18 +20,18 @@ class _SignInState extends State<SignIn> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // values of the form fields
-  String email = '';
-  String password = '';
+  String _email = '';
+  String _password = '';
 
   // invalid sign in error message
-  String error = '';
+  String _error = '';
 
   // determines whether to display loading screen
-  bool loading = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return loading ? const Loading() : Scaffold(
+    return _loading ? const Loading() : Scaffold(
       backgroundColor: darkBlueBackground,
       body: SafeArea(
         child: Center(
@@ -53,7 +52,7 @@ class _SignInState extends State<SignIn> {
                         style: chewyTextStyle.copyWith(fontSize: 18.0),
                         validator: (value) => value!.trim().isEmpty ? 'Enter your email' : null,
                         onChanged: (value) {
-                          setState(() => email = value.trim());
+                          setState(() => _email = value.trim());
                         },
                       ),
                       gapBox,
@@ -64,7 +63,7 @@ class _SignInState extends State<SignIn> {
                         obscureText: true,
                         validator: (value) => value!.trim().isEmpty ? 'Enter your password' : null,
                         onChanged: (value) {
-                          setState(() => password = value.trim());
+                          setState(() => _password = value.trim());
                         },
                       )
                     ],
@@ -86,11 +85,11 @@ class _SignInState extends State<SignIn> {
                   child: const Text('Login'),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      CustomUser? result = await _authenticate.customSignIn(email, password);
+                      CustomUser? result = await _authenticate.customSignIn(_email, _password);
                       if (result == null) {
-                        setState(() => error = 'Invalid email and / or password.');
+                        setState(() => _error = 'Invalid email and / or password.');
                       } else {
-                        setState(() => loading = true);
+                        setState(() => _loading = true);
                         Navigator.pop(context);
                       }
                     }
@@ -124,9 +123,9 @@ class _SignInState extends State<SignIn> {
                   backButton(context)
                 ],
               ),
-              const SizedBox(height: 10.0),
+              gapBoxH10,
               Text(
-                error,
+                _error,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,

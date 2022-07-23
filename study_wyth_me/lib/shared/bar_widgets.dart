@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
-import '../models/app_user.dart';
-import '../pages/forum/forum.dart';
-import '../pages/home/home.dart';
-import '../pages/leaderboard/leaderboard.dart';
-import '../pages/mythics/mythics.dart';
-import '../pages/timer/timer.dart';
-import '../services/database.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/pages/forum/forum.dart';
+import 'package:study_wyth_me/pages/home/home.dart';
+import 'package:study_wyth_me/pages/leaderboard/leaderboard.dart';
+import 'package:study_wyth_me/pages/mythics/mythics.dart';
+import 'package:study_wyth_me/pages/timer/timer.dart';
+import 'package:study_wyth_me/services/database.dart';
 
 const oswaldText = TextStyle(
   fontFamily: 'Oswald',
@@ -22,7 +22,7 @@ navigationBar(context, position) => SafeArea(
       Expanded(
           child: Container(
             padding: const EdgeInsets.all(8.0),
-            color: transparent,
+            color: Colors.transparent,
             height: 75.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -224,7 +224,7 @@ appBar(context, uid) => PreferredSize(
   preferredSize: const Size.fromHeight(75),
   child: SafeArea(
     child: Container(
-      color: transparent,
+      color: Colors.transparent,
       height: 75.0,
       child: StreamBuilder<AppUser>(
         stream: DatabaseService(uid: uid).userData,
@@ -232,7 +232,6 @@ appBar(context, uid) => PreferredSize(
           if (snapshot.hasData) {
             AppUser appUser = snapshot.data!;
             return Row(
-              //mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget> [
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),

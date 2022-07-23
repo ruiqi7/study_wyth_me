@@ -10,7 +10,7 @@ import 'package:study_wyth_me/pages/loading.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
-import '../../shared/constants.dart';
+import 'package:study_wyth_me/shared/constants.dart';
 
 class Forum extends StatefulWidget {
   const Forum({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class Forum extends StatefulWidget {
 
 class _ForumState extends State<Forum> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
   final _position = 2;
 
   final ForumDatabase forumDatabase = ForumDatabase();
@@ -36,7 +36,7 @@ class _ForumState extends State<Forum> {
             postList.sort((a, b) => b.compareTo(a));
 
             return StreamBuilder<AppUser>(
-                stream: DatabaseService(uid: uid).userData,
+                stream: DatabaseService(uid: _uid).userData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     AppUser appUser = snapshot.data!;
@@ -48,7 +48,7 @@ class _ForumState extends State<Forum> {
                               color: whiteOpacity20,
                               child: SafeArea(
                                 child: Container(
-                                  color: transparent,
+                                  color: Colors.transparent,
                                   height: 75.0,
                                   child: Row(
                                     children: <Widget>[

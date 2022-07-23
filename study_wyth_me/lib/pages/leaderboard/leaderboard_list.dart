@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/pages/leaderboard/user_card.dart';
-
-import '../../models/app_user.dart';
+import 'package:study_wyth_me/models/app_user.dart';
 
 class LeaderboardList extends StatefulWidget {
 

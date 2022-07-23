@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/loading.dart';
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import '../../shared/bar_widgets.dart';
-import '../../shared/constants.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/shared/bar_widgets.dart';
+import 'package:study_wyth_me/shared/constants.dart';
 import 'dart:math' as math;
 
 class Mythics extends StatefulWidget {
@@ -16,7 +16,7 @@ class Mythics extends StatefulWidget {
 
 class _MythicsState extends State<Mythics> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
   final _position = 5;
   final Map<String, int> _mythicNumbers = {
     'Chimera': 1,
@@ -68,7 +68,7 @@ class _MythicsState extends State<Mythics> {
             ),
           )
         ),
-        const SizedBox(height: 10),
+        gapBoxH10,
         obtained ? SizedBox(
           width: 120,
           height: 35,
@@ -91,7 +91,7 @@ class _MythicsState extends State<Mythics> {
               ),
               onPressed: () async {
                 if (_currPoints >= points) {
-                  await DatabaseService(uid: uid).claimMythic(mythicName);
+                  await DatabaseService(uid: _uid).claimMythic(mythicName);
                 } else {
                   alertDialogue(context, 'Insufficient points to claim!');
                 }
@@ -109,7 +109,7 @@ class _MythicsState extends State<Mythics> {
     List<String> _mythicsNames = _mythicNumbers.keys.toList();
 
     return StreamBuilder<AppUser>(
-      stream: DatabaseService(uid: uid).userData,
+      stream: DatabaseService(uid: _uid).userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
@@ -120,7 +120,7 @@ class _MythicsState extends State<Mythics> {
                 preferredSize: const Size.fromHeight(75.0),
                 child: Container(
                   color: whiteOpacity20,
-                  child: appBar(context, uid),
+                  child: appBar(context, _uid),
                 )
             ),
             body: Column(

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/app_user.dart';
-import '../../services/database.dart';
-import '../../shared/bar_widgets.dart';
-import '../../shared/constants.dart';
-import '../loading.dart';
-import 'edit_friends.dart';
-import 'leaderboard_list.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/shared/bar_widgets.dart';
+import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/pages/loading.dart';
+import 'package:study_wyth_me/pages/leaderboard/edit_friends.dart';
+import 'package:study_wyth_me/pages/leaderboard/leaderboard_list.dart';
 
 class Leaderboard extends StatefulWidget {
   const Leaderboard({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class Leaderboard extends StatefulWidget {
 
 class _LeaderboardState extends State<Leaderboard> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  final String _uid = FirebaseAuth.instance.currentUser!.uid;
   final _position = 4;
   bool _isCommunity = true;
 
@@ -39,13 +39,13 @@ class _LeaderboardState extends State<Leaderboard> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<AppUser>(
-      stream: DatabaseService(uid: uid).userData,
+      stream: DatabaseService(uid: _uid).userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           AppUser appUser = snapshot.data!;
 
           return StreamBuilder<List<AppUser>>(
-            stream: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
+            stream: DatabaseService(uid: _uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
             builder: (BuildContext context, AsyncSnapshot<List<AppUser>> querySnapshot) {
               if (querySnapshot.hasData) {
                 List<AppUser> userList = querySnapshot.data!;
@@ -58,7 +58,7 @@ class _LeaderboardState extends State<Leaderboard> {
                     preferredSize: const Size.fromHeight(75.0),
                     child: Container(
                       color: whiteOpacity20,
-                      child: appBar(context, uid),
+                      child: appBar(context, _uid),
                     )
                   ),
                   body: Container(
@@ -173,7 +173,7 @@ class _LeaderboardState extends State<Leaderboard> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               StreamProvider<List<AppUser>>.value(
-                                value: DatabaseService(uid: uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
+                                value: DatabaseService(uid: _uid).userLeaderboardStream(_isCommunity, appUser.friendsId),
                                 initialData: const [],
                                 child: Flexible(
                                     child: LeaderboardList(username: appUser.username)

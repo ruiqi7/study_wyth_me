@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
 import 'package:study_wyth_me/services/authentication.dart';
-
-import '../loading.dart';
+import 'package:study_wyth_me/pages/loading.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -115,7 +114,7 @@ class _SignUpState extends State<SignUp> {
               ),
               gapBox,
               backButton(context),
-              const SizedBox(height: 10.0),
+              gapBoxH10,
               Text(
                 _error,
                 style: const TextStyle(

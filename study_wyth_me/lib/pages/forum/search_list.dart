@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/pages/forum/forum_post.dart';
-
-import '../../models/post.dart';
+import 'package:study_wyth_me/models/post.dart';
 
 class SearchList extends StatefulWidget {
   final String input;

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/post.dart';
@@ -15,8 +14,7 @@ class SearchForum extends StatefulWidget {
 
 class _SearchForumState extends State<SearchForum> {
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-  String input = "";
+  String _input = "";
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class _SearchForumState extends State<SearchForum> {
             child: SafeArea(
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                    color: transparent,
+                    color: Colors.transparent,
                     height: 75.0,
                     child: Row(
                       children: <Widget> [
@@ -60,7 +58,7 @@ class _SearchForumState extends State<SearchForum> {
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextFormField(
                   key: const Key('SearchForumFormField'),
-                  initialValue: input,
+                  initialValue: _input,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: const InputDecoration(
                     fillColor: whiteOpacity15,
@@ -89,18 +87,18 @@ class _SearchForumState extends State<SearchForum> {
                   style: oswaldTextStyle.copyWith(fontSize: 20, color: Colors.white),
                   onFieldSubmitted: (value) {
                     setState(() {
-                      input = value;
+                      _input = value;
                     });
                   },
                 ),
               ),
-              const SizedBox(height: 10),
+              gapBoxH10,
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: horizontalDivider
               ),
-              const SizedBox(height: 10),
-              input != "" ? Expanded(
+              gapBoxH10,
+              _input != "" ? Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget> [
@@ -108,7 +106,7 @@ class _SearchForumState extends State<SearchForum> {
                       value: ForumDatabase().searchForumStream,
                       initialData: const [],
                       child: Flexible(
-                        child: SearchList(input: input),
+                        child: SearchList(input: _input),
                       ),
                     ),
                   ],

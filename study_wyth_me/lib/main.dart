@@ -1,4 +1,3 @@
-//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +25,6 @@ class App extends StatelessWidget {
   // Root of App
   @override
   Widget build(BuildContext context) {
-    //Authentication().customSignOut();
     return StreamProvider<CustomUser?>.value(
       value: Authentication().usersStream,
       initialData: null,

@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/loading.dart';
-
-import '../../models/app_user.dart';
-import '../../services/database.dart';
-import 'module_card.dart';
+import 'package:study_wyth_me/models/app_user.dart';
+import 'package:study_wyth_me/services/database.dart';
+import 'package:study_wyth_me/pages/timer/module_card.dart';
 
 class ModuleList extends StatefulWidget {
   const ModuleList({Key? key}) : super(key: key);
