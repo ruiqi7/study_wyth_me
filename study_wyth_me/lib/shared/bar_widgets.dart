@@ -3,6 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/pages/forum/forum.dart';
+import 'package:study_wyth_me/pages/home/edit_profile.dart';
 import 'package:study_wyth_me/pages/home/home.dart';
 import 'package:study_wyth_me/pages/leaderboard/leaderboard.dart';
 import 'package:study_wyth_me/pages/mythics/mythics.dart';
@@ -231,26 +232,49 @@ appBar(context, uid) => PreferredSize(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             AppUser appUser = snapshot.data!;
-            return Row(
-              children: <Widget> [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: CircleAvatar(
-                    radius: 25.0,
-                    backgroundImage: NetworkImage(appUser.url),
+            return Expanded(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: TextButton(
+                  child: Row(
+                    children: <Widget>[
+                      Material(
+                        elevation: 0,
+                        shape: const CircleBorder(),
+                        clipBehavior: Clip.hardEdge,
+                        color: Colors.transparent,
+                        child: Ink.image(
+                          key: const Key('HomeProfilePicture'),
+                          image: NetworkImage(appUser.url),
+                          fit: BoxFit.cover,
+                          width: 50.0,
+                          height: 50.0,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            key: const Key('HomeUsername'),
+                            appUser.username,
+                            style: chewyTextStyle.copyWith(fontSize: 27.5),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditProfile(
+                            username: appUser.username,
+                            url: appUser.url
+                        ))
+                    );
+                  },
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      appUser.username,
-                      style: chewyTextStyle.copyWith(fontSize: 27.5),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             );
           } else {
             return Container(

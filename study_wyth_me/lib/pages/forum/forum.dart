@@ -11,6 +11,7 @@ import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/services/forum_database.dart';
 import 'package:study_wyth_me/shared/bar_widgets.dart';
 import 'package:study_wyth_me/shared/constants.dart';
+import 'package:study_wyth_me/pages/home/edit_profile.dart';
 
 class Forum extends StatefulWidget {
   const Forum({Key? key}) : super(key: key);
@@ -52,21 +53,47 @@ class _ForumState extends State<Forum> {
                                   height: 75.0,
                                   child: Row(
                                     children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
-                                        child: CircleAvatar(
-                                          radius: 25.0,
-                                          backgroundImage: NetworkImage(appUser.url),
-                                        ),
-                                      ),
                                       Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0),
-                                          child: Text(
-                                            appUser.username,
-                                            style: chewyTextStyle.copyWith(fontSize: 27.5),
-                                            overflow: TextOverflow.ellipsis,
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                                          child: TextButton(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Material(
+                                                  elevation: 0,
+                                                  shape: const CircleBorder(),
+                                                  clipBehavior: Clip.hardEdge,
+                                                  color: Colors.transparent,
+                                                  child: Ink.image(
+                                                    key: const Key('HomeProfilePicture'),
+                                                    image: NetworkImage(appUser.url),
+                                                    fit: BoxFit.cover,
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                                    child: Text(
+                                                      key: const Key('HomeUsername'),
+                                                      appUser.username,
+                                                      style: chewyTextStyle.copyWith(fontSize: 27.5),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => EditProfile(
+                                                      username: appUser.username,
+                                                      url: appUser.url
+                                                  ))
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
