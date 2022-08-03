@@ -77,44 +77,56 @@ class _LeaderboardState extends State<Leaderboard> {
                               size: 150,
                             ),
                             const SizedBox(width: 25),
-                            Column(
-                              children: <Widget> [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget> [
-                                    AutoSizeText(
-                                      key: const Key('LeaderboardPoints'),
-                                      appUser.points.toString(),
-                                      style: norwesterTextStyle.copyWith(fontSize: 30),
-                                      maxLines: 1,
-                                    ),
-                                    const SizedBox(width: 15.0),
-                                    AutoSizeText(
-                                      'points',
-                                      style: norwesterTextStyle.copyWith(fontSize: 20),
-                                      maxLines: 1,
-                                    )
-                                  ],
-                                ),
-                                gapBox,
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget> [
-                                    AutoSizeText(
-                                      key: const Key('Rank'),
-                                      _getRank(_rank),
-                                      style: norwesterTextStyle.copyWith(fontSize: 30),
-                                      maxLines: 1,
-                                    ),
-                                    const SizedBox(width: 15.0),
-                                    AutoSizeText(
-                                      'rank',
-                                      style: norwesterTextStyle.copyWith(fontSize: 20),
-                                      maxLines: 1,
-                                    )
-                                  ],
-                                ),
-                              ],
+                            SizedBox(
+                              width: 125.0,
+                              child: Column(
+                                children: <Widget> [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget> [
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          key: const Key('LeaderboardPoints'),
+                                          appUser.points.toString(),
+                                          style: norwesterTextStyle.copyWith(fontSize: 30),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 15.0),
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          'points',
+                                          style: norwesterTextStyle.copyWith(fontSize: 20),
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  gapBox,
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget> [
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          key: const Key('Rank'),
+                                          _getRank(_rank),
+                                          style: norwesterTextStyle.copyWith(fontSize: 30),
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 15.0),
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          'rank',
+                                          style: norwesterTextStyle.copyWith(fontSize: 20),
+                                          maxLines: 1,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),

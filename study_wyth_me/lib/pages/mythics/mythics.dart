@@ -158,7 +158,7 @@ class _MythicsState extends State<Mythics> {
                           'points',
                           style: norwesterTextStyle.copyWith(fontSize: 20),
                           maxLines: 1,
-                        )
+                        ),
                       ]
                     ),
                   ),
