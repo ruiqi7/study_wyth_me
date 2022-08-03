@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/timer/module_list.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -41,9 +42,10 @@ class _EditModulesState extends State<EditModules> {
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                      child: Text(
+                      child: AutoSizeText(
                         'Edit list of modules',
                         style: chewyTextStyle.copyWith(fontSize: 25.0),
+                        maxLines: 1,
                       ),
                     )
                   )
@@ -81,7 +83,7 @@ class _EditModulesState extends State<EditModules> {
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
                   key: const Key('AddModuleButton'),
-                  child: const Text('Add'),
+                  child: const AutoSizeText('Add', maxLines: 1),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,
@@ -102,12 +104,13 @@ class _EditModulesState extends State<EditModules> {
                 ),
               ),
               gapBoxH10,
-              Text(
+              AutoSizeText(
                 _message,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,
                 ),
+                maxLines: 1,
               ),
               gapBox,
               horizontalDivider,

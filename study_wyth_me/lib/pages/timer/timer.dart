@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -115,9 +116,10 @@ class _TimerState extends State<Timer> {
                         onPressed: () {
                           _showDialog(widget);
                         },
-                        child: Text(
+                        child: AutoSizeText(
                           '$hours:$minutes:$seconds',
-                          style: chewyTextStyle.copyWith(fontSize: 42, letterSpacing: 3)
+                          style: chewyTextStyle.copyWith(fontSize: 42, letterSpacing: 3),
+                          maxLines: 1,
                         ),
                       ),
                     ),
@@ -154,9 +156,10 @@ class _TimerState extends State<Timer> {
                                 scrollbarAlwaysShow: false,
                                 scrollbarRadius: const Radius.circular(50.0),
                                 scrollbarThickness: 6,
-                                hint: Text(
+                                hint: AutoSizeText(
                                   'Select a module',
-                                  style: chewyTextStyle.copyWith(fontSize: 18.0)
+                                  style: chewyTextStyle.copyWith(fontSize: 18.0),
+                                  maxLines: 1,
                                 ),
                                 items: modules.map((module) {
                                   return DropdownMenuItem<String>(
@@ -215,7 +218,7 @@ class _TimerState extends State<Timer> {
                       decoration: largeRadiusRoundedBox,
                       child: TextButton(
                         key: const Key('StartTimerButton'),
-                        child: const Text('Start'),
+                        child: const AutoSizeText('Start', maxLines: 1),
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(5.0),
                           primary: Colors.white,
@@ -242,12 +245,13 @@ class _TimerState extends State<Timer> {
                       height: 40,
                     ),
                     gapBoxH10,
-                    Text(
+                    AutoSizeText(
                       _message,
                       style: const TextStyle(
                         color: Colors.red,
                         fontSize: 12.0,
                       ),
+                      maxLines: 1,
                     ),
                   ],
                 )

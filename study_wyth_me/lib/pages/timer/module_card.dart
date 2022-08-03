@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/services/database.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -36,7 +37,7 @@ class ModuleCard extends StatelessWidget {
                 decoration: largeRadiusRoundedBox,
                 child: TextButton(
                   key: const Key('RemoveModuleButton'),
-                  child: const Text('Remove'),
+                  child: const AutoSizeText('Remove', maxLines: 1),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(5.0),
                     primary: Colors.white,

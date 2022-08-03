@@ -232,48 +232,46 @@ appBar(context, uid) => PreferredSize(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             AppUser appUser = snapshot.data!;
-            return Expanded(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: TextButton(
-                  child: Row(
-                    children: <Widget>[
-                      Material(
-                        elevation: 0,
-                        shape: const CircleBorder(),
-                        clipBehavior: Clip.hardEdge,
-                        color: Colors.transparent,
-                        child: Ink.image(
-                          key: const Key('HomeProfilePicture'),
-                          image: NetworkImage(appUser.url),
-                          fit: BoxFit.cover,
-                          width: 50.0,
-                          height: 50.0,
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: TextButton(
+                child: Row(
+                  children: <Widget>[
+                    Material(
+                      elevation: 0,
+                      shape: const CircleBorder(),
+                      clipBehavior: Clip.hardEdge,
+                      color: Colors.transparent,
+                      child: Ink.image(
+                        key: const Key('HomeProfilePicture'),
+                        image: NetworkImage(appUser.url),
+                        fit: BoxFit.cover,
+                        width: 50.0,
+                        height: 50.0,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          key: const Key('HomeUsername'),
+                          appUser.username,
+                          style: chewyTextStyle.copyWith(fontSize: 27.5),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            key: const Key('HomeUsername'),
-                            appUser.username,
-                            style: chewyTextStyle.copyWith(fontSize: 27.5),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => EditProfile(
-                            username: appUser.username,
-                            url: appUser.url
-                        ))
-                    );
-                  },
+                    ),
+                  ],
                 ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfile(
+                          username: appUser.username,
+                          url: appUser.url
+                      ))
+                  );
+                },
               ),
             );
           } else {
