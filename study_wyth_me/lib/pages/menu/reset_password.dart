@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/services/authentication.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -61,9 +62,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                     primary: Colors.white,
                     textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
-                  child: const Text(
+                  child: const AutoSizeText(
                     'Send Password Reset Email',
                     textAlign: TextAlign.center,
+                    maxLines: 2,
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -76,12 +78,13 @@ class _ResetPasswordState extends State<ResetPassword> {
               gapBox,
               backButton(context),
               gapBoxH10,
-              Text(
+              AutoSizeText(
                 _message,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,
                 ),
+                maxLines: 1,
               )
             ],
           ),

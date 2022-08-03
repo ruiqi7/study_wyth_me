@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/shared/constants.dart';
 import 'package:study_wyth_me/shared/custom_text_widgets.dart';
@@ -98,7 +99,7 @@ class _SignUpState extends State<SignUp> {
                     primary: Colors.white,
                     textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
-                  child: const Text('Sign Up!'),
+                  child: const AutoSizeText('Sign Up!', maxLines: 1),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       String message = await _authenticate.customSignUp(_email, _username, _password);
@@ -115,13 +116,14 @@ class _SignUpState extends State<SignUp> {
               gapBox,
               backButton(context),
               gapBoxH10,
-              Text(
+              AutoSizeText(
                 _error,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,
                 ),
-              )
+                maxLines: 1,
+              ),
             ],
           ),
         ),

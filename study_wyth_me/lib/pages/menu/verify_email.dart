@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/home/home.dart';
@@ -81,7 +82,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     height: 100,
                     padding: const EdgeInsets.all(17.0),
                     decoration: smallRadiusRoundedBox,
-                    child: const Text(
+                    child: const AutoSizeText(
                       'A verification email has been sent to your email!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -90,7 +91,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         color: Colors.white,
                         fontFamily: 'Chewy',
                       ),
-                    )
+                      maxLines: 2,
+                    ),
                 ),
                 const SizedBox(height: 60.0),
                 Container(
@@ -103,9 +105,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       primary: Colors.white,
                       textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                     ),
-                    child: const Text(
+                    child: const AutoSizeText(
                       'Resend Email',
                       textAlign: TextAlign.center,
+                      maxLines: 1,
                     ),
                     onPressed: () async {
                       String result = await sendVerificationEmail();
@@ -123,7 +126,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   height: 40,
                   decoration: largeRadiusRoundedBox,
                   child: TextButton(
-                    child: const Text('Cancel'),
+                    child: const AutoSizeText('Cancel', maxLines: 1),
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(5.0),
                       primary: Colors.white,
@@ -137,13 +140,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   ),
                 ),
                 gapBoxH10,
-                Text(
+                AutoSizeText(
                   _message,
                   style: const TextStyle(
                     color: Colors.red,
                     fontSize: 12.0,
                   ),
-                )
+                  maxLines: 1,
+                ),
               ],
             ),
           ),

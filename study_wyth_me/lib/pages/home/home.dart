@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -172,15 +173,17 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                           children: <Widget>[
-                            Text(
+                            AutoSizeText(
                               key: const Key('HomePoints'),
                               appUser.points.toString(),
-                              style: norwesterTextStyle.copyWith(fontSize: 35)
+                              style: norwesterTextStyle.copyWith(fontSize: 35.0),
+                              maxLines: 1,
                             ),
                             const SizedBox(height: 5.0),
-                            Text(
+                            AutoSizeText(
                               appUser.points != 1 ? 'points' : 'point',
-                              style: norwesterTextStyle.copyWith(fontSize: 22.5)
+                              style: norwesterTextStyle.copyWith(fontSize: 22.5),
+                              maxLines: 1,
                             )
                           ]
                       ),
@@ -189,9 +192,10 @@ class _HomeState extends State<Home> {
                     Container(
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 50.0),
-                      child: Text(
+                      child: AutoSizeText(
                         'My Week',
-                        style: norwesterTextStyle.copyWith(fontSize: 19.5)
+                        style: norwesterTextStyle.copyWith(fontSize: 19.5),
+                        maxLines: 1,
                       ),
                     ),
                     Expanded(

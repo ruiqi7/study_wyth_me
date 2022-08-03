@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/pages/menu/reset_password.dart';
@@ -82,7 +83,7 @@ class _SignInState extends State<SignIn> {
                     primary: Colors.white,
                     textStyle: chewyTextStyle.copyWith(fontSize: 27.5),
                   ),
-                  child: const Text('Login'),
+                  child: const AutoSizeText('Login', maxLines: 1),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       CustomUser? result = await _authenticate.customSignIn(_email, _password);
@@ -105,7 +106,7 @@ class _SignInState extends State<SignIn> {
                     height: 40,
                     decoration: largeRadiusRoundedBox,
                     child: TextButton(
-                      child: const Text('Forgot Password?'),
+                      child: const AutoSizeText('Forgot Password?', maxLines: 1),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(5.0),
                         primary: Colors.white,
@@ -124,13 +125,14 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
               gapBoxH10,
-              Text(
+              AutoSizeText(
                 _error,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 12.0,
                 ),
-              )
+                maxLines: 1,
+              ),
             ],
           ),
         ),

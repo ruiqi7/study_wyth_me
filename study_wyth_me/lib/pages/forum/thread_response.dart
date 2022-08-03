@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/app_user.dart';
@@ -171,9 +172,10 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                                     style: TextButton.styleFrom(
                                                       padding: const EdgeInsets.all(0.0),
                                                     ),
-                                                    child: Text(
+                                                    child: AutoSizeText(
                                                       'Reply',
                                                       style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                                                      maxLines: 1,
                                                     ),
                                                     onPressed: () {
                                                       Navigator.push(
@@ -201,10 +203,13 @@ class _ThreadResponseState extends State<ThreadResponse> {
                                           ),
                                           widget.position == 5 && comment.directReplies.isNotEmpty ? Container(
                                             height: 25.0,
-                                            margin: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                                            margin: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
                                             decoration: largeRadiusRoundedBox,
                                             child: TextButton(
-                                              child: const Text('See more replies'),
+                                              child: const AutoSizeText(
+                                                'See more replies',
+                                                maxLines: 1,
+                                              ),
                                               style: TextButton.styleFrom(
                                                 padding: const EdgeInsets.all(5.0),
                                                 primary: Colors.white,
