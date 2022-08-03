@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/pages/loading.dart';
@@ -57,9 +58,10 @@ class _MythicsState extends State<Mythics> {
                     height: 40,
                     decoration: largeRadiusRoundedBox.copyWith(color: darkBlueOpacity50),
                     child: Center(
-                      child: Text(
+                      child: AutoSizeText(
                         points.toString() + ' points',
                         style: norwesterTextStyle.copyWith(fontSize: 25),
+                        maxLines: 1,
                       ),
                     ),
                   ),
@@ -73,9 +75,10 @@ class _MythicsState extends State<Mythics> {
           width: 120,
           height: 35,
           child: Center(
-            child: Text(
+            child: AutoSizeText(
               mythicName,
               style: chewyTextStyle.copyWith(fontSize: 21),
+              maxLines: 1,
             ),
           ),
         ) : Container(
@@ -85,9 +88,10 @@ class _MythicsState extends State<Mythics> {
           child: Center(
             child: TextButton(
               key: const Key('ClaimButton'),
-              child: Text(
+              child: AutoSizeText(
                 'Claim!',
                 style: chewyTextStyle.copyWith(fontSize: 17),
+                maxLines: 1,
               ),
               onPressed: () async {
                 if (_currPoints >= points) {
@@ -127,9 +131,10 @@ class _MythicsState extends State<Mythics> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 gapBox,
-                Text(
+                AutoSizeText(
                   'My Mythics',
                   style: norwesterTextStyle.copyWith(fontSize: 30, letterSpacing: 1.2),
+                  maxLines: 1,
                 ),
                 gapBox,
                 Center(
@@ -142,15 +147,17 @@ class _MythicsState extends State<Mythics> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        AutoSizeText(
                           key: const Key('MythicsPoints'),
                           appUser.points.toString(),
-                          style: norwesterTextStyle.copyWith(fontSize: 30)
+                          style: norwesterTextStyle.copyWith(fontSize: 30),
+                          maxLines: 1,
                         ),
                         const SizedBox(width: 10.0),
-                        Text(
-                            'points',
-                            style: norwesterTextStyle.copyWith(fontSize: 20)
+                        AutoSizeText(
+                          'points',
+                          style: norwesterTextStyle.copyWith(fontSize: 20),
+                          maxLines: 1,
                         )
                       ]
                     ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/services/notification.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -77,7 +78,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
-            Text(
+            AutoSizeText(
               '$hours:$minutes:$seconds',
               style: const TextStyle(
                 color: Colors.white,
@@ -85,6 +86,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
                 letterSpacing: 7.0,
                 fontSize: 60,
               ),
+              maxLines: 1,
             ),
             gapBox,
             Container(
@@ -93,7 +95,7 @@ class _CountdownState extends State<Countdown> with WidgetsBindingObserver{
               decoration: largeRadiusRoundedBox,
               child: TextButton(
                 key: _displayDone ? const Key('CountdownDoneButton') : const Key('CountdownCancelButton'),
-                child: Text(_displayDone ? 'Done' : 'Cancel'),
+                child: AutoSizeText(_displayDone ? 'Done' : 'Cancel', maxLines: 1),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(5.0),
                   primary: Colors.white,

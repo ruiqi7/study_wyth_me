@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -81,15 +82,17 @@ class _LeaderboardState extends State<Leaderboard> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget> [
-                                    Text(
+                                    AutoSizeText(
                                       key: const Key('LeaderboardPoints'),
                                       appUser.points.toString(),
-                                      style: norwesterTextStyle.copyWith(fontSize: 30)
+                                      style: norwesterTextStyle.copyWith(fontSize: 30),
+                                      maxLines: 1,
                                     ),
                                     const SizedBox(width: 15.0),
-                                    Text(
-                                        'points',
-                                        style: norwesterTextStyle.copyWith(fontSize: 20)
+                                    AutoSizeText(
+                                      'points',
+                                      style: norwesterTextStyle.copyWith(fontSize: 20),
+                                      maxLines: 1,
                                     )
                                   ],
                                 ),
@@ -97,15 +100,17 @@ class _LeaderboardState extends State<Leaderboard> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget> [
-                                    Text(
+                                    AutoSizeText(
                                       key: const Key('Rank'),
                                       _getRank(_rank),
-                                      style: norwesterTextStyle.copyWith(fontSize: 30)
+                                      style: norwesterTextStyle.copyWith(fontSize: 30),
+                                      maxLines: 1,
                                     ),
                                     const SizedBox(width: 15.0),
-                                    Text(
-                                        'rank',
-                                        style: norwesterTextStyle.copyWith(fontSize: 20)
+                                    AutoSizeText(
+                                      'rank',
+                                      style: norwesterTextStyle.copyWith(fontSize: 20),
+                                      maxLines: 1,
                                     )
                                   ],
                                 ),
@@ -132,9 +137,10 @@ class _LeaderboardState extends State<Leaderboard> {
                                     width: 143,
                                     color: _isCommunity ? whiteOpacity15 : Colors.transparent,
                                     child: TextButton(
-                                      child: Text(
+                                      child: AutoSizeText(
                                         'Community',
                                         style: chewyTextStyle.copyWith(fontSize: 21),
+                                        maxLines: 1,
                                       ),
                                       onPressed: () {
                                         if (!_isCommunity) {
@@ -151,9 +157,10 @@ class _LeaderboardState extends State<Leaderboard> {
                                     color: !_isCommunity ? whiteOpacity15 : Colors.transparent,
                                     child: TextButton(
                                       key: const Key('FriendsButton'),
-                                      child: Text(
+                                      child: AutoSizeText(
                                         'Friends',
                                         style: chewyTextStyle.copyWith(fontSize: 21),
+                                        maxLines: 1,
                                       ),
                                       onPressed: () {
                                         if (_isCommunity) {
@@ -186,7 +193,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                 decoration: largeRadiusRoundedBox,
                                 child: TextButton(
                                   key: const Key('AddFriendButton'),
-                                  child: const Text('Add a new friend!'),
+                                  child: const AutoSizeText('Add a new friend!', maxLines: 1,),
                                   style: TextButton.styleFrom(
                                     padding: const EdgeInsets.all(5.0),
                                     primary: Colors.white,
