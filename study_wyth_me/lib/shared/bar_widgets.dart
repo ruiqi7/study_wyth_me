@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -44,9 +45,13 @@ navigationBar(context, position) => SafeArea(
                           Icons.home,
                           color: Colors.white,
                         ),
-                        Text(
-                          'Home',
-                          style: oswaldText,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: AutoSizeText(
+                            'Home',
+                            style: oswaldText,
+                            maxLines: 1,
+                          ),
                         )
                       ],
                     ),
@@ -81,9 +86,10 @@ navigationBar(context, position) => SafeArea(
                           Icons.forum_rounded,
                           color: Colors.white,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Forum',
                           style: oswaldText,
+                          maxLines: 1,
                         )
                       ],
                     ),
@@ -118,9 +124,10 @@ navigationBar(context, position) => SafeArea(
                           Icons.timer,
                           color: Colors.white,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Study Timer',
                           style: oswaldText,
+                          maxLines: 1,
                         )
                       ],
                     ),
@@ -155,9 +162,10 @@ navigationBar(context, position) => SafeArea(
                           Icons.emoji_events_rounded,
                           color: Colors.white,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Leaderboard',
                           style: oswaldText,
+                          maxLines: 1,
                         )
                       ],
                     ),
@@ -192,9 +200,10 @@ navigationBar(context, position) => SafeArea(
                           Icons.pets_rounded,
                           color: Colors.white,
                         ),
-                        Text(
+                        AutoSizeText(
                           'Mythics',
                           style: oswaldText,
+                          maxLines: 1,
                         )
                       ],
                     ),

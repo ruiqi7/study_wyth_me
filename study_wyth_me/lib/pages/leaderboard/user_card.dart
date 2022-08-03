@@ -63,6 +63,7 @@ class UserCard extends StatelessWidget {
                 AutoSizeText(
                   appUser.points.toString(),
                   style: norwesterTextStyle.copyWith(fontSize: 20),
+                  maxLines: 1,
                 ),
                 const SizedBox(width: 5),
               ],
