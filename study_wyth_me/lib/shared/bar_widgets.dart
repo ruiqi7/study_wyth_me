@@ -45,24 +45,26 @@ navigationBar(context, position) => SafeArea(
                           Icons.home,
                           color: Colors.white,
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: AutoSizeText(
-                            'Home',
-                            style: oswaldText,
-                            maxLines: 1,
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: AutoSizeText(
+                              'Home',
+                              style: oswaldText,
+                              maxLines: 1,
+                            ),
                           ),
                         )
                       ],
                     ),
                     onPressed: () {
                       if (position > 1) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           PageTransition(child: const Home(), type: PageTransitionType.leftToRight)
                         );
                       } else if (position < 1) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             PageTransition(child: const Home(), type: PageTransitionType.rightToLeft)
                         );
@@ -86,21 +88,26 @@ navigationBar(context, position) => SafeArea(
                           Icons.forum_rounded,
                           color: Colors.white,
                         ),
-                        AutoSizeText(
-                          'Forum',
-                          style: oswaldText,
-                          maxLines: 1,
-                        )
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: AutoSizeText(
+                              'Forum',
+                              style: oswaldText,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     onPressed: () {
                       if (position > 2) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           PageTransition(child: const Forum(), type: PageTransitionType.leftToRight)
                         );
                       } else if (position < 2) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             PageTransition(child: const Forum(), type: PageTransitionType.rightToLeft)
                         );
@@ -124,21 +131,26 @@ navigationBar(context, position) => SafeArea(
                           Icons.timer,
                           color: Colors.white,
                         ),
-                        AutoSizeText(
-                          'Study Timer',
-                          style: oswaldText,
-                          maxLines: 1,
-                        )
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: AutoSizeText(
+                              'Study Timer',
+                              style: oswaldText,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     onPressed: () {
                       if (position > 3) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                             PageTransition(child: const Timer(), type: PageTransitionType.leftToRight)
                         );
                       } else if (position < 3) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             PageTransition(child: const Timer(), type: PageTransitionType.rightToLeft)
                         );
@@ -162,21 +174,26 @@ navigationBar(context, position) => SafeArea(
                           Icons.emoji_events_rounded,
                           color: Colors.white,
                         ),
-                        AutoSizeText(
-                          'Leaderboard',
-                          style: oswaldText,
-                          maxLines: 1,
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: AutoSizeText(
+                              'Leaderboard',
+                              style: oswaldText,
+                              maxLines: 1,
+                            ),
+                          ),
                         )
                       ],
                     ),
                     onPressed: () {
                       if (position > 4) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                             PageTransition(child: const Leaderboard(), type: PageTransitionType.leftToRight)
                         );
                       } else if (position < 4) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             PageTransition(child: const Leaderboard(), type: PageTransitionType.rightToLeft)
                         );
@@ -200,21 +217,26 @@ navigationBar(context, position) => SafeArea(
                           Icons.pets_rounded,
                           color: Colors.white,
                         ),
-                        AutoSizeText(
-                          'Mythics',
-                          style: oswaldText,
-                          maxLines: 1,
-                        )
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: AutoSizeText(
+                              'Mythics',
+                              style: oswaldText,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     onPressed: () {
                       if (position > 5) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           PageTransition(child: const Mythics(), type: PageTransitionType.leftToRight)
                         );
                       } else if (position < 5) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             PageTransition(child: const Mythics(), type: PageTransitionType.rightToLeft)
                         );
