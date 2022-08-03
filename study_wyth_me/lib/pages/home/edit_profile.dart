@@ -99,18 +99,23 @@ class _EditProfileState extends State<EditProfile> {
           Container(
             height: 38.0,
             padding: const EdgeInsets.symmetric(horizontal: 55.0),
-            child: Text(
+            child: AutoSizeText(
               _message,
               style: const TextStyle(
                 color: Colors.red,
                 fontSize: 16.0,
               ),
               textAlign: TextAlign.center,
+              maxLines: 1,
             ),
           ),
-          Text(
-            'Edit Username',
-            style: chewyTextStyle.copyWith(fontSize: 40.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: AutoSizeText(
+              'Edit Username',
+              style: chewyTextStyle.copyWith(fontSize: 40.0),
+              maxLines: 1,
+            ),
           ),
           const SizedBox(height: 25.0),
           Padding(
@@ -138,9 +143,13 @@ class _EditProfileState extends State<EditProfile> {
             child: noHeightHorizontalDivider,
           ),
           const SizedBox(height: 40.0),
-          Text(
-            'Edit Profile',
-            style: chewyTextStyle.copyWith(fontSize: 40.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: AutoSizeText(
+              'Edit Profile',
+              style: chewyTextStyle.copyWith(fontSize: 40.0),
+              maxLines: 1,
+            ),
           ),
           const SizedBox(height: 40.0),
           CircleAvatar(

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -28,7 +29,7 @@ class MainMenu extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Stack(
                 children: <Widget>[
-                  Text(
+                  AutoSizeText(
                     'Study Wyth Me',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -40,8 +41,9 @@ class MainMenu extends StatelessWidget {
                         ..strokeWidth = 5
                         ..color = Colors.white,
                     ),
+                    maxLines: 2,
                   ),
-                  const Text(
+                  const AutoSizeText(
                     'Study Wyth Me',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -57,7 +59,8 @@ class MainMenu extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                    maxLines: 2,
+                  ),
                 ],
               ),
             ),
@@ -69,7 +72,7 @@ class MainMenu extends StatelessWidget {
               child: TextButton(
                 key: const Key('WelcomeBackButton'),
                 style: _buttonStyle,
-                child: const Text('Welcome Back!'),
+                child: const AutoSizeText('Welcome Back!', maxLines: 1),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -86,7 +89,7 @@ class MainMenu extends StatelessWidget {
               child: TextButton(
                 key: const Key('ImNewHereButton'),
                 style: _buttonStyle,
-                child: const Text('I\'m new here!'),
+                child: const AutoSizeText('I\'m new here!', maxLines: 1),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -103,7 +106,7 @@ class MainMenu extends StatelessWidget {
               child: TextButton(
                 key: const Key('AboutButton'),
                 style: _buttonStyle,
-                child: const Text('About'),
+                child: const AutoSizeText('About', maxLines: 1),
                 onPressed: () {
                   Navigator.push(
                     context,

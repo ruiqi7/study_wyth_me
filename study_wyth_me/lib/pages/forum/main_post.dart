@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/post.dart';
@@ -157,9 +158,10 @@ class _MainPostState extends State<MainPost> {
                                 style: TextButton.styleFrom(
                                   padding: const EdgeInsets.all(0.0),
                                 ),
-                                child: Text(
+                                child: AutoSizeText(
                                   'Reply',
                                   style: oswaldTextStyle.copyWith(fontSize: 12.0, color: Colors.grey),
+                                  maxLines: 1,
                                 ),
                                 onPressed: widget.function,
                               ),

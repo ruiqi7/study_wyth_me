@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_wyth_me/models/post.dart';
@@ -35,9 +36,10 @@ class _SearchForumState extends State<SearchForum> {
                         Center(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(25, 10, 10, 10),
-                              child: Text(
+                              child: AutoSizeText(
                                 'Search Post by Title!',
                                 style: chewyTextStyle.copyWith(fontSize: 25.0),
+                                maxLines: 1,
                               ),
                             )
                         )

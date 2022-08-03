@@ -1,5 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:study_wyth_me/shared/bar_widgets.dart';
 
 const darkBlueBackground = Color.fromRGBO(0, 34, 75, 1.0);
 const darkBlueOpacity50 = Color.fromRGBO(0, 34, 75, 0.5);
@@ -45,7 +45,7 @@ backButton(context) => Container(
   height: 40,
   decoration: largeRadiusRoundedBox,
   child: TextButton(
-    child: const Text('Back'),
+    child: const AutoSizeText('Back', maxLines: 1),
     style: TextButton.styleFrom(
       padding: const EdgeInsets.all(5.0),
       primary: Colors.white,
@@ -65,7 +65,7 @@ appBarButton(text, function) => Padding(
     decoration: largeRadiusRoundedBox,
     child: TextButton(
       key: Key(text),
-      child: Text(text),
+      child: AutoSizeText(text, maxLines: 1),
       style: TextButton.styleFrom(
         padding: const EdgeInsets.all(5.0),
         primary: Colors.white,
@@ -142,26 +142,6 @@ closeIcon(context) => Container(
 const horizontalDivider = Divider(color: Colors.white);
 const noHeightHorizontalDivider = Divider(color: Colors.white, height: 0.0);
 
-construction(context, uid, _position) => Scaffold(
-  backgroundColor: darkBlueBackground,
-  appBar: appBar(context, uid),
-  body: Center(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            Text(
-              'This page is under construction! Stay tuned for more updates!',
-              style: chewyTextStyle.copyWith(fontSize: 25.0),
-            ),
-          ],
-        ),
-      )
-  ),
-  bottomNavigationBar: navigationBar(context, _position),
-);
-
 String timeDifference(int timestamp) {
   DateTime timeNow = DateTime.now();
   DateTime timePosted = DateTime.fromMillisecondsSinceEpoch(timestamp);
@@ -228,11 +208,12 @@ alertDialogue(context, message) => showDialog<String>(
                 alignment: Alignment.center,
                 height: 50,
                 width: width,
-                child: const Text(
+                child: const AutoSizeText(
                   'OK',
                   style: TextStyle(
                     color: Colors.lightBlue,
                   ),
+                  maxLines: 1,
                 ),
               ),
             ),
