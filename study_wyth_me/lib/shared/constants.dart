@@ -185,16 +185,17 @@ alertDialogue(context, message) => showDialog<String>(
           mainAxisSize: MainAxisSize.min,
           children: <Widget> [
             SizedBox(
-              height: 50,
+              height: message.length > 40 ? 210 : 50,
               child: Center(
                 child: Container(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: Text(
+                  padding: const EdgeInsets.only(top: 25.0, left: 10.0, right: 10.0),
+                  child: AutoSizeText(
                     message,
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                     ),
+                    maxLines: message.length > 40 ? 9 : 1,
                   ),
                 ),
               ),
