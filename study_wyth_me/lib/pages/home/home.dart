@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                          padding: const EdgeInsets.only(left: 10.0),
                                           child: Text(
                                             key: const Key('HomeUsername'),
                                             appUser.username,
@@ -148,13 +148,29 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
+                            IconButton(
+                              //icon: const Icon(Icons.help, color: whiteOpacity15),
+                              icon: const Icon(Icons.help_outline_rounded, color: Colors.white),
+                              iconSize: 25,
+                              onPressed: () {
+                                alertDialogue(
+                                  context,
+                                  'Accumulate points to claim mythical creatures and '
+                                    'climb the leaderboards! You will receive 1 '
+                                    'point per like on your posts or comments '
+                                    'in the Forum and 1 point per minute clocked '
+                                    'using the Study Timer, provided the duration '
+                                    'is at least 30 minutes.'
+                                );
+                              },
+                            ),
                             appBarButton(
                               'Logout',
                                   () async {
                                 await Authentication().customSignOut();
                                 Navigator.pushNamed(context, '/');
                               }
-                            )
+                            ),
                           ],
                         ),
                       ),
