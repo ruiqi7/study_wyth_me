@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:study_wyth_me/models/app_user.dart';
 import 'package:study_wyth_me/shared/constants.dart';
@@ -39,9 +40,10 @@ class UserCard extends StatelessWidget {
                 //insert the three text widgets
                 SizedBox(
                   width: 40,
-                  child: Text(
+                  child: AutoSizeText(
                     _getRank(),
                     style: norwesterTextStyle.copyWith(fontSize: 28),
+                    maxLines: 1,
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -58,7 +60,7 @@ class UserCard extends StatelessWidget {
                   ),
                 ),
                 gapBox,
-                Text(
+                AutoSizeText(
                   appUser.points.toString(),
                   style: norwesterTextStyle.copyWith(fontSize: 20),
                 ),
