@@ -9,7 +9,7 @@ https://drive.google.com/file/d/13QHU_hDk1c1fIdYhSKuzx6ydK1AtVUeC/view?usp=shari
 ## Video
 https://youtu.be/Jpx7yCgJjGA
 
-## APK Release (Andriod Users)
+## APK Release (Android Users)
 https://drive.google.com/file/d/1gl-WRplSoz7Ss07L601ojRkAAIxFZ2E-/view?usp=sharing
 
 ## Tech Stack
